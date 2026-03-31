@@ -174,6 +174,19 @@ export default function WetWoodlandMap() {
           {errorMsg && <span className="text-xs text-gray-400 max-w-xs text-center">{errorMsg}</span>}
         </div>
       )}
+      {/* Colour ramp legend */}
+      <div className="absolute bottom-3 left-3 bg-white/80 backdrop-blur-sm px-3 py-2 z-10 pointer-events-none rounded-md">
+        <div
+          className="w-24 h-2 rounded-full mb-1"
+          style={{
+            background: "linear-gradient(to right, rgb(236,245,232), rgb(150,199,186), rgb(46,112,141), rgb(9,35,69))",
+          }}
+        />
+        <div className="flex justify-between">
+          <span className="text-[10px] text-gray-400">Low</span>
+          <span className="text-[10px] text-gray-400">High</span>
+        </div>
+      </div>
       <div className="absolute bottom-3 right-3 bg-white/80 backdrop-blur-sm px-2 py-1 z-10 pointer-events-none">
         <span className="text-xs text-gray-500">Wet woodland extent · 10m · England</span>
       </div>
