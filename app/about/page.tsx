@@ -27,8 +27,8 @@ export default function About() {
           </section>
 
           {/* Team / founder */}
-          <section className="border-t border-gray-100 pt-16">
-            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8">People</h2>
+          <section className="border-t border-gray-100 pt-16 mb-16">
+            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8">Team</h2>
             <div className="flex items-start gap-6 max-w-lg">
               <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0" />
               <div>
@@ -38,6 +38,25 @@ export default function About() {
                   Environmental AI researcher specialising in 3D point cloud analysis, remote sensing, and landscape-scale ecological mapping. Published as Harry J. F. Owen.
                 </p>
               </div>
+            </div>
+          </section>
+
+          {/* Collaborators */}
+          <section className="border-t border-gray-100 pt-16">
+            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8">Collaborators</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100">
+              {[
+                { name: "Name", role: "Marine Scientist", affiliation: "Institution" },
+                { name: "Name", role: "Remote Sensing Specialist", affiliation: "Institution" },
+                { name: "Name", role: "Ecologist", affiliation: "Institution" },
+              ].map((person) => (
+                <div key={person.name + person.role} className="bg-white p-8">
+                  <div className="w-12 h-12 rounded-full bg-gray-100 mb-4" />
+                  <p className="text-sm font-semibold text-gray-900">{person.name}</p>
+                  <p className="text-sm text-gray-400 mb-1">{person.role}</p>
+                  <p className="text-xs text-gray-300">{person.affiliation}</p>
+                </div>
+              ))}
             </div>
           </section>
         </div>
