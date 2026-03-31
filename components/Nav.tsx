@@ -1,4 +1,5 @@
 const links = [
+  { label: "Home", href: "/" },
   { label: "Research", href: "/research" },
   { label: "About", href: "/about" },
   { label: "Consultancy", href: "/consultancy" },
@@ -9,7 +10,7 @@ export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-        <a href="/" className="text-xl font-semibold tracking-tight" style={{ color: "#1A2B3C" }}>
+        <a href="/" className="text-2xl font-bold tracking-tight" style={{ color: "#1A2B3C" }}>
           Coan
         </a>
         <div className="flex items-center gap-8">
