@@ -114,33 +114,34 @@ export default function Home() {
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Featured work</h2>
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {featuredProjects.map((project) => (
               <a
                 key={project.title}
                 href={project.href}
                 target={project.external ? "_blank" : undefined}
                 rel={project.external ? "noopener noreferrer" : undefined}
-                className="bg-white p-8 group hover:bg-gray-50 transition-colors border-t-2"
-                style={{ borderTopColor: "#1A2B3C" }}
+                className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors"
               >
-                <div className="aspect-video bg-gray-100 mb-6 overflow-hidden">
+                <div className="aspect-video overflow-hidden rounded-xl m-3">
                   {project.image ? (
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-xs text-gray-300">Visual coming soon</span>
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-xs text-gray-400">Visual coming soon</span>
                     </div>
                   )}
                 </div>
-                <p className="text-xs text-gray-400 mb-3">{project.tag}</p>
-                <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{project.description}</p>
-                {project.external && (
-                  <p className="text-xs text-gray-300 mt-3">View demo →</p>
-                )}
+                <div className="px-5 pb-5 pt-2">
+                  <p className="text-xs text-gray-400 mb-2">{project.tag}</p>
+                  <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-4">{project.description}</p>
+                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors" style={{ backgroundColor: "#1A2B3C" }}>
+                    Explore →
+                  </span>
+                </div>
               </a>
             ))}
           </div>
