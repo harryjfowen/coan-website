@@ -68,10 +68,10 @@ export default function Home() {
             Coan develops machine learning systems for environmental mapping and monitoring — from 3D point cloud analysis to landscape-scale classification from aerial and satellite imagery.
           </p>
           <div className="flex gap-4">
-            <a href="/research" className="text-sm font-medium text-white bg-gray-900 px-5 py-2.5 hover:bg-gray-700 transition-colors">
+            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#1A2B3C" }}>
               View research
             </a>
-            <a href="/consultancy" className="text-sm font-medium text-gray-900 border border-gray-200 px-5 py-2.5 hover:border-gray-900 transition-colors">
+            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 border transition-colors" style={{ color: "#1A2B3C", borderColor: "#1A2B3C" }}>
               Work with us
             </a>
           </div>
@@ -121,7 +121,8 @@ export default function Home() {
                 href={project.href}
                 target={project.external ? "_blank" : undefined}
                 rel={project.external ? "noopener noreferrer" : undefined}
-                className="bg-white p-8 group hover:bg-gray-50 transition-colors"
+                className="bg-white p-8 group hover:bg-gray-50 transition-colors border-t-2"
+                style={{ borderTopColor: "#1A2B3C" }}
               >
                 <div className="aspect-video bg-gray-100 mb-6 overflow-hidden">
                   {project.image ? (

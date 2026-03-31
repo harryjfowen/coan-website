@@ -51,7 +51,8 @@ export default function Consultancy() {
             <p className="text-sm text-gray-500 mb-4">Interested in working together?</p>
             <a
               href="/contact"
-              className="inline-block text-sm font-medium text-gray-900 border border-gray-900 px-6 py-3 hover:bg-gray-900 hover:text-white transition-colors"
+              className="inline-block text-sm font-medium text-white px-6 py-3 transition-colors"
+            style={{ backgroundColor: "#1A2B3C" }}
             >
               Get in touch
             </a>

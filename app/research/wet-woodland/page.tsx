@@ -36,7 +36,8 @@ export default function WetWoodland() {
                 href="https://harryjfowen.github.io/wetwoodland-map/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-white bg-gray-900 px-5 py-2.5 hover:bg-gray-700 transition-colors"
+                className="text-sm font-medium text-white px-5 py-2.5 transition-colors"
+                style={{ backgroundColor: "#1A2B3C" }}
               >
                 Live demo →
               </a>

@@ -24,25 +24,7 @@ export default function WetWoodlandMap() {
 
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: {
-        version: 8,
-        sources: {
-          basemap: {
-            type: "raster",
-            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-            tileSize: 256,
-            attribution: "© OpenStreetMap contributors",
-          },
-        },
-        layers: [
-          {
-            id: "basemap",
-            type: "raster",
-            source: "basemap",
-            paint: { "raster-saturation": -0.8, "raster-brightness-max": 1.1 },
-          },
-        ],
-      },
+      style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
       center: [START_LNG, START_LAT],
       zoom: START_ZOOM,
       attributionControl: false,
