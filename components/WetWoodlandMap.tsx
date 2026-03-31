@@ -7,10 +7,9 @@ const CENTER = { longitude: -3.9995, latitude: 50.7357, zoom: 9 };
 
 const PLASMA_LUT = (() => {
   const S: [number, number[]][] = [
-    [0.00,[236,245,232,0]],  [0.08,[236,245,232,40]],
-    [0.22,[204,227,205,110]],[0.40,[150,199,186,150]],
-    [0.58,[92,160,168,185]], [0.78,[46,112,141,220]],
-    [1.00,[9,35,69,245]],
+    [0.00,[13,8,135,0]],    [0.08,[13,8,135,40]],
+    [0.25,[126,3,168,160]], [0.50,[204,71,120,200]],
+    [0.75,[248,149,64,225]], [1.00,[240,249,33,245]],
   ];
   const a = new Uint8ClampedArray(256*4);
   for (let i=0;i<256;i++) {
@@ -179,7 +178,7 @@ export default function WetWoodlandMap() {
         <div
           className="w-24 h-2 rounded-full mb-1"
           style={{
-            background: "linear-gradient(to right, rgb(236,245,232), rgb(150,199,186), rgb(46,112,141), rgb(9,35,69))",
+            background: "linear-gradient(to right, rgb(13,8,135), rgb(126,3,168), rgb(204,71,120), rgb(248,149,64), rgb(240,249,33))",
           }}
         />
         <div className="flex justify-between">
