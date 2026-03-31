@@ -34,9 +34,13 @@ export default function About() {
               <div>
                 <p className="text-sm font-semibold text-gray-900">Dr Harry Owen</p>
                 <p className="text-sm text-gray-400 mb-3">Founder & Director</p>
-                <p className="text-sm text-gray-500 leading-relaxed">
+                <p className="text-sm text-gray-500 leading-relaxed mb-4">
                   Environmental AI researcher specialising in 3D point cloud analysis, remote sensing, and landscape-scale ecological mapping. Published as Harry J. F. Owen.
                 </p>
+                <div className="flex gap-4">
+                  <a href="https://scholar.google.com/citations?user=xDapL-gAAAAJ&hl=en" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Google Scholar</a>
+                  <a href="https://www.linkedin.com/in/harry-owen-316533243/" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">LinkedIn</a>
+                </div>
               </div>
             </div>
           </section>
