@@ -9,8 +9,8 @@ const links = [
 export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="/" className="font-bold tracking-tight" style={{ color: "#1A2B3C", fontSize: "2.25rem" }}>
+      <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
+        <a href="/" className="font-bold tracking-tight" style={{ color: "#1A2B3C", fontSize: "3.5rem" }}>
           Coan
         </a>
         <div className="flex items-center gap-8">
