@@ -123,7 +123,7 @@ export default function Home() {
                 rel={project.external ? "noopener noreferrer" : undefined}
                 className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors"
               >
-                <div className="aspect-video overflow-hidden rounded-xl m-3">
+                <div className="overflow-hidden rounded-xl m-3" style={{ aspectRatio: "16/10" }}>
                   {project.image ? (
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                   ) : (
@@ -132,7 +132,7 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="px-5 pb-5 pt-2">
+                <div className="px-5 pb-6 pt-3">
                   <p className="text-xs text-gray-400 mb-2">{project.tag}</p>
                   <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
                     {project.title}
