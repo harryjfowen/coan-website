@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const COG_URL = "https://pub-da22fbab193f4ccd85607bc265f1a5fa.r2.dev/wetwoodland_extent_b2.cog.bin";
 const CENTER = { longitude: -3.9995, latitude: 50.7357, zoom: 9 };
@@ -41,6 +41,8 @@ function loadCSS(href: string) {
 export default function WetWoodlandMap() {
   const mapEl = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (initialized.current || !mapEl.current) return;
@@ -148,14 +150,30 @@ export default function WetWoodlandMap() {
           }),
         ],
       });
+      setStatus("ready");
     }
 
-    init().catch(console.error);
+    init().catch((err) => {
+      console.error("WetWoodlandMap init error:", err);
+      setErrorMsg(err instanceof Error ? err.message : String(err));
+      setStatus("error");
+    });
   }, []);
 
   return (
     <div className="relative w-full rounded-xl overflow-hidden border border-gray-100" style={{ height: "480px" }}>
       <div ref={mapEl} className="absolute inset-0" />
+      {status === "loading" && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-50 pointer-events-none">
+          <span className="text-xs text-gray-400">Loading map…</span>
+        </div>
+      )}
+      {status === "error" && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 pointer-events-none gap-2">
+          <span className="text-xs text-red-400 font-medium">Map failed to load</span>
+          {errorMsg && <span className="text-xs text-gray-400 max-w-xs text-center">{errorMsg}</span>}
+        </div>
+      )}
       <div className="absolute bottom-3 right-3 bg-white/80 backdrop-blur-sm px-2 py-1 z-10 pointer-events-none">
         <span className="text-xs text-gray-500">Wet woodland extent · 10m · England</span>
       </div>
