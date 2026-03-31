@@ -1,6 +1,15 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
+const affiliations = [
+  { name: "University College London",            logo: "https://upload.wikimedia.org/wikipedia/commons/0/0f/UCL_Crest.svg" },
+  { name: "Queen Mary University of London",      logo: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Queen_Mary_University_of_London_coat_of_arms.svg" },
+  { name: "University of Cambridge",              logo: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Coat_of_Arms_of_the_University_of_Cambridge.svg" },
+  { name: "Royal Holloway, University of London", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Shield_of_Royal_Holloway_University_of_London.svg" },
+  { name: "Institute of Zoology, ZSL",            logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Zoological_Society_of_London_%28ZSL%29_logo.svg" },
+  { name: "Forest Research",                      logo: "https://cdn.forestresearch.gov.uk/2024/10/Forestry-logo-2024.svg" },
+];
+
 const featuredProjects = [
   {
     tag: "Mapping · Defra UK",
@@ -79,30 +88,24 @@ export default function Home() {
       </section>
 
       {/* Affiliations strip */}
-      <section className="py-12 px-6 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="text-center">
-            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Delivered for</p>
-            <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-4">
-              {["Defra UK"].map((org) => (
-                <span key={org} className="text-sm font-medium text-gray-500">{org}</span>
-              ))}
-            </div>
-          </div>
-          <div className="text-center">
-            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Academic background</p>
-            <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-4">
-              {[
-                "University College London",
-                "Queen Mary University of London",
-                "University of Cambridge",
-                "Royal Holloway, University of London",
-                "Institute of Zoology, ZSL",
-                "Forest Research",
-              ].map((org) => (
-                <span key={org} className="text-sm text-gray-400">{org}</span>
-              ))}
-            </div>
+      <section className="py-12 border-b border-gray-100 overflow-hidden">
+        <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
+        <div className="relative">
+          {/* Fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
+          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />
+          {/* Scrolling track — items duplicated so it loops seamlessly */}
+          <div className="flex animate-marquee" style={{ width: "max-content" }}>
+            {[...affiliations, ...affiliations].map((a, i) => (
+              <div key={i} className="flex items-center justify-center mx-10" style={{ width: 140, height: 56 }}>
+                <img
+                  src={a.logo}
+                  alt={a.name}
+                  title={a.name}
+                  className="max-h-10 max-w-full object-contain opacity-40 grayscale hover:opacity-70 hover:grayscale-0 transition-all"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
