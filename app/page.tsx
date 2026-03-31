@@ -121,7 +121,7 @@ export default function Home() {
                 href={project.href}
                 target={project.external ? "_blank" : undefined}
                 rel={project.external ? "noopener noreferrer" : undefined}
-                className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors"
+                className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors flex flex-col"
               >
                 <div className="overflow-hidden rounded-xl m-3" style={{ aspectRatio: "16/10" }}>
                   {project.image ? (
@@ -132,13 +132,13 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-                <div className="px-5 pb-6 pt-3">
+                <div className="px-5 pb-6 pt-3 flex flex-col flex-1">
                   <p className="text-xs text-gray-400 mb-2">{project.tag}</p>
                   <h3 className="text-base font-semibold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-4">{project.description}</p>
-                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors" style={{ backgroundColor: "#1A2B3C" }}>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{project.description}</p>
+                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#1A2B3C" }}>
                     Explore →
                   </span>
                 </div>
