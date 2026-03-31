@@ -5,7 +5,7 @@ export default function About() {
   return (
     <main className="min-h-screen bg-white">
       <Nav />
-      <div className="pt-56 pb-16 px-6">
+      <div className="pt-36 pb-16 px-6">
         <div className="max-w-6xl mx-auto">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">About</p>
           <h1 className="text-4xl font-semibold tracking-tight text-gray-900 max-w-2xl mb-8">
