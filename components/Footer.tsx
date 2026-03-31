@@ -11,7 +11,7 @@ const company = [
 ];
 
 const connect = [
-  { label: "harry.owen@coan.io", href: "mailto:harry.owen@coan.io" },
+  { label: "hello@coan.io", href: "mailto:hello@coan.io" },
   { label: "GitHub", href: "https://github.com/harryjfowen" },
 ];
 
