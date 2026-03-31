@@ -32,10 +32,10 @@ export default function About() {
             <div className="flex items-start gap-6 max-w-lg">
               <div className="w-16 h-16 rounded-full bg-gray-100 flex-shrink-0" />
               <div>
-                <p className="text-sm font-semibold text-gray-900">Harry Owen</p>
-                <p className="text-sm text-gray-400 mb-3">Founder</p>
+                <p className="text-sm font-semibold text-gray-900">Dr Harry Owen</p>
+                <p className="text-sm text-gray-400 mb-3">Founder & Director</p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Environmental AI researcher specialising in 3D point cloud analysis, remote sensing, and landscape-scale ecological mapping.
+                  Environmental AI researcher specialising in 3D point cloud analysis, remote sensing, and landscape-scale ecological mapping. Published as Harry J. F. Owen.
                 </p>
               </div>
             </div>
