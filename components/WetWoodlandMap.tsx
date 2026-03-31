@@ -52,7 +52,6 @@ export default function WetWoodlandMap() {
       await Promise.all([
         loadScript("https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"),
         loadScript("https://unpkg.com/deck.gl@latest/dist.min.js"),
-        loadScript("https://unpkg.com/geotiff@2.1.3/dist-browser/geotiff.js"),
       ]);
 
       const w = window as any;
@@ -66,8 +65,9 @@ export default function WetWoodlandMap() {
       const latToM = (lat: number) => Math.log(Math.tan(Math.PI/4 + lat*Math.PI/360)) * R;
       const TILE_SIZE = 256;
 
-      const GeoTIFF = (window as any).GeoTIFF;
-      const tiff = await GeoTIFF.fromUrl(COG_URL);
+      // Use esm.sh ESM build — same as wetwoodland app, bypasses webpack
+      const { fromUrl } = await new Function('u', 'return import(u)')('https://esm.sh/geotiff@2.1.3');
+      const tiff = await fromUrl(COG_URL);
       const imageCount = await tiff.getImageCount();
       const imgCache: any[] = new Array(imageCount);
       const getImg = async (i: number) => { if (!imgCache[i]) imgCache[i] = await tiff.getImage(i); return imgCache[i]; };
