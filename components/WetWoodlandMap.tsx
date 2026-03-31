@@ -6,111 +6,166 @@ import "maplibre-gl/dist/maplibre-gl.css";
 const COG_URL = "https://pub-da22fbab193f4ccd85607bc265f1a5fa.r2.dev/wetwoodland_extent_b2.cog.bin";
 const CENTER: [number, number] = [-3.9995, 50.7357];
 const ZOOM = 9;
+const TILE_SIZE = 256;
+
+// Web Mercator helpers — same as wetwoodland app
+const R = 6378137;
+const lonToM = (lon: number) => lon * Math.PI * R / 180;
+const latToM = (lat: number) => Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360)) * R;
+
+// PLASMA_LUT — exact copy from wetwoodland app
+const PLASMA_LUT = (() => {
+  const S: [number, number[]][] = [
+    [0.00, [236, 245, 232, 0]],   [0.08, [236, 245, 232, 40]],
+    [0.22, [204, 227, 205, 110]], [0.40, [150, 199, 186, 150]],
+    [0.58, [92,  160, 168, 185]], [0.78, [46,  112, 141, 220]],
+    [1.00, [9,   35,  69,  245]],
+  ];
+  const a = new Uint8ClampedArray(256 * 4);
+  for (let i = 0; i < 256; i++) {
+    const t = i / 255;
+    let s0 = S[0], s1 = S[1];
+    for (let j = 1; j < S.length; j++) {
+      if (t <= S[j][0]) { s0 = S[j - 1]; s1 = S[j]; break; }
+      s0 = S[j]; s1 = S[j];
+    }
+    const f = s0[0] === s1[0] ? 1 : (t - s0[0]) / (s1[0] - s0[0]);
+    for (let c = 0; c < 4; c++) a[i * 4 + c] = Math.round(s0[1][c] + f * (s1[1][c] - s0[1][c]));
+  }
+  return a;
+})();
 
 export default function WetWoodlandMap() {
-  const mapEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef<HTMLDivElement>(null);
   const initialized = useRef(false);
 
   useEffect(() => {
-    if (initialized.current || !mapEl.current) return;
+    if (initialized.current || !containerEl.current) return;
     initialized.current = true;
 
     let map: any = null;
     let deck: any = null;
 
     async function init() {
-      const maplibre = await import("maplibre-gl");
+      const [maplibre, { Deck }, { BitmapLayer }, { TileLayer }, { fromUrl }] = await Promise.all([
+        import("maplibre-gl"),
+        import("@deck.gl/core"),
+        import("@deck.gl/layers"),
+        import("@deck.gl/geo-layers"),
+        import("geotiff"),
+      ]);
 
-      if (!mapEl.current) return;
+      if (!containerEl.current) return;
+
+      // MapLibre base
+      const mapDiv = document.createElement("div");
+      mapDiv.style.cssText = "position:absolute;inset:0;";
+      containerEl.current.appendChild(mapDiv);
 
       map = new maplibre.default.Map({
-        container: mapEl.current,
+        container: mapDiv,
         style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
         center: CENTER,
         zoom: ZOOM,
         attributionControl: false,
       });
 
+      // Deck.gl canvas
+      const deckCanvas = document.createElement("canvas");
+      deckCanvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none;";
+      containerEl.current.appendChild(deckCanvas);
+
+      deck = new Deck({
+        canvas: deckCanvas,
+        width: "100%",
+        height: "100%",
+        initialViewState: { longitude: CENTER[0], latitude: CENTER[1], zoom: ZOOM },
+        controller: false,
+        layers: [],
+      });
+
+      map.on("move", () => {
+        const c = map.getCenter();
+        deck.setProps({
+          viewState: {
+            longitude: c.lng, latitude: c.lat,
+            zoom: map.getZoom(), bearing: map.getBearing(), pitch: map.getPitch(),
+          },
+        });
+      });
+
       map.on("load", async () => {
-        // Load COG layer via deck.gl
-        const [{ Deck }, { BitmapLayer }, { TileLayer }, { fromUrl }] = await Promise.all([
-          import("@deck.gl/core"),
-          import("@deck.gl/layers"),
-          import("@deck.gl/geo-layers"),
-          import("geotiff"),
-        ]);
-
-        const canvas = document.createElement("canvas");
-        canvas.style.position = "absolute";
-        canvas.style.inset = "0";
-        canvas.style.width = "100%";
-        canvas.style.height = "100%";
-        canvas.style.pointerEvents = "none";
-        mapEl.current!.appendChild(canvas);
-
-        deck = new Deck({
-          canvas,
-          width: "100%",
-          height: "100%",
-          initialViewState: { longitude: CENTER[0], latitude: CENTER[1], zoom: ZOOM },
-          controller: false,
-          layers: [],
-        });
-
-        map.on("move", () => {
-          const c = map.getCenter();
-          deck.setProps({
-            viewState: {
-              longitude: c.lng,
-              latitude: c.lat,
-              zoom: map.getZoom(),
-              bearing: map.getBearing(),
-              pitch: map.getPitch(),
-            },
-          });
-        });
-
+        // Load COG + all overviews — same as wetwoodland app
         const tiff = await fromUrl(COG_URL);
-        const baseImg = await tiff.getImage();
-        const bbox = baseImg.getBoundingBox();
-        const fullW = baseImg.getWidth();
-        const fullH = baseImg.getHeight();
-        const resX = (bbox[2] - bbox[0]) / fullW;
-        const resY = (bbox[3] - bbox[1]) / fullH;
+        const imageCount = await tiff.getImageCount();
+        const imgCache: any[] = new Array(imageCount);
+        const getImg = async (i: number) => { if (!imgCache[i]) imgCache[i] = await tiff.getImage(i); return imgCache[i]; };
+        const images = await Promise.all(Array.from({ length: imageCount }, (_, i) => getImg(i)));
+
+        const base = images[0];
+        const cogBbox = base.getBoundingBox();
+        const spanX = cogBbox[2] - cogBbox[0];
+        const spanY = cogBbox[3] - cogBbox[1];
+        const ovMeta = images.map((img, i) => ({ i, res: spanX / img.getWidth(), w: img.getWidth(), h: img.getHeight() }));
+        ovMeta.sort((a, b) => a.res - b.res);
+
+        function pickOv(targetRes: number) {
+          let pick = ovMeta[0];
+          for (const m of ovMeta) { if (m.res <= 2 * targetRes) pick = m; else break; }
+          return pick;
+        }
 
         const layer = new TileLayer({
           id: "wetwood-cog",
-          minZoom: 5,
-          maxZoom: 13,
-          tileSize: 256,
+          tileSize: TILE_SIZE,
+          maxRequests: 10,
+          minZoom: 4,
+          maxZoom: 16,
           async getTileData(props: any) {
-            const { west, east, north, south } = props.bbox;
-            if (east <= bbox[0] || west >= bbox[2] || north <= bbox[1] || south >= bbox[3]) return null;
-            const oW = Math.max(west, bbox[0]), oE = Math.min(east, bbox[2]);
-            const oN = Math.min(north, bbox[3]), oS = Math.max(south, bbox[1]);
-            const px0 = Math.max(0, Math.floor((oW - bbox[0]) / resX));
-            const px1 = Math.min(fullW, Math.ceil((oE - bbox[0]) / resX));
-            const py0 = Math.max(0, Math.floor((bbox[3] - oN) / resY));
-            const py1 = Math.min(fullH, Math.ceil((bbox[3] - oS) / resY));
-            const outW = Math.max(1, px1 - px0), outH = Math.max(1, py1 - py0);
-            const img = await tiff.getImage();
-            const rasters = await img.readRasters({ window: [px0, py0, px1, py1], width: outW, height: outH });
+            const west  = lonToM(props.bbox.west),  east  = lonToM(props.bbox.east);
+            const north = latToM(props.bbox.north), south = latToM(props.bbox.south);
+            if (east <= cogBbox[0] || west >= cogBbox[2] || north <= cogBbox[1] || south >= cogBbox[3]) return null;
+            const oW = Math.max(west, cogBbox[0]), oE = Math.min(east, cogBbox[2]);
+            const oN = Math.min(north, cogBbox[3]), oS = Math.max(south, cogBbox[1]);
+            if (oE <= oW || oN <= oS) return null;
+            const meta = pickOv((east - west) / TILE_SIZE);
+            const img = await getImg(meta.i);
+            const resX = spanX / meta.w, resY = spanY / meta.h;
+            const wx0 = Math.max(0, Math.floor((oW - cogBbox[0]) / resX));
+            const wx1 = Math.min(meta.w, Math.ceil((oE - cogBbox[0]) / resX));
+            const wy0 = Math.max(0, Math.floor((cogBbox[3] - oN) / resY));
+            const wy1 = Math.min(meta.h, Math.ceil((cogBbox[3] - oS) / resY));
+            if (wx1 <= wx0 || wy1 <= wy0) return null;
+            const tSpanX = east - west, tSpanY = north - south;
+            const dx0 = Math.max(0, Math.floor(((oW - west) / tSpanX) * TILE_SIZE));
+            const dx1 = Math.min(TILE_SIZE, Math.ceil(((oE - west) / tSpanX) * TILE_SIZE));
+            const dy0 = Math.max(0, Math.floor(((north - oN) / tSpanY) * TILE_SIZE));
+            const dy1 = Math.min(TILE_SIZE, Math.ceil(((north - oS) / tSpanY) * TILE_SIZE));
+            const outW = dx1 - dx0, outH = dy1 - dy0;
+            if (outW <= 0 || outH <= 0) return null;
+            let rasters;
+            try { rasters = await img.readRasters({ window: [wx0, wy0, wx1, wy1], width: outW, height: outH }); }
+            catch { return null; }
             const band = rasters[0] as Uint8Array;
-            const rgba = new Uint8ClampedArray(outW * outH * 4);
-            for (let i = 0; i < band.length; i++) {
-              const v = band[i];
-              if (v === 0) continue;
-              const t = v / 255;
-              rgba[i * 4]     = Math.round(20 + (10 - 20) * t);
-              rgba[i * 4 + 1] = Math.round(80 + (140 - 80) * t);
-              rgba[i * 4 + 2] = Math.round(30 + (50 - 30) * t);
-              rgba[i * 4 + 3] = Math.round(60 + (220 - 60) * t);
+            const rgba = new Uint8ClampedArray(TILE_SIZE * TILE_SIZE * 4);
+            for (let y = 0; y < outH; y++) {
+              for (let x = 0; x < outW; x++) {
+                const v = band[y * outW + x];
+                if (v >= 255) continue;
+                const dst = ((dy0 + y) * TILE_SIZE + (dx0 + x)) * 4;
+                const idx = Math.min(255, Math.round(v * 255 / 254)) * 4;
+                rgba[dst] = PLASMA_LUT[idx]; rgba[dst+1] = PLASMA_LUT[idx+1];
+                rgba[dst+2] = PLASMA_LUT[idx+2]; rgba[dst+3] = PLASMA_LUT[idx+3];
+              }
             }
-            return new ImageData(rgba, outW, outH);
+            const c = document.createElement("canvas");
+            c.width = c.height = TILE_SIZE;
+            c.getContext("2d")!.putImageData(new ImageData(rgba, TILE_SIZE, TILE_SIZE), 0, 0);
+            return c;
           },
           renderSubLayers(props: any) {
             if (!props.data) return null;
-            const { west, east, north, south } = props.tile.bbox;
+            const { west, south, east, north } = props.tile.bbox;
             return new BitmapLayer({ ...props, data: undefined, image: props.data, bounds: [west, south, east, north] });
           },
         });
@@ -129,8 +184,7 @@ export default function WetWoodlandMap() {
   }, []);
 
   return (
-    <div className="relative w-full border border-gray-100" style={{ height: "480px" }}>
-      <div ref={mapEl} className="absolute inset-0" />
+    <div ref={containerEl} className="relative w-full border border-gray-100" style={{ height: "480px" }}>
       <div className="absolute bottom-3 right-3 bg-white/80 backdrop-blur-sm px-2 py-1 z-10">
         <span className="text-xs text-gray-500">Wet woodland extent · 10m · England</span>
       </div>
