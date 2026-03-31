@@ -11,8 +11,7 @@ const START_ZOOM = 10;
 
 const COG_URL = "https://pub-da22fbab193f4ccd85607bc265f1a5fa.r2.dev/wetwoodland_extent_b2.cog.bin";
 
-// Serve COG tiles via titiler
-const TILE_URL = `https://titiler.xyz/cog/tiles/{z}/{x}/{y}.png?url=${encodeURIComponent(COG_URL)}&colormap_name=greens&rescale=0,1`;
+const TILE_URL = `https://titiler.xyz/cog/tiles/WebMercatorQuad/{z}/{x}/{y}?url=${encodeURIComponent(COG_URL)}&colormap_name=greens&rescale=0,255`;
 
 export default function WetWoodlandMap() {
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -36,7 +35,9 @@ export default function WetWoodlandMap() {
       map.current.addSource("wetwood-extent", {
         type: "raster",
         tiles: [TILE_URL],
-        tileSize: 256,
+        tileSize: 512,
+        minzoom: 5,
+        maxzoom: 13,
       });
 
       map.current.addLayer({
