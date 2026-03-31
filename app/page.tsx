@@ -59,13 +59,13 @@ export default function Home() {
       <section className="pt-40 pb-24 px-6 border-b border-gray-100">
         <div className="max-w-6xl mx-auto">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#1A2B3C" }}>
-            Environmental Intelligence Systems
+            AI & Geospatial Intelligence
           </p>
           <h1 className="text-5xl font-semibold tracking-tight text-gray-900 max-w-3xl leading-tight mb-6">
-            Building a digital understanding of the natural world.
+            Understanding ecosystems across scales.
           </h1>
           <p className="text-lg text-gray-500 max-w-xl leading-relaxed mb-10">
-            Coan integrates drone, satellite, and sensor data into AI-driven systems that measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change.
+            Coan builds end-to-end environmental intelligence systems — integrating drone, satellite, and sensor data to deliver 2D and 3D insights, from individual ecosystems to landscapes — supporting carbon, biodiversity, and environmental risk assessment.
           </p>
           <div className="flex gap-4">
             <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#1A2B3C" }}>
