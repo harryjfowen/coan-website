@@ -82,45 +82,53 @@ export default function WetWoodlandMap() {
     if (initialized.current || !mapEl.current || !deckEl.current) return;
     initialized.current = true;
 
-    const map = new maplibregl.Map({
-      container: mapEl.current,
-      style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-      center: CENTER,
-      zoom: ZOOM,
-      attributionControl: false,
-    });
+    let map: maplibregl.Map | null = null;
+    let deck: Deck | null = null;
 
-    const deck = new Deck({
-      canvas: deckEl.current,
-      width: "100%",
-      height: "100%",
-      initialViewState: { longitude: CENTER[0], latitude: CENTER[1], zoom: ZOOM },
-      controller: false,
-      layers: [],
-    });
+    const timer = setTimeout(() => {
+      if (!mapEl.current || !deckEl.current) return;
 
-    map.on("move", () => {
-      const c = map.getCenter();
-      deck.setProps({
-        viewState: {
-          longitude: c.lng,
-          latitude: c.lat,
-          zoom: map.getZoom(),
-          bearing: map.getBearing(),
-          pitch: map.getPitch(),
-        },
+      map = new maplibregl.Map({
+        container: mapEl.current,
+        style: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+        center: CENTER,
+        zoom: ZOOM,
+        attributionControl: false,
       });
-    });
 
-    map.on("load", () => {
-      loadCogLayer(() => deck.redraw()).then((layer) => {
-        deck.setProps({ layers: [layer] });
+      deck = new Deck({
+        canvas: deckEl.current,
+        width: "100%",
+        height: "100%",
+        initialViewState: { longitude: CENTER[0], latitude: CENTER[1], zoom: ZOOM },
+        controller: false,
+        layers: [],
       });
-    });
+
+      map.on("move", () => {
+        const c = map!.getCenter();
+        deck!.setProps({
+          viewState: {
+            longitude: c.lng,
+            latitude: c.lat,
+            zoom: map!.getZoom(),
+            bearing: map!.getBearing(),
+            pitch: map!.getPitch(),
+          },
+        });
+      });
+
+      map.on("load", () => {
+        loadCogLayer(() => deck!.redraw()).then((layer) => {
+          deck!.setProps({ layers: [layer] });
+        });
+      });
+    }, 100);
 
     return () => {
-      deck.finalize();
-      map.remove();
+      clearTimeout(timer);
+      deck?.finalize();
+      map?.remove();
       initialized.current = false;
     };
   }, []);
