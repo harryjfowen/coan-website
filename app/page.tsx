@@ -72,6 +72,30 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Affiliations strip */}
+      <section className="py-12 px-6 border-b border-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8 text-center">
+            Work behind Coan includes projects delivered for and with
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6">
+            {[
+              "Defra",
+              "Forest Research",
+              "Institute of Zoology",
+              "University College London",
+              "Queen Mary University of London",
+              "University of Cambridge",
+              "Royal Holloway, University of London",
+            ].map((org) => (
+              <span key={org} className="text-sm font-medium text-gray-400">
+                {org}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured projects */}
       <section className="py-20 px-6 border-b border-gray-100">
         <div className="max-w-6xl mx-auto">
