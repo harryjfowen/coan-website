@@ -56,7 +56,7 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="pt-36 pb-24 px-6 border-b border-gray-100">
+      <section className="pt-28 pb-24 px-6 border-b border-gray-100">
         <div className="max-w-6xl mx-auto">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#1A2B3C" }}>
             Environmental Intelligence
