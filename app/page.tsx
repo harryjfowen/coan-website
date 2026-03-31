@@ -7,9 +7,9 @@ const featuredProjects = [
     title: "Wet Woodland Distribution in England",
     description:
       "Interactive mapping of wet woodland extent, density and restoration potential across England at 10m resolution. Delivered for Defra UK.",
-    href: "https://harryjfowen.github.io/wetwoodland-map/",
+    href: "/research/wet-woodland",
     image: "/images/wetwood-density.png",
-    external: true,
+    external: false,
   },
   {
     tag: "LiDAR · Semantic Segmentation",
