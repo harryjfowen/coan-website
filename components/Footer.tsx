@@ -13,6 +13,7 @@ const company = [
 const connect = [
   { label: "harry.owen@coan.io", href: "mailto:harry.owen@coan.io" },
   { label: "GitHub", href: "https://github.com/harryjfowen" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/harry-owen-316533243/" },
 ];
 
 export default function Footer() {
