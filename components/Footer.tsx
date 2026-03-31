@@ -14,6 +14,7 @@ const connect = [
   { label: "harry.owen@coan.io", href: "mailto:harry.owen@coan.io" },
   { label: "GitHub", href: "https://github.com/harryjfowen" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/harry-owen-316533243/" },
+  { label: "Google Scholar", href: "https://scholar.google.com/citations?user=xDapL-gAAAAJ&hl=en" },
 ];
 
 export default function Footer() {
