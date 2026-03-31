@@ -9,8 +9,7 @@ const START_LNG = -3.9995;
 const START_LAT = 50.7357;
 const START_ZOOM = 10;
 
-// Replace with your Cloudflare R2 public COG URL
-const COG_URL = "YOUR_R2_COG_URL_HERE";
+const COG_URL = "https://pub-da22fbab193f4ccd85607bc265f1a5fa.r2.dev/wetwoodland_extent_b2.cog.bin";
 
 // Serve COG tiles via titiler
 const TILE_URL = `https://titiler.xyz/cog/tiles/{z}/{x}/{y}.png?url=${encodeURIComponent(COG_URL)}&colormap_name=greens&rescale=0,1`;
