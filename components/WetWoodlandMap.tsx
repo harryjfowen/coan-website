@@ -131,7 +131,7 @@ export default function WetWoodlandMap() {
       new deck.DeckGL({
         container: mapEl.current,
         mapLib: maplibregl,
-        mapStyle: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+        mapStyle: "https://tiles.stadiamaps.com/styles/stamen_toner.json?api_key=8bfda774-b759-4e53-bf51-77e9b673a89e",
         initialViewState: CENTER,
         controller: true,
         layers: [
