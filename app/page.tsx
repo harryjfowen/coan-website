@@ -44,7 +44,7 @@ const publications = [
     href: "#",
   },
   {
-    title: "Publication title",
+    title: "Publication title 2",
     journal: "Journal · Year",
     href: "#",
   },
