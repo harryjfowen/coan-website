@@ -1,5 +1,17 @@
+"use client";
+
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import dynamic from "next/dynamic";
+
+const WetWoodlandMap = dynamic(() => import("@/components/WetWoodlandMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full bg-gray-100 flex items-center justify-center" style={{ height: "480px" }}>
+      <span className="text-xs text-gray-300">Loading map…</span>
+    </div>
+  ),
+});
 
 export default function WetWoodland() {
   return (
@@ -45,14 +57,8 @@ export default function WetWoodland() {
             {/* Body */}
             <div className="lg:col-span-2 space-y-12">
 
-              {/* Demo image */}
-              <div className="aspect-video bg-gray-100 overflow-hidden">
-                <img
-                  src="/images/wetwood-density.png"
-                  alt="Wet woodland density map"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {/* Interactive map */}
+              <WetWoodlandMap />
 
               {/* Overview */}
               <section>
