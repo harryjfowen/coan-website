@@ -1,3 +1,10 @@
+const links = [
+  { label: "Research", href: "/research" },
+  { label: "About", href: "/about" },
+  { label: "Consultancy", href: "/consultancy" },
+  { label: "Contact", href: "/contact" },
+];
+
 export default function Nav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
@@ -6,15 +13,15 @@ export default function Nav() {
           Coan
         </a>
         <div className="flex items-center gap-8">
-          <a href="#research" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-            Research
-          </a>
-          <a href="#about" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-            About
-          </a>
-          <a href="#contact" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-            Contact
-          </a>
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </nav>
