@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 
 const affiliations = [
-  { name: "University College London",            logo: "https://upload.wikimedia.org/wikipedia/commons/0/0f/UCL_Crest.svg" },
+  { name: "University College London",            logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/University_College_London_logo.svg" },
   { name: "Queen Mary University of London",      logo: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Queen_Mary_University_of_London_coat_of_arms.svg" },
   { name: "University of Cambridge",              logo: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Coat_of_Arms_of_the_University_of_Cambridge.svg" },
   { name: "Royal Holloway, University of London", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Shield_of_Royal_Holloway_University_of_London.svg" },
@@ -97,13 +97,13 @@ export default function Home() {
           {/* Scrolling track — items duplicated so it loops seamlessly */}
           <div className="flex animate-marquee" style={{ width: "max-content" }}>
             {[...affiliations, ...affiliations].map((a, i) => (
-              <div key={i} className="flex items-center justify-center mx-10" style={{ width: 140, height: 56 }}>
+              <div key={i} className="flex flex-col items-center justify-center mx-12 gap-2" style={{ width: 120 }}>
                 <img
                   src={a.logo}
                   alt={a.name}
-                  title={a.name}
-                  className="max-h-10 max-w-full object-contain opacity-40 grayscale hover:opacity-70 hover:grayscale-0 transition-all"
+                  className="max-h-10 max-w-full object-contain opacity-40 grayscale transition-all group-hover:opacity-70"
                 />
+                <span className="text-[10px] text-gray-400 text-center leading-tight">{a.name}</span>
               </div>
             ))}
           </div>
