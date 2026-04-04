@@ -70,7 +70,7 @@ export default function Home() {
       <section className="relative border-b border-gray-100 overflow-hidden" style={{ minHeight: "560px" }}>
         {/* Full-bleed image */}
         <img
-          src="/images/hero-landscape.png"
+          src="/images/drone-map-hero.png"
           alt="Environmental survey landscape"
           className="absolute inset-0 w-full h-full object-cover"
           style={{
