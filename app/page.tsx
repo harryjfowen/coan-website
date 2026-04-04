@@ -79,10 +79,10 @@ export default function Home() {
             Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
           </p>
           <div className="flex gap-4 mb-16">
-            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#1D8DAA" }}>
+            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#1D8DAA" }}>
               View research
             </a>
-            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 border transition-colors" style={{ color: "#1D8DAA", borderColor: "#1D8DAA" }}>
+            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors" style={{ color: "#1D8DAA", borderColor: "#1D8DAA" }}>
               Work with us
             </a>
           </div>
