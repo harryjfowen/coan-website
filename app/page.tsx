@@ -96,8 +96,10 @@ export default function Home() {
               alt="Drone mapping survey"
               className="absolute inset-0 w-full h-full object-cover"
               style={{
-                maskImage: "radial-gradient(ellipse 80% 85% at 55% 50%, black 25%, transparent 72%)",
-                WebkitMaskImage: "radial-gradient(ellipse 80% 85% at 55% 50%, black 25%, transparent 72%)",
+                maskImage: "linear-gradient(to right, transparent 0%, black 18%, black 100%), linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 18%, black 100%), linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%)",
+                maskComposite: "intersect",
+                WebkitMaskComposite: "destination-in",
               }}
             />
           </div>
