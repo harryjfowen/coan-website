@@ -90,9 +90,9 @@ export default function Home() {
       </section>
 
       {/* Affiliations strip */}
-      <section className="py-12 border-b border-gray-100 overflow-hidden">
+      <section className="py-12 border-b border-gray-100">
         <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
-        <div className="relative">
+        <div className="relative overflow-hidden max-w-7xl mx-auto">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
           <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />

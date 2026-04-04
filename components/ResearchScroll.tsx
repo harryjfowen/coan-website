@@ -74,9 +74,9 @@ export default function ResearchScroll() {
         </div>
       </div>
 
-      <div className="flex relative">
+      <div className="max-w-7xl mx-auto px-6 flex relative">
         {/* Sticky left panel */}
-        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center px-6 pl-[calc((100vw-72rem)/2+1.5rem)] flex-shrink-0">
+        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-12 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-xs text-gray-300 block mb-4">{areas[active].number}</span>
             <h2 className="text-xl font-semibold text-gray-900 mb-4 leading-snug">
@@ -89,12 +89,12 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels */}
-        <div className="w-full md:w-3/5 md:ml-auto">
+        <div className="w-full md:w-3/5 py-6 flex flex-col gap-4">
           {areas.map((area, i) => (
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-screen flex flex-col justify-center relative overflow-hidden"
+              className="h-screen rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {area.image ? (
                 <img
@@ -104,10 +104,9 @@ export default function ResearchScroll() {
                 />
               ) : (
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 rounded-xl"
                   style={{
                     background: `linear-gradient(135deg, #1A2B3C ${i * 8}%, #2d4a63 100%)`,
-                    opacity: 0.92,
                   }}
                 />
               )}
