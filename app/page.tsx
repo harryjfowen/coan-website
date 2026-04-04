@@ -183,7 +183,6 @@ export default function Home() {
           <div className="aspect-video bg-gray-100 flex items-center justify-center rounded-xl">
             <span className="text-xs text-gray-300">Isle of Man imagery</span>
           </div>
-          </div>
         </div>
       </section>
 
