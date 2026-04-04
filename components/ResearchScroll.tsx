@@ -76,7 +76,7 @@ export default function ResearchScroll() {
 
       <div className="max-w-7xl mx-auto px-6 flex relative">
         {/* Sticky left panel */}
-        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-12 flex-shrink-0">
+        <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-12 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-xs text-gray-300 block mb-4">{areas[active].number}</span>
             <h2 className="text-xl font-semibold text-gray-900 mb-4 leading-snug">
@@ -94,7 +94,7 @@ export default function ResearchScroll() {
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-screen rounded-xl flex flex-col justify-center relative overflow-hidden"
+              className="h-[60vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {area.image ? (
                 <img
