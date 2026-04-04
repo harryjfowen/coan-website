@@ -17,8 +17,8 @@ export default function WetWoodland() {
   return (
     <main className="min-h-screen bg-white">
       <Nav />
-      <div className="pt-28 px-6">
-        <div className="max-w-7xl mx-auto">
+      <div className="pt-28">
+        <div className="max-w-7xl mx-auto px-6">
 
           {/* Header */}
           <div className="mb-16 pb-16 border-b border-gray-100">

@@ -67,8 +67,8 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="pt-28 pb-24 px-6 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-28 pb-24 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#1A2B3C" }}>
             Environmental Intelligence
           </p>
@@ -92,7 +92,7 @@ export default function Home() {
       {/* Affiliations strip */}
       <section className="py-12 border-b border-gray-100">
         <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
-        <div className="relative overflow-hidden max-w-7xl mx-auto">
+        <div className="relative overflow-hidden max-w-7xl mx-auto px-6">
           {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
           <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />
@@ -115,8 +115,8 @@ export default function Home() {
       <ResearchScroll />
 
       {/* Featured projects */}
-      <section className="py-20 px-6 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-baseline mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Featured work</h2>
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
@@ -156,8 +156,8 @@ export default function Home() {
       </section>
 
       {/* Mission / Isle of Man */}
-      <section className="py-20 px-6 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <section className="py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Where we work</p>
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-6 leading-snug">
@@ -177,8 +177,8 @@ export default function Home() {
       </section>
 
       {/* Sectors */}
-      <section className="py-20 px-6 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-baseline mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</h2>
             <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All services →</a>
@@ -195,8 +195,8 @@ export default function Home() {
       </section>
 
       {/* Latest publications */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-between items-baseline mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Latest publications</h2>
             <a href="/research#publications" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All publications →</a>

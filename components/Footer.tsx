@@ -17,8 +17,8 @@ const connect = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-100 py-16 px-6 mt-24">
-      <div className="max-w-7xl mx-auto">
+    <footer className="border-t border-gray-100 py-16 mt-24">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           <div>
             <p className="text-sm font-semibold text-gray-900 mb-2">Coan</p>
