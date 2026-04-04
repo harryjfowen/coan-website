@@ -97,8 +97,8 @@ export default function Home() {
               className="absolute inset-0 w-full h-full object-cover"
               style={{
                 filter: "contrast(1.25) brightness(1.05)",
-                maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 100%), linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 100%), linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)",
+                maskImage: "linear-gradient(to right, transparent 0%, black 5%, black 100%), linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 5%, black 100%), linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
                 maskComposite: "intersect",
                 WebkitMaskComposite: "destination-in",
               }}
