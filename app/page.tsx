@@ -92,7 +92,7 @@ export default function Home() {
           {/* Right: image with full soft-edge vignette into white */}
           <div className="hidden md:block flex-1 relative h-[520px] -mr-6">
             <img
-              src="/images/drone-map-hero.png"
+              src="/images/hero-landscape.png"
               alt="Drone mapping survey"
               className="absolute inset-0 w-full h-full object-cover"
               style={{
