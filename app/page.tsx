@@ -67,36 +67,32 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative border-b border-gray-100 overflow-hidden" style={{ minHeight: "560px" }}>
-        {/* Full-bleed image */}
-        <img
-          src="/images/drone-map-hero.png"
-          alt="Environmental survey landscape"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            filter: "contrast(1.1) brightness(1.05)",
-            maskImage: "linear-gradient(to bottom, transparent 0%, black 8%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 8%, black 88%, transparent 100%)",
-          }}
-        />
-        {/* Text overlay */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-32">
+      <section className="pt-32 pb-16 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#1A2B3C" }}>
             Environmental Intelligence
           </p>
-          <h1 className="text-5xl font-semibold tracking-tight text-gray-900 max-w-2xl leading-tight mb-6">
+          <h1 className="text-5xl font-semibold tracking-tight text-gray-900 max-w-3xl leading-tight mb-6">
             Building a digital understanding of the natural world.
           </h1>
-          <p className="text-lg text-gray-500 max-w-lg leading-relaxed mb-10">
+          <p className="text-lg text-gray-500 max-w-xl leading-relaxed mb-10">
             Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-16">
             <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#1A2B3C" }}>
               View research
             </a>
             <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 border transition-colors" style={{ color: "#1A2B3C", borderColor: "#1A2B3C" }}>
               Work with us
             </a>
+          </div>
+          <div className="w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
+            <img
+              src="/images/drone-map-hero.png"
+              alt="Drone mapping survey"
+              className="w-full h-full object-cover"
+              style={{ filter: "contrast(1.15) brightness(1.05)" }}
+            />
           </div>
         </div>
       </section>
