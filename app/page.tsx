@@ -40,6 +40,39 @@ const featuredProjects = [
   },
 ];
 
+const researchAreas = [
+  {
+    number: "01",
+    title: "Habitat Classification & Ecosystem Mapping",
+    description:
+      "Developing multi-sensor AI systems that combine satellite imagery, airborne LiDAR, and drone surveys to classify and map habitats at national scale. Current focus includes wetland extent mapping, woodland condition assessment, and upland heath monitoring — producing outputs aligned to UK Biodiversity Net Gain and Natural Capital accounting frameworks.",
+  },
+  {
+    number: "02",
+    title: "3D Forest Structure & Point Cloud Analysis",
+    description:
+      "Deep learning segmentation of terrestrial and airborne LiDAR point clouds to extract individual tree structure, wood-leaf separation, canopy architecture, and structural parameters at scale. Research spans from plot-level TLS surveys to ALS-derived national forest inventory applications.",
+  },
+  {
+    number: "03",
+    title: "Carbon & Biomass Estimation",
+    description:
+      "Machine learning methods for above-ground biomass and carbon stock estimation using LiDAR-derived canopy height models, multispectral indices, and allometric relationships. Applied to forest carbon project monitoring, Woodland Carbon Code verification, and peatland carbon baseline assessment.",
+  },
+  {
+    number: "04",
+    title: "Landscape-Scale Change Detection",
+    description:
+      "Time-series analysis of multi-temporal satellite and aerial imagery to detect, quantify, and attribute land cover change across large monitoring areas. Methods include change vector analysis, deep learning-based segmentation, and seasonal decomposition for distinguishing management from environmental drivers.",
+  },
+  {
+    number: "05",
+    title: "Multi-sensor Data Fusion",
+    description:
+      "Integrating heterogeneous data streams — optical, SAR, LiDAR, acoustic, and hyperspectral — into unified environmental intelligence products. Research focuses on fusion architectures that remain robust across sensor combinations, spatial resolutions, and acquisition conditions.",
+  },
+];
+
 const sectors = [
   { title: "Nature",          description: "Habitat classification, biodiversity baselines, and multi-sensor species monitoring aligned to BNG and natural capital frameworks." },
   { title: "Infrastructure",  description: "Terrain modelling, flood risk mapping, and hazard intelligence for roads, utilities, and coastal assets." },
@@ -106,6 +139,35 @@ export default function Home() {
                 />
                 <span className="text-[10px] text-gray-400 text-center leading-tight">{a.name}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Research areas */}
+      <section className="py-20 px-6 border-b border-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-baseline mb-4">
+            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">Our research</p>
+            <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All research →</a>
+          </div>
+          <p className="text-2xl font-semibold tracking-tight text-gray-900 max-w-xl mb-12 leading-snug">
+            Advancing environmental AI across five research areas.
+          </p>
+          <div className="divide-y divide-gray-100">
+            {researchAreas.map((area) => (
+              <details key={area.number} className="group py-1">
+                <summary className="flex items-center justify-between py-5 cursor-pointer select-none">
+                  <div className="flex items-baseline gap-6">
+                    <span className="text-xs text-gray-300 w-6 flex-shrink-0">{area.number}</span>
+                    <span className="text-base font-medium text-gray-900">{area.title}</span>
+                  </div>
+                  <span className="summary-plus text-xl font-light text-gray-400 ml-6 flex-shrink-0">+</span>
+                </summary>
+                <div className="pb-6 pl-12 pr-8">
+                  <p className="text-sm text-gray-500 leading-relaxed max-w-2xl">{area.description}</p>
+                </div>
+              </details>
             ))}
           </div>
         </div>

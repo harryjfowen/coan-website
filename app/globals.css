@@ -13,6 +13,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Research accordion */
+details summary { list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+details[open] .summary-plus { transform: rotate(45deg); }
+.summary-plus { transition: transform 0.2s ease; display: inline-block; }
+
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
