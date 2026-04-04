@@ -89,6 +89,15 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Hero image */}
+      <section className="border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-6">
+          <div className="w-full overflow-hidden rounded-xl" style={{ aspectRatio: "21/9" }}>
+            <img src="/images/drone-map-hero.png" alt="Drone mapping survey" className="w-full h-full object-cover" />
+          </div>
+        </div>
+      </section>
+
       {/* Affiliations strip */}
       <section className="py-12 border-b border-gray-100">
         <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
@@ -170,8 +179,10 @@ export default function Home() {
               From ancient uplands to coastal margins, the island's ecological complexity makes it a rigorous test bed for deep learning applied to real, dynamic ecosystems.
             </p>
           </div>
-          <div className="aspect-video bg-gray-100 flex items-center justify-center">
+          
+          <div className="aspect-video bg-gray-100 flex items-center justify-center rounded-xl">
             <span className="text-xs text-gray-300">Isle of Man imagery</span>
+          </div>
           </div>
         </div>
       </section>
