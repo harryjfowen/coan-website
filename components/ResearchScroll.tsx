@@ -106,7 +106,7 @@ export default function ResearchScroll() {
                 <div
                   className="absolute inset-0 rounded-xl"
                   style={{
-                    background: `linear-gradient(135deg, #1A2B3C ${i * 8}%, #2d4a63 100%)`,
+                    background: `linear-gradient(135deg, #2D7DD2 ${i * 8}%, #2d4a63 100%)`,
                   }}
                 />
               )}
