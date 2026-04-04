@@ -80,7 +80,7 @@ export default function Home() {
           }}
         />
         {/* Text overlay */}
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-32">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#1A2B3C" }}>
             Environmental Intelligence
           </p>
