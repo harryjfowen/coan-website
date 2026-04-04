@@ -40,10 +40,11 @@ const featuredProjects = [
   },
 ];
 
-const services = [
-  { title: "Environmental Mapping", description: "AI-driven habitat and land cover mapping from LiDAR, aerial, and satellite data." },
-  { title: "Point Cloud Analysis", description: "3D analysis of terrestrial and airborne LiDAR — tree segmentation, canopy metrics, structural parameters." },
-  { title: "Custom ML Pipelines", description: "End-to-end machine learning pipeline development for environmental datasets." },
+const sectors = [
+  { title: "Nature",          description: "Habitat classification, biodiversity baselines, and multi-sensor species monitoring aligned to BNG and natural capital frameworks." },
+  { title: "Infrastructure",  description: "Terrain modelling, flood risk mapping, and hazard intelligence for roads, utilities, and coastal assets." },
+  { title: "Carbon",          description: "Forest carbon stock, canopy structure, and afforestation monitoring aligned to Woodland Carbon Code verification." },
+  { title: "Land",            description: "Crop health, pasture condition, and land productivity monitoring using multispectral drone and satellite data." },
 ];
 
 const publications = [
@@ -172,19 +173,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Sectors */}
       <section className="py-20 px-6 border-b border-gray-100">
         <div className="max-w-6xl mx-auto">
           <div className="flex justify-between items-baseline mb-12">
-            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Services</h2>
+            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</h2>
             <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All services →</a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-100">
-            {services.map((s) => (
-              <div key={s.title} className="bg-white p-8">
-                <h3 className="text-base font-semibold text-gray-900 mb-3">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.description}</p>
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
+            {sectors.map((s) => (
+              <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
+                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#1A2B3C" }}>{s.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">{s.description}</p>
+              </a>
             ))}
           </div>
         </div>
