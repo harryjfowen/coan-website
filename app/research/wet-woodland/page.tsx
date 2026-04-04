@@ -37,7 +37,7 @@ export default function WetWoodland() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-white px-5 py-2.5 transition-colors"
-                style={{ backgroundColor: "#32566B" }}
+                style={{ backgroundColor: "#00A651" }}
               >
                 Live demo →
               </a>

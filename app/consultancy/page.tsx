@@ -69,7 +69,7 @@ export default function Consultancy() {
           <section className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100 mb-20">
             {sectors.map((s) => (
               <div key={s.title} className="bg-white p-6">
-                <h3 className="text-sm font-semibold mb-2" style={{ color: "#32566B" }}>{s.title}</h3>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: "#00A651" }}>{s.title}</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">{s.description}</p>
               </div>
             ))}
@@ -80,7 +80,7 @@ export default function Consultancy() {
           <section className="grid grid-cols-1 md:grid-cols-2 gap-px bg-gray-100 mb-20">
             {products.map((p) => (
               <div key={p.name} className="bg-white p-8">
-                <p className="text-xs font-medium tracking-widest uppercase mb-1" style={{ color: "#32566B" }}>{p.name}</p>
+                <p className="text-xs font-medium tracking-widest uppercase mb-1" style={{ color: "#00A651" }}>{p.name}</p>
                 <h3 className="text-base font-semibold text-gray-900 mb-3">{p.tagline}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">{p.description}</p>
                 <p className="text-xs text-gray-400"><span className="font-medium text-gray-500">For:</span> {p.for}</p>
@@ -126,7 +126,7 @@ export default function Consultancy() {
           <a
             href="/contact"
             className="inline-block text-sm font-medium text-white px-6 py-3 transition-colors"
-            style={{ backgroundColor: "#32566B" }}
+            style={{ backgroundColor: "#00A651" }}
           >
             Get in touch
           </a>

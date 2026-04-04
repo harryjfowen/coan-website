@@ -69,7 +69,7 @@ export default function Home() {
       {/* Hero */}
       <section className="pt-32 pb-16 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#32566B" }}>
+          <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#00A651" }}>
             Environmental Intelligence
           </p>
           <h1 className="text-5xl font-semibold tracking-tight text-gray-900 max-w-3xl leading-tight mb-6">
@@ -79,10 +79,10 @@ export default function Home() {
             Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
           </p>
           <div className="flex gap-4 mb-16">
-            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#32566B" }}>
+            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 transition-colors" style={{ backgroundColor: "#00A651" }}>
               View research
             </a>
-            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 border transition-colors" style={{ color: "#32566B", borderColor: "#32566B" }}>
+            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 border transition-colors" style={{ color: "#00A651", borderColor: "#00A651" }}>
               Work with us
             </a>
           </div>
@@ -153,7 +153,7 @@ export default function Home() {
                     {project.title}
                   </h3>
                   <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{project.description}</p>
-                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#32566B" }}>
+                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#00A651" }}>
                     Explore →
                   </span>
                 </div>
@@ -195,7 +195,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {sectors.map((s) => (
               <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
-                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#32566B" }}>{s.title}</h3>
+                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#00A651" }}>{s.title}</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">{s.description}</p>
               </a>
             ))}
