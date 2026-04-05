@@ -87,12 +87,15 @@ export default function Home() {
             </a>
           </div>
           <div className="w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
-            <img
-              src="/images/drone-flyover-hero.png"
-              alt="Drone mapping survey"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-full object-cover"
-              style={{ filter: "contrast(1.15) brightness(1.05)" }}
-            />
+            >
+              <source src="/videos/drone-flyover.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
