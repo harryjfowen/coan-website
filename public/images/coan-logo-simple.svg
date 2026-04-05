@@ -15,7 +15,7 @@ Created by potrace 1.16, written by Peter Selinger 2001-2019
   </linearGradient>
 </defs>
 <g transform="translate(0.000000,908.000000) scale(0.100000,-0.100000)"
-fill="url(#coanGrad)" stroke="none">
+fill="url(#coanGrad)" stroke="url(#coanGrad)" stroke-width="15">
 <path d="M8615 8793 c-151 -32 -220 -50 -325 -85 -428 -140 -853 -355 -1245
 -627 -71 -50 -159 -110 -195 -134 -66 -44 -326 -237 -499 -370 -51 -40 -138
 -103 -192 -142 -54 -38 -214 -156 -356 -261 -275 -202 -363 -265 -581 -411
