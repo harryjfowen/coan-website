@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="488.000000pt" height="336.000000pt" viewBox="0 0 488.000000 336.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.16, written by Peter Selinger 2001-2019
+</metadata>
+<defs>
+  <linearGradient id="coanGrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#2BBFB0"/>
+    <stop offset="50%" stop-color="#0D9488"/>
+    <stop offset="100%" stop-color="#0A6B62"/>
+  </linearGradient>
+</defs>
+<g transform="translate(0.000000,336.000000) scale(0.100000,-0.100000)"
+fill="url(#coanGrad)" stroke="none">
+<path d="M4565 2459 c-11 -17 4 -58 24 -69 25 -13 42 7 30 37 -10 27 -45 48
+-54 32z"/>
+<path d="M505 1893 c-11 -2 -58 -12 -105 -23 -47 -10 -119 -21 -161 -24 -102
+-7 -153 -25 -157 -53 -7 -46 75 -42 190 8 64 28 72 29 226 29 155 0 212 8 241
+35 27 26 -147 47 -234 28z"/>
+<path d="M2343 935 c-15 -19 -35 -35 -43 -35 -37 0 -88 -59 -110 -128 -12 -37
+-32 -80 -44 -97 -50 -65 -115 -232 -136 -343 -6 -33 -22 -87 -35 -121 -42
+-102 -29 -119 37 -48 38 41 98 144 98 168 0 7 23 62 51 123 40 86 54 127 60
+186 10 89 61 199 121 260 21 22 38 47 38 55 0 22 -6 19 -37 -20z"/>
+</g>
+</svg>
