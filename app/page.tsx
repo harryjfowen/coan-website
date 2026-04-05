@@ -94,7 +94,7 @@ export default function Home() {
               playsInline
               className="w-full h-full object-cover"
             >
-              <source src="/videos/drone-flyover.mp4" type="video/mp4" />
+              <source src="/videos/drone-flyover-slow.mp4" type="video/mp4" />
             </video>
           </div>
         </div>
