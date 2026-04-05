@@ -3,11 +3,11 @@ import Footer from "@/components/Footer";
 import ResearchScroll from "@/components/ResearchScroll";
 
 const affiliations = [
-  { name: "University College London",            logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/University_College_London_logo.svg" },
+  { name: "University College London",            logo: "/images/University_College_London_logo.svg.png" },
   { name: "Queen Mary University of London",      logo: "https://upload.wikimedia.org/wikipedia/commons/f/fc/Queen_Mary_University_of_London_coat_of_arms.svg" },
   { name: "University of Cambridge",              logo: "https://upload.wikimedia.org/wikipedia/commons/c/c3/Coat_of_Arms_of_the_University_of_Cambridge.svg" },
-  { name: "Royal Holloway, University of London", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Shield_of_Royal_Holloway_University_of_London.svg" },
-  { name: "Institute of Zoology, ZSL",            logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Zoological_Society_of_London_%28ZSL%29_logo.svg" },
+  { name: "Royal Holloway, University of London", logo: "/images/rhul-logo.webp" },
+  { name: "Institute of Zoology, ZSL",            logo: "/images/ioz-logo.jpg" },
   { name: "Forest Research",                      logo: "https://cdn.forestresearch.gov.uk/2024/10/Forestry-logo-2024.svg" },
 ];
 
