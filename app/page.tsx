@@ -111,7 +111,7 @@ export default function Home() {
                 <img
                   src={a.logo}
                   alt={a.name}
-                  className="max-h-10 max-w-full object-contain opacity-40 grayscale transition-all group-hover:opacity-70"
+                  className="max-h-10 max-w-full object-contain opacity-80 transition-all group-hover:opacity-100"
                 />
                 <span className="text-[10px] text-gray-400 text-center leading-tight">{a.name}</span>
               </div>
