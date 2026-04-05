@@ -88,7 +88,7 @@ export default function Home() {
           </div>
           <div className="w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
             <img
-              src="/images/drone-map-hero.png"
+              src="/images/drone-flyover-hero.png"
               alt="Drone mapping survey"
               className="w-full h-full object-cover"
               style={{ filter: "contrast(1.15) brightness(1.05)" }}
