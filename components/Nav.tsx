@@ -17,8 +17,7 @@ export default function Nav() {
             style={{
               height: "2rem",
               width: "auto",
-              filter: "invert(43%) sepia(74%) saturate(500%) hue-rotate(140deg) brightness(90%)",
-              mixBlendMode: "multiply",
+              filter: "brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(141deg) brightness(0.55)",
             }}
           />
           <span className="font-bold tracking-tight text-gray-900" style={{ fontSize: "2.5rem", lineHeight: 1 }}>
