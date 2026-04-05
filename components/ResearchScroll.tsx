@@ -78,11 +78,11 @@ export default function ResearchScroll() {
         {/* Sticky left panel */}
         <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-12 flex-shrink-0">
           <div className="max-w-xs">
-            <span className="text-xs text-gray-300 block mb-4">{areas[active].number}</span>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4 leading-snug">
+            <span className="text-sm text-gray-300 block mb-4">{areas[active].number}</span>
+            <h2 className="text-3xl font-semibold text-gray-900 mb-4 leading-snug">
               {areas[active].title}
             </h2>
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <p className="text-base text-gray-500 leading-relaxed">
               {areas[active].description}
             </p>
           </div>
