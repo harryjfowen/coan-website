@@ -14,7 +14,7 @@ export default function Nav() {
           <img
             src="/images/coan-logo.png"
             alt="Coan logo"
-            style={{ height: "2rem", width: "auto" }}
+            style={{ height: "8rem", width: "auto" }}
           />
           <span className="font-bold tracking-tight text-gray-900" style={{ fontSize: "2.5rem", lineHeight: 1 }}>
             Coan
