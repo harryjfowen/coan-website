@@ -12,7 +12,7 @@ export default function Nav() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2">
           <img
-            src="/images/coan-logo.png"
+            src="/images/coan-logo.svg"
             alt="Coan logo"
             style={{ height: "2.5rem", width: "auto" }}
           />
