@@ -203,6 +203,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Delivered for */}
+      <section className="py-12 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Delivered for</p>
+          <div className="flex flex-wrap justify-center items-center gap-10">
+            <span className="text-sm font-medium text-gray-400">Defra UK</span>
+          </div>
+        </div>
+      </section>
+
       {/* Latest publications */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
