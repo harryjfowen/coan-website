@@ -126,7 +126,7 @@ export default function Consultancy() {
           <a
             href="/contact"
             className="inline-block text-sm font-medium text-white px-6 py-3 transition-colors"
-            style={{ backgroundColor: "#1B4D3E" }}
+            style={{ backgroundColor: "#000000" }}
           >
             Get in touch
           </a>

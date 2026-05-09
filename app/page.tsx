@@ -88,7 +88,7 @@ export default function Home() {
               Verify carbon, monitor biodiversity, unlock nature-based solutions, and de-risk infrastructure — all grounded in deep ecological expertise and powered by AI and real-time monitoring.
             </p>
             <div className="flex gap-4">
-              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#1B4D3E" }}>
+              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#000000" }}>
                 View research
               </a>
               <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors text-white" style={{ borderColor: "#1B4D3E" }}>
@@ -155,7 +155,7 @@ export default function Home() {
                     {project.title}
                   </h3>
                   <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{project.description}</p>
-                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#1B4D3E" }}>
+                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#000000" }}>
                     Explore →
                   </span>
                 </div>
