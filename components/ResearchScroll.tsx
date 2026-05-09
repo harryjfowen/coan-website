@@ -8,8 +8,9 @@ const areas = [
     title: "Habitat Classification & Ecosystem Mapping",
     description:
       "Multi-sensor AI systems combining satellite imagery, airborne LiDAR, and drone surveys to classify and map habitats at national scale — producing outputs aligned to UK Biodiversity Net Gain and Natural Capital accounting frameworks.",
-    image: "/images/wetwood-density.png",
-    alt: "Wet woodland extent map",
+    image: null,
+    video: "/videos/drone-flyover-slow.mp4",
+    alt: "Drone flyover of habitat",
   },
   {
     number: "02",
@@ -96,7 +97,17 @@ export default function ResearchScroll() {
               ref={(el) => { panelRefs.current[i] = el; }}
               className="h-[60vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
-              {area.image ? (
+              {area.video ? (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src={area.video} type="video/mp4" />
+                </video>
+              ) : area.image ? (
                 <img
                   src={area.image}
                   alt={area.alt}
