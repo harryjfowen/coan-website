@@ -18,7 +18,7 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-gray-500 transition-colors hover:text-[#0D9488]"
+              className="text-sm text-gray-500 transition-colors hover:text-[#1B4D3E]"
             >
               {link.label}
             </a>

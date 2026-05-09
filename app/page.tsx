@@ -155,7 +155,7 @@ export default function Home() {
                     {project.title}
                   </h3>
                   <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1">{project.description}</p>
-                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#0D9488" }}>
+                  <span className="inline-block text-xs font-medium text-white px-3 py-1.5 rounded-full transition-colors self-start" style={{ backgroundColor: "#1B4D3E" }}>
                     Explore →
                   </span>
                 </div>
@@ -197,7 +197,7 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {sectors.map((s) => (
               <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
-                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#0D9488" }}>{s.title}</h3>
+                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#1B4D3E" }}>{s.title}</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">{s.description}</p>
               </a>
             ))}
