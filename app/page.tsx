@@ -82,13 +82,13 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto px-6 pb-16 w-full">
             <p className="text-lg font-semibold tracking-widest uppercase mb-8" style={{ color: "#4ADED6" }}>
-              Environmental Intelligence
+              Landscape Intelligence
             </p>
             <h1 className="text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-6">
-              Building a digital understanding of the natural world.
+              Landscape Intelligence at Scale
             </h1>
             <p className="text-lg text-gray-100 max-w-xl leading-relaxed mb-10">
-              Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
+              Verify carbon, monitor biodiversity, unlock nature-based solutions, and de-risk infrastructure — all grounded in deep ecological expertise and powered by AI and real-time monitoring.
             </p>
             <div className="flex gap-4">
               <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#0D9488" }}>
