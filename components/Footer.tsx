@@ -17,12 +17,12 @@ const connect = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-gray-100 py-16 mt-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12 mb-16">
-          <div>
+    <footer className="border-t border-gray-100 py-12 sm:py-16 mt-16 sm:mt-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-12 mb-12 sm:mb-16">
+          <div className="col-span-2 sm:col-span-1">
             <p className="text-sm font-semibold text-gray-900 mb-2">Coan</p>
-            <p className="text-sm text-gray-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
               Environmental AI mapping & consultancy
             </p>
           </div>
@@ -63,7 +63,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-100 pt-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-t border-gray-100 pt-6 sm:pt-8 gap-4">
           <p className="text-xs text-gray-300">© {new Date().getFullYear()} Coan Ltd</p>
           <div className="flex gap-6">
             <a href="/privacy" className="text-xs text-gray-300 hover:text-gray-500 transition-colors">Privacy Policy</a>

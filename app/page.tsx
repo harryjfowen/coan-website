@@ -67,7 +67,7 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative border-b border-gray-100" style={{ aspectRatio: "21/9" }}>
+      <section className="relative border-b border-gray-100" style={{ aspectRatio: "auto" }}>
         <img
           src="/forest-hero.jpg"
           alt="Forest canopy"
@@ -80,18 +80,18 @@ export default function Home() {
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end">
-          <div className="max-w-7xl mx-auto px-6 pb-16 w-full">
-            <h1 className="text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:pb-16 w-full">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-4 sm:mb-6">
               Landscape Intelligence at Scale
             </h1>
-            <p className="text-lg text-gray-100 max-w-xl leading-relaxed mb-10">
+            <p className="text-base sm:text-lg text-gray-100 max-w-xl leading-relaxed mb-6 sm:mb-10">
               Verify carbon, monitor biodiversity, unlock nature-based solutions, and de-risk infrastructure — all grounded in deep ecological expertise and powered by AI and real-time monitoring.
             </p>
-            <div className="flex gap-4">
-              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#000000" }}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors text-center" style={{ backgroundColor: "#000000" }}>
                 View research
               </a>
-              <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors text-white" style={{ borderColor: "#1B4D3E" }}>
+              <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors text-white text-center" style={{ borderColor: "#1B4D3E" }}>
                 Work with us
               </a>
             </div>
@@ -100,22 +100,22 @@ export default function Home() {
       </section>
 
       {/* Affiliations strip */}
-      <section className="py-12 border-b border-gray-100">
+      <section className="py-8 sm:py-12 border-b border-gray-100">
         <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
-        <div className="relative overflow-hidden max-w-7xl mx-auto px-6">
+        <div className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6">
           {/* Fade edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />
+          <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
+          <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />
           {/* Scrolling track — items duplicated so it loops seamlessly */}
           <div className="flex animate-marquee" style={{ width: "max-content" }}>
             {[...affiliations, ...affiliations].map((a, i) => (
-              <div key={i} className="flex flex-col items-center justify-center mx-12 gap-2" style={{ width: 120 }}>
+              <div key={i} className="flex flex-col items-center justify-center mx-6 sm:mx-12 gap-2" style={{ width: 100 }}>
                 <img
                   src={a.logo}
                   alt={a.name}
-                  className="max-h-10 max-w-full object-contain opacity-80 transition-all group-hover:opacity-100"
+                  className="max-h-8 sm:max-h-10 max-w-full object-contain opacity-80 transition-all group-hover:opacity-100"
                 />
-                <span className="text-[10px] text-gray-400 text-center leading-tight">{a.name}</span>
+                <span className="text-[8px] sm:text-[10px] text-gray-400 text-center leading-tight">{a.name}</span>
               </div>
             ))}
           </div>
@@ -125,9 +125,9 @@ export default function Home() {
       <ResearchScroll />
 
       {/* Featured projects */}
-      <section className="py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-baseline mb-12">
+      <section className="py-12 sm:py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Featured work</h2>
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
           </div>
@@ -166,8 +166,8 @@ export default function Home() {
       </section>
 
       {/* Mission / Isle of Man */}
-      <section className="py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <section className="py-12 sm:py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 items-center">
           <div>
             <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Where we work</p>
             <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-6 leading-snug">
@@ -188,13 +188,13 @@ export default function Home() {
       </section>
 
       {/* Sectors */}
-      <section className="py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-baseline mb-12">
+      <section className="py-12 sm:py-20 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</h2>
             <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All services →</a>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
             {sectors.map((s) => (
               <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
                 <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#1B4D3E" }}>{s.title}</h3>
@@ -206,19 +206,19 @@ export default function Home() {
       </section>
 
       {/* Delivered for */}
-      <section className="py-12 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-8 sm:py-12 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Delivered for</p>
-          <div className="flex flex-wrap justify-center items-center gap-10">
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10">
             <span className="text-sm font-medium text-gray-400">Defra UK</span>
           </div>
         </div>
       </section>
 
       {/* Latest publications */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-baseline mb-12">
+      <section className="py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Latest publications</h2>
             <a href="/research#publications" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All publications →</a>
           </div>

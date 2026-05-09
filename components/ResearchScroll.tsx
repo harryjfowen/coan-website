@@ -68,14 +68,14 @@ export default function ResearchScroll() {
 
   return (
     <section className="border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex justify-between items-baseline">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">Our research</p>
           <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All research →</a>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 flex relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel */}
         <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-12 flex-shrink-0">
           <div className="max-w-xs">
@@ -90,12 +90,12 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels */}
-        <div className="w-full md:w-3/5 py-6 flex flex-col gap-4">
+        <div className="w-full md:w-3/5 py-4 sm:py-6 flex flex-col gap-4">
           {areas.map((area, i) => (
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-[60vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
+              className="h-[50vh] sm:h-[60vh] rounded-lg sm:rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {area.video ? (
                 <video
@@ -122,10 +122,10 @@ export default function ResearchScroll() {
                 />
               )}
               {/* Mobile-only text overlay */}
-              <div className="relative z-10 p-8 md:hidden">
-                <span className="text-xs text-white/50 block mb-3">{area.number}</span>
-                <h2 className="text-lg font-semibold text-white mb-3">{area.title}</h2>
-                <p className="text-sm text-white/70 leading-relaxed">{area.description}</p>
+              <div className="relative z-10 p-4 sm:p-8 md:hidden">
+                <span className="text-xs text-white/50 block mb-2 sm:mb-3">{area.number}</span>
+                <h2 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">{area.title}</h2>
+                <p className="text-xs sm:text-sm text-white/70 leading-relaxed line-clamp-3">{area.description}</p>
               </div>
             </div>
           ))}
