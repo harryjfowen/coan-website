@@ -67,7 +67,7 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="relative border-b border-gray-100" style={{ aspectRatio: "auto" }}>
+      <section className="relative border-b border-gray-100" style={{ aspectRatio: "16/9" }}>
         <img
           src="/forest-hero.jpg"
           alt="Forest canopy"
