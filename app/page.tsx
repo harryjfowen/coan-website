@@ -81,7 +81,7 @@ export default function Home() {
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto px-6 pb-16 w-full">
-            <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#4ADED6" }}>
+            <p className="text-lg font-semibold tracking-widest uppercase mb-8" style={{ color: "#4ADED6" }}>
               Environmental Intelligence
             </p>
             <h1 className="text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-6">
