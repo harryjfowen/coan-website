@@ -67,32 +67,39 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 pt-32 pb-16">
-          <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#0D9488" }}>
-            Environmental Intelligence
-          </p>
-          <h1 className="text-5xl font-semibold tracking-tight text-gray-900 max-w-3xl leading-tight mb-6">
-            Building a digital understanding of the natural world.
-          </h1>
-          <p className="text-lg text-gray-500 max-w-xl leading-relaxed mb-10">
-            Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
-          </p>
-          <div className="flex gap-4 mb-16">
-            <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#0D9488" }}>
-              View research
-            </a>
-            <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors" style={{ color: "#0D9488", borderColor: "#0D9488" }}>
-              Work with us
-            </a>
-          </div>
-        </div>
+      <section className="relative border-b border-gray-100" style={{ aspectRatio: "21/9" }}>
         <img
           src="/forest-hero.jpg"
           alt="Forest canopy"
-          className="w-full h-auto object-cover"
-          style={{ aspectRatio: "21/9" }}
+          className="absolute inset-0 w-full h-full object-cover"
         />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0.7) 100%)"
+        }} />
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col justify-end">
+          <div className="max-w-7xl mx-auto px-6 pb-16 w-full">
+            <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#4ADED6" }}>
+              Environmental Intelligence
+            </p>
+            <h1 className="text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-6">
+              Building a digital understanding of the natural world.
+            </h1>
+            <p className="text-lg text-gray-100 max-w-xl leading-relaxed mb-10">
+              Coan integrates drone, satellite, and sensor data using AI to measure, model, and monitor ecosystems — from fine-scale 3D structure to landscape-scale change — supporting carbon, biodiversity, and environmental risk assessment.
+            </p>
+            <div className="flex gap-4">
+              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#0D9488" }}>
+                View research
+              </a>
+              <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors" style={{ color: "#4ADED6", borderColor: "#4ADED6" }}>
+                Work with us
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Affiliations strip */}
