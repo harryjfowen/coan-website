@@ -88,10 +88,10 @@ export default function Home() {
               Verify carbon, monitor biodiversity, unlock nature-based solutions, and de-risk infrastructure — all grounded in deep ecological expertise and powered by AI and real-time monitoring.
             </p>
             <div className="flex gap-4">
-              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#0D9488" }}>
+              <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors" style={{ backgroundColor: "#1B4D3E" }}>
                 View research
               </a>
-              <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors" style={{ color: "#4ADED6", borderColor: "#4ADED6" }}>
+              <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors text-white" style={{ borderColor: "#1B4D3E" }}>
                 Work with us
               </a>
             </div>
