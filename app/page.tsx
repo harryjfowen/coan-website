@@ -67,8 +67,8 @@ export default function Home() {
       <Nav />
 
       {/* Hero */}
-      <section className="pt-32 pb-16 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 pt-32 pb-16">
           <p className="text-xs font-medium tracking-widest uppercase mb-6" style={{ color: "#0D9488" }}>
             Environmental Intelligence
           </p>
@@ -86,18 +86,13 @@ export default function Home() {
               Work with us
             </a>
           </div>
-          <div className="w-full rounded-xl overflow-hidden" style={{ aspectRatio: "21/9" }}>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              <source src="/videos/drone-flyover-slow.mp4" type="video/mp4" />
-            </video>
-          </div>
         </div>
+        <img
+          src="/forest-hero.jpg"
+          alt="Forest canopy"
+          className="w-full h-auto object-cover"
+          style={{ aspectRatio: "21/9" }}
+        />
       </section>
 
       {/* Affiliations strip */}
