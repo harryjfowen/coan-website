@@ -81,9 +81,6 @@ export default function Home() {
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto px-6 pb-16 w-full">
-            <p className="text-lg font-semibold tracking-widest uppercase mb-8" style={{ color: "#4ADED6" }}>
-              Landscape Intelligence
-            </p>
             <h1 className="text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-6">
               Landscape Intelligence at Scale
             </h1>
