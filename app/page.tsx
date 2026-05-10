@@ -45,7 +45,6 @@ const sectors = [
   { title: "Nature",          description: "Habitat classification, biodiversity baselines, and multi-sensor species monitoring aligned to BNG and natural capital frameworks." },
   { title: "Infrastructure",  description: "Terrain modelling, flood risk mapping, and hazard intelligence for roads, utilities, and coastal assets." },
   { title: "Carbon",          description: "Forest carbon stock, canopy structure, and afforestation monitoring aligned to Woodland Carbon Code verification." },
-  { title: "Land",            description: "Crop health, pasture condition, and land productivity monitoring using multispectral drone and satellite data." },
 ];
 
 const publications = [
@@ -194,7 +193,7 @@ export default function Home() {
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</h2>
             <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All services →</a>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-px bg-gray-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-100">
             {sectors.map((s) => (
               <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
                 <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#1B4D3E" }}>{s.title}</h3>
