@@ -194,76 +194,74 @@ export default function PointCloudViewer() {
 
 function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
   const bytes = new Uint8Array(arrayBuffer);
-  const text = new TextDecoder().decode(bytes.slice(0, Math.min(4096, bytes.length)));
-  const headerLines = text.split("\n");
 
-  let headerEnd = 0;
-  let vertexCount = 0;
-  let isBinary = false;
-  const properties: { name: string; type: string }[] = [];
-
-  for (let i = 0; i < headerLines.length; i++) {
-    const line = headerLines[i].trim();
-    if (line.startsWith("format")) {
-      isBinary = line.includes("binary");
-    }
-    if (line.startsWith("element vertex")) {
-      vertexCount = parseInt(line.split(" ")[2]);
-    }
-    if (line.startsWith("property")) {
-      const parts = line.split(" ");
-      properties.push({ type: parts[1], name: parts[2] });
-    }
-    if (line === "end_header") {
-      headerEnd = i;
-      break;
+  // Find header end
+  let headerEndIdx = 0;
+  for (let i = 0; i < bytes.length - 10; i++) {
+    if (bytes[i] === 101 && bytes[i+1] === 110 && bytes[i+2] === 100 && bytes[i+3] === 95) { // "end_"
+      if (bytes[i+4] === 104 && bytes[i+5] === 101 && bytes[i+6] === 97 && bytes[i+7] === 100) { // "head"
+        headerEndIdx = i + 11; // Skip "end_header\n"
+        break;
+      }
     }
   }
 
-  const headerText = headerLines.slice(0, headerEnd + 1).join("\n");
-  const headerBytes = new TextEncoder().encode(headerText).length + 1;
+  const headerText = new TextDecoder().decode(bytes.slice(0, headerEndIdx));
+  const headerLines = headerText.split("\n");
+
+  let vertexCount = 0;
+  const properties: { name: string; type: string }[] = [];
+
+  console.log("Header lines:", headerLines.slice(0, 15));
+
+  for (const line of headerLines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith("element vertex")) {
+      vertexCount = parseInt(trimmed.split(" ")[2]);
+      console.log("Vertex count:", vertexCount);
+    }
+    if (trimmed.startsWith("property")) {
+      const parts = trimmed.split(" ");
+      properties.push({ type: parts[1], name: parts[2] });
+    }
+  }
+
+  console.log("Properties:", properties);
 
   const positions: number[] = [];
   const colors: number[] = [];
 
-  if (isBinary) {
-    const view = new DataView(arrayBuffer, headerBytes);
-    let offset = 0;
+  const view = new DataView(arrayBuffer, headerEndIdx);
+  let offset = 0;
 
-    for (let i = 0; i < vertexCount; i++) {
-      const x = view.getFloat32(offset, true); offset += 4;
-      const y = view.getFloat32(offset, true); offset += 4;
-      const z = view.getFloat32(offset, true); offset += 4;
+  for (let i = 0; i < Math.min(vertexCount, 10000); i++) {
+    const x = view.getFloat32(offset, true); offset += 4;
+    const y = view.getFloat32(offset, true); offset += 4;
+    const z = view.getFloat32(offset, true); offset += 4;
 
-      positions.push(x, y, z);
+    positions.push(x, y, z);
 
-      let r = 0.4, g = 0.8, b = 1.0;
+    let r = 0.4, g = 0.8, b = 1.0;
 
-      for (const prop of properties) {
-        if (prop.name === "reflectance" || prop.name === "label" || prop.name === "pathlength" || prop.name === "pwood" || prop.name === "prediction") {
-          if (prop.type === "float") {
-            const val = view.getFloat32(offset, true);
-            offset += 4;
-            if (prop.name === "pwood") r = Math.min(val, 1.0);
-            if (prop.name === "prediction") {
-              const pred = Math.round(val);
-              if (pred === 1) { r = 1.0; g = 0.2; b = 0.2; }
-              else { r = 0.05; g = 0.05; b = 0.05; }
-            }
-          } else if (prop.type === "uchar") {
-            const val = view.getUint8(offset);
-            offset += 1;
-            if (prop.name === "label") {
-              if (val === 1) { r = 1.0; g = 0.2; b = 0.2; }
-              else { r = 0.05; g = 0.05; b = 0.05; }
-            }
-          }
+    // Skip through properties to find label/prediction
+    for (const prop of properties) {
+      if (prop.type === "float") {
+        const val = view.getFloat32(offset, true);
+        offset += 4;
+        if (prop.name === "prediction") {
+          if (val > 0.5) { r = 1.0; g = 0.1; b = 0.1; }
+          else { r = 0.02; g = 0.02; b = 0.02; }
         }
+      } else if (prop.type === "uchar") {
+        const val = view.getUint8(offset);
+        offset += 1;
       }
-
-      colors.push(r, g, b);
     }
+
+    colors.push(r, g, b);
   }
+
+  console.log("Parsed positions:", positions.length / 3, "vertices");
 
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(positions), 3));
