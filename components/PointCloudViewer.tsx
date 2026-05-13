@@ -242,15 +242,15 @@ function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
             if (prop.name === "pwood") r = Math.min(val, 1.0);
             if (prop.name === "prediction") {
               const pred = Math.round(val);
-              if (pred === 1) { r = 1.0; g = 0.3; b = 0.3; }
-              else { r = 0.3; g = 0.8; b = 0.3; }
+              if (pred === 1) { r = 1.0; g = 0.2; b = 0.2; }
+              else { r = 0.05; g = 0.05; b = 0.05; }
             }
           } else if (prop.type === "uchar") {
             const val = view.getUint8(offset);
             offset += 1;
             if (prop.name === "label") {
               if (val === 1) { r = 1.0; g = 0.2; b = 0.2; }
-              else { r = 0.2; g = 0.8; b = 0.2; }
+              else { r = 0.05; g = 0.05; b = 0.05; }
             }
           }
         }
