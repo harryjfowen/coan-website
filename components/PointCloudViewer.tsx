@@ -188,21 +188,25 @@ export default function PointCloudViewer() {
 }
 
 function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
-  const view = new DataView(arrayBuffer);
   const text = new TextDecoder().decode(new Uint8Array(arrayBuffer));
   const lines = text.split("\n");
 
   let headerEnd = 0;
   let vertexCount = 0;
-  const properties: string[] = [];
+  let isASCII = false;
+  const properties: { name: string; type: string }[] = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
+    if (line.startsWith("format")) {
+      isASCII = line.includes("ascii");
+    }
     if (line.startsWith("element vertex")) {
       vertexCount = parseInt(line.split(" ")[2]);
     }
     if (line.startsWith("property")) {
-      properties.push(line.split(" ")[2]);
+      const parts = line.split(" ");
+      properties.push({ type: parts[1], name: parts[2] });
     }
     if (line === "end_header") {
       headerEnd = i + 1;
@@ -210,26 +214,30 @@ function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
     }
   }
 
-  const headerBytes = lines.slice(0, headerEnd).join("\n").length + headerEnd;
-  const vertexData = new Float32Array(arrayBuffer, headerBytes);
-
   const positions: number[] = [];
   const colors: number[] = [];
 
-  const hasColor = properties.includes("red");
-  const stride = properties.length;
+  if (isASCII) {
+    const dataLines = lines.slice(headerEnd, headerEnd + vertexCount);
+    for (const line of dataLines) {
+      if (!line.trim()) continue;
+      const values = line.trim().split(/\s+/).map(v => parseFloat(v));
 
-  for (let i = 0; i < vertexCount; i++) {
-    const offset = i * stride;
-    positions.push(vertexData[offset], vertexData[offset + 1], vertexData[offset + 2]);
+      positions.push(values[0], values[1], values[2]);
 
-    if (hasColor) {
-      const red = vertexData[offset + 3] / 255;
-      const green = vertexData[offset + 4] / 255;
-      const blue = vertexData[offset + 5] / 255;
-      colors.push(red, green, blue);
-    } else {
-      colors.push(0.4, 0.8, 1.0);
+      const redIdx = properties.findIndex(p => p.name === "red");
+      const greenIdx = properties.findIndex(p => p.name === "green");
+      const blueIdx = properties.findIndex(p => p.name === "blue");
+
+      if (redIdx !== -1) {
+        colors.push(
+          values[redIdx] > 1 ? values[redIdx] / 255 : values[redIdx],
+          values[greenIdx] > 1 ? values[greenIdx] / 255 : values[greenIdx],
+          values[blueIdx] > 1 ? values[blueIdx] / 255 : values[blueIdx]
+        );
+      } else {
+        colors.push(0.4, 0.8, 1.0);
+      }
     }
   }
 
