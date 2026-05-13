@@ -120,15 +120,15 @@ print(f"Rendering {FRAMES} frames...")
 # Render frames
 frame_paths = []
 for i in range(FRAMES):
-    # Rotate around Z axis
+    # Rotate around X axis
     angle = (i / FRAMES) * 360
 
-    # Create rotation matrix for Z-axis rotation
+    # Create rotation matrix for X-axis rotation
     rad = np.radians(angle)
     rotation = np.array([
-        [np.cos(rad), -np.sin(rad), 0],
-        [np.sin(rad), np.cos(rad), 0],
-        [0, 0, 1]
+        [1, 0, 0],
+        [0, np.cos(rad), -np.sin(rad)],
+        [0, np.sin(rad), np.cos(rad)]
     ])
 
     # Apply rotation
