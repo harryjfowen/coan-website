@@ -13,8 +13,8 @@ PLY_FILE = "/Users/harryjfowen/Desktop/ptw-website.ply"
 OUTPUT_DIR = "/Users/harryjfowen/Software/coan-website/public/videos"
 OUTPUT_VIDEO = "pointcloud-rotation.mp4"
 FRAMES = 180
-IMAGE_WIDTH = 1920
-IMAGE_HEIGHT = 1080
+IMAGE_WIDTH = 2560
+IMAGE_HEIGHT = 1440
 FPS = 30
 
 print("Loading point cloud...")
