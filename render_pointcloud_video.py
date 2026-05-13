@@ -89,16 +89,23 @@ print(f"Rendering {FRAMES} frames...")
 
 frame_paths = []
 for i in range(FRAMES):
-    # Rotate camera around the point cloud on X axis
-    angle = (i / FRAMES) * 360
+    # First 30 frames (1 second) stay static
+    # Remaining 150 frames do one slow rotation
+    if i < 30:
+        angle = 0
+    else:
+        # One rotation over remaining frames
+        progress = (i - 30) / (FRAMES - 30)
+        angle = progress * 360
+
     rad = np.radians(angle)
 
     # Camera position rotates around X axis
-    # Start from front-top view
-    distance = 8
+    # Start from good viewing angle
+    distance = 10
     cam_x = 0
     cam_y = distance * np.cos(rad)  # Rotates on X axis
-    cam_z = distance * np.sin(rad)
+    cam_z = distance * np.sin(rad) + 3  # Slightly elevated
 
     ctr = vis.get_view_control()
     ctr.set_lookat([0, 0, 0])
