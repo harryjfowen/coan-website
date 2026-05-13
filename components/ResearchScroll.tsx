@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import PointCloudViewer from "./PointCloudViewer";
 
 const areas = [
   {
@@ -19,7 +18,7 @@ const areas = [
     description:
       "Deep learning segmentation of LiDAR point clouds to extract individual tree structure, wood-leaf separation, canopy architecture, and structural parameters at scale.",
     image: null,
-    component: "pointcloud",
+    video: "/videos/pointcloud-rotation.mp4",
     alt: "3D forest point cloud",
   },
   {
@@ -99,9 +98,7 @@ export default function ResearchScroll() {
               ref={(el) => { panelRefs.current[i] = el; }}
               className="h-[50vh] sm:h-[60vh] rounded-lg sm:rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
-              {area.component === "pointcloud" ? (
-                <PointCloudViewer />
-              ) : area.video ? (
+              {area.video ? (
                 <video
                   autoPlay
                   muted
