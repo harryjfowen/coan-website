@@ -51,9 +51,13 @@ export default function PointCloudViewer() {
     // Load PLY file
     const loadPLY = async (url: string) => {
       try {
+        console.log("Fetching PLY from:", url);
         const response = await fetch(url);
+        console.log("Response status:", response.status);
         const arrayBuffer = await response.arrayBuffer();
+        console.log("Loaded bytes:", arrayBuffer.byteLength);
         const geometry = parsePLY(arrayBuffer);
+        console.log("Parsed geometry, vertices:", geometry.attributes.position.count);
 
         const pointsMaterial = new THREE.PointsMaterial({
           size: 0.02,
@@ -95,6 +99,7 @@ export default function PointCloudViewer() {
         return () => cancelAnimationFrame(autoRotateFrame);
       } catch (error) {
         console.error("Error loading PLY:", error);
+        console.error("Full error:", JSON.stringify(error));
         setIsLoading(false);
       }
     };
