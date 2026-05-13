@@ -188,18 +188,19 @@ export default function PointCloudViewer() {
 }
 
 function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
-  const text = new TextDecoder().decode(new Uint8Array(arrayBuffer));
-  const lines = text.split("\n");
+  const bytes = new Uint8Array(arrayBuffer);
+  const text = new TextDecoder().decode(bytes.slice(0, Math.min(4096, bytes.length)));
+  const headerLines = text.split("\n");
 
   let headerEnd = 0;
   let vertexCount = 0;
-  let isASCII = false;
+  let isBinary = false;
   const properties: { name: string; type: string }[] = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+  for (let i = 0; i < headerLines.length; i++) {
+    const line = headerLines[i].trim();
     if (line.startsWith("format")) {
-      isASCII = line.includes("ascii");
+      isBinary = line.includes("binary");
     }
     if (line.startsWith("element vertex")) {
       vertexCount = parseInt(line.split(" ")[2]);
@@ -209,35 +210,53 @@ function parsePLY(arrayBuffer: ArrayBuffer): THREE.BufferGeometry {
       properties.push({ type: parts[1], name: parts[2] });
     }
     if (line === "end_header") {
-      headerEnd = i + 1;
+      headerEnd = i;
       break;
     }
   }
 
+  const headerText = headerLines.slice(0, headerEnd + 1).join("\n");
+  const headerBytes = new TextEncoder().encode(headerText).length + 1;
+
   const positions: number[] = [];
   const colors: number[] = [];
 
-  if (isASCII) {
-    const dataLines = lines.slice(headerEnd, headerEnd + vertexCount);
-    for (const line of dataLines) {
-      if (!line.trim()) continue;
-      const values = line.trim().split(/\s+/).map(v => parseFloat(v));
+  if (isBinary) {
+    const view = new DataView(arrayBuffer, headerBytes);
+    let offset = 0;
 
-      positions.push(values[0], values[1], values[2]);
+    for (let i = 0; i < vertexCount; i++) {
+      const x = view.getFloat32(offset, true); offset += 4;
+      const y = view.getFloat32(offset, true); offset += 4;
+      const z = view.getFloat32(offset, true); offset += 4;
 
-      const redIdx = properties.findIndex(p => p.name === "red");
-      const greenIdx = properties.findIndex(p => p.name === "green");
-      const blueIdx = properties.findIndex(p => p.name === "blue");
+      positions.push(x, y, z);
 
-      if (redIdx !== -1) {
-        colors.push(
-          values[redIdx] > 1 ? values[redIdx] / 255 : values[redIdx],
-          values[greenIdx] > 1 ? values[greenIdx] / 255 : values[greenIdx],
-          values[blueIdx] > 1 ? values[blueIdx] / 255 : values[blueIdx]
-        );
-      } else {
-        colors.push(0.4, 0.8, 1.0);
+      let r = 0.4, g = 0.8, b = 1.0;
+
+      for (const prop of properties) {
+        if (prop.name === "reflectance" || prop.name === "label" || prop.name === "pathlength" || prop.name === "pwood" || prop.name === "prediction") {
+          if (prop.type === "float") {
+            const val = view.getFloat32(offset, true);
+            offset += 4;
+            if (prop.name === "pwood") r = Math.min(val, 1.0);
+            if (prop.name === "prediction") {
+              const pred = Math.round(val);
+              if (pred === 1) { r = 1.0; g = 0.3; b = 0.3; }
+              else { r = 0.3; g = 0.8; b = 0.3; }
+            }
+          } else if (prop.type === "uchar") {
+            const val = view.getUint8(offset);
+            offset += 1;
+            if (prop.name === "label") {
+              if (val === 1) { r = 1.0; g = 0.2; b = 0.2; }
+              else { r = 0.2; g = 0.8; b = 0.2; }
+            }
+          }
+        }
       }
+
+      colors.push(r, g, b);
     }
   }
 
