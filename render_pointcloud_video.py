@@ -100,12 +100,11 @@ for i in range(FRAMES):
 
     rad = np.radians(angle)
 
-    # Camera position rotates around X axis
-    # Start from good viewing angle
+    # Camera position rotates around Z axis (horizontal spin)
     distance = 10
-    cam_x = 0
-    cam_y = distance * np.cos(rad)  # Rotates on X axis
-    cam_z = distance * np.sin(rad) + 3  # Slightly elevated
+    cam_x = distance * np.cos(rad)  # Horizontal rotation left/right
+    cam_y = distance * np.sin(rad)  # Horizontal rotation front/back
+    cam_z = 3  # Fixed elevation
 
     ctr = vis.get_view_control()
     ctr.set_lookat([0, 0, 0])
