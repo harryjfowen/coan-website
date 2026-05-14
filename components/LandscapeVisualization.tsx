@@ -23,6 +23,7 @@ export default function LandscapeVisualization() {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(W, H);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     containerRef.current.appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
@@ -50,8 +51,10 @@ export default function LandscapeVisualization() {
     // ── Layer 1 (bottom): Satellite imagery ──────────────────────────
     const satGeo = new THREE.PlaneGeometry(planeW, planeW);
     satGeo.rotateX(-Math.PI / 2);
+    const satTex = new THREE.TextureLoader().load("/images/iom-satellite.png");
+    satTex.colorSpace = THREE.SRGBColorSpace;
     const satMesh = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load("/images/iom-satellite.png"),
+      map: satTex,
       side: THREE.DoubleSide,
     }));
     satMesh.position.y = SAT_Y;
@@ -60,11 +63,11 @@ export default function LandscapeVisualization() {
     // ── Layer 2: Embeddings overlay ───────────────────────────────────
     const embGeo = new THREE.PlaneGeometry(planeW, planeW);
     embGeo.rotateX(-Math.PI / 2);
+    const embTex = new THREE.TextureLoader().load("/images/iom-embeddings.png");
+    embTex.colorSpace = THREE.SRGBColorSpace;
     const embMesh = new THREE.Mesh(embGeo, new THREE.MeshBasicMaterial({
-      map: new THREE.TextureLoader().load("/images/iom-embeddings.png"),
+      map: embTex,
       side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 0.9,
     }));
     embMesh.position.y = EMB_Y;
     scene.add(embMesh);
@@ -82,7 +85,7 @@ export default function LandscapeVisualization() {
       color: 0x000000,
       wireframe: true,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.3,
     }));
     wireMesh.position.y = M1_Y;
     scene.add(wireMesh);
