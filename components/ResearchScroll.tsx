@@ -86,7 +86,7 @@ export default function ResearchScroll() {
               className="h-[80vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {i === 0 ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                <div className="absolute inset-0 flex items-center justify-center bg-white">
                   <div className="scale-[0.72] sm:scale-[0.85] md:scale-[0.78] lg:scale-90 xl:scale-100 origin-center">
                     <ForestIntelCard />
                   </div>
