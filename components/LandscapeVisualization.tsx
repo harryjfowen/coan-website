@@ -103,25 +103,6 @@ export default function LandscapeVisualization() {
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // Single red signal line + dots through all layers
-    const TX = 0.8, TZ = 0.6;
-    const trackLineGeo = new THREE.BufferGeometry();
-    trackLineGeo.setAttribute("position", new THREE.BufferAttribute(
-      new Float32Array([TX, TOP_Y, TZ, TX, SAT_Y, TZ]), 3
-    ));
-    scene.add(new THREE.Line(trackLineGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
-    const sigLayers = [
-      { y: TOP_Y, opacity: 0.4, size: 0.12 },
-      { y: M1_Y,  opacity: 0.6, size: 0.16 },
-      { y: EMB_Y, opacity: 0.8, size: 0.20 },
-      { y: SAT_Y, opacity: 1.0, size: 0.26 },
-    ];
-    sigLayers.forEach(({ y, opacity, size }) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([TX, y, TZ]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size, transparent: true, opacity })));
-    });
-
     // Animate
     let animId: number;
     const animate = () => {
