@@ -84,10 +84,10 @@ export default function ResearchScroll() {
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-screen rounded-xl flex flex-col justify-center relative overflow-hidden"
+              className={`${i === 0 ? "min-h-screen bg-white" : "h-screen"} rounded-xl flex items-center justify-center relative overflow-hidden`}
             >
               {i === 0 ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-white">
+                <div style={{ zoom: 1.45 }} className="py-12">
                   <ForestIntelCard />
                 </div>
               ) : area.video ? (
