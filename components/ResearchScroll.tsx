@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import LandscapeVisualization from "./LandscapeVisualization";
 
 const areas = [
   {
@@ -98,6 +99,10 @@ export default function ResearchScroll() {
                   alt={area.alt}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
+              ) : i === 2 ? (
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <LandscapeVisualization />
+                </div>
               ) : (
                 <div
                   className="absolute inset-0 rounded-xl"
