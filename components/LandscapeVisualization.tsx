@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-
 export default function LandscapeVisualization() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -30,48 +29,38 @@ export default function LandscapeVisualization() {
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
     const BOX   = 5.0;
-    const TOP_Y =  4.5;   // point grid
-    const M1_Y  =  1.5;   // mesh       — 3.0 gap
-    const EMB_Y = -1.5;   // embeddings — 3.0 gap
-    const SAT_Y = -4.5;   // satellite  — 3.0 gap
-
+    const TOP_Y =  4.5;
+    const M1_Y  =  1.5;
+    const EMB_Y = -1.5;
+    const SAT_Y = -4.5;
 
     const planeW = BOX * 2 - 0.6;
 
-    // ── Layer 1 (bottom): Satellite imagery ──────────────────────────
+    // Layer 1 (bottom): Satellite imagery
     const satGeo = new THREE.PlaneGeometry(planeW, planeW);
     satGeo.rotateX(-Math.PI / 2);
     const satTex = new THREE.TextureLoader().load("/images/iom-satellite.png");
     satTex.colorSpace = THREE.SRGBColorSpace;
-    const satMesh = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({
-      map: satTex,
-      side: THREE.DoubleSide,
-    }));
+    const satMesh = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({ map: satTex, side: THREE.DoubleSide }));
     satMesh.position.y = SAT_Y;
     scene.add(satMesh);
 
-    // ── Layer 2: Embeddings overlay ───────────────────────────────────
+    // Layer 2: Embeddings overlay
     const embGeo = new THREE.PlaneGeometry(planeW, planeW);
     embGeo.rotateX(-Math.PI / 2);
     const embTex = new THREE.TextureLoader().load("/images/iom-embeddings.png");
     embTex.colorSpace = THREE.SRGBColorSpace;
-    const embMesh = new THREE.Mesh(embGeo, new THREE.MeshBasicMaterial({
-      map: embTex,
-      side: THREE.DoubleSide,
-    }));
+    const embMesh = new THREE.Mesh(embGeo, new THREE.MeshBasicMaterial({ map: embTex, side: THREE.DoubleSide }));
     embMesh.position.y = EMB_Y;
     scene.add(embMesh);
 
-    // ── Layer 3 (middle): Waving grid — interior lines only, no border ─
+    // Layer 3: Waving interior grid (no border)
     const gridN = 22;
     const half = planeW / 2;
     const gStep = planeW / gridN;
-    // Build interior sample points at every grid intersection
-    // Line segments: pairs of adjacent points along X and along Z
     const gridLineCount = gridN * (gridN + 1) * 2;
     const gridPos = new Float32Array(gridLineCount * 2 * 3);
     let gi = 0;
-    // Lines running along Z (for each X column)
     for (let ix = 1; ix < gridN; ix++) {
       for (let iz = 0; iz < gridN; iz++) {
         const x = -half + ix * gStep;
@@ -81,7 +70,6 @@ export default function LandscapeVisualization() {
         gridPos[gi++] = x; gridPos[gi++] = 0; gridPos[gi++] = z1;
       }
     }
-    // Lines running along X (for each Z row)
     for (let iz = 1; iz < gridN; iz++) {
       for (let ix = 0; ix < gridN; ix++) {
         const z = -half + iz * gStep;
@@ -98,7 +86,7 @@ export default function LandscapeVisualization() {
     gridMesh.position.y = M1_Y;
     scene.add(gridMesh);
 
-    // ── Layer 4 (top): Dense black point grid ─────────────────────────
+    // Layer 4 (top): Dense black point grid
     const ptRes  = 34;
     const ptStep = planeW / (ptRes - 1);
     const ptPos: number[] = [];
@@ -111,42 +99,16 @@ export default function LandscapeVisualization() {
     ptGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(ptPos), 3));
     scene.add(new THREE.Points(ptGeo, new THREE.PointsMaterial({ size: 0.06, color: 0x111111 })));
 
-    const topAttr   = ptGeo.getAttribute("position") as THREE.BufferAttribute;
+    const topAttr = ptGeo.getAttribute("position") as THREE.BufferAttribute;
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // ── Tracked signals — 3 red lines + dots through all layers ─────
-    const sigPositions = [[0.8, 0.6], [-1.2, -0.8], [1.6, -1.4]];
-    const dotLayerY  = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
-    const dotOpacity = [0.4, 0.6, 0.8, 1.0];
-    const dotSizes   = [0.12, 0.16, 0.20, 0.26];
-
-    for (let si = 0; si < 3; si++) {
-      const sx = sigPositions[si][0];
-      const sz = sigPositions[si][1];
-
-      const lineGeo = new THREE.BufferGeometry();
-      lineGeo.setAttribute("position", new THREE.BufferAttribute(
-        new Float32Array([sx, TOP_Y, sz, sx, SAT_Y, sz]), 3
-      ));
-      scene.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
-
-      for (let li = 0; li < 4; li++) {
-        const g = new THREE.BufferGeometry();
-        g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([sx, dotLayerY[li], sz]), 3));
-        scene.add(new THREE.Points(g, new THREE.PointsMaterial({
-          color: 0xff1100, size: dotSizes[li], transparent: true, opacity: dotOpacity[li],
-        })));
-      }
-    }
-
-    // ── Animate ───────────────────────────────────────────────────────
+    // Animate
     let animId: number;
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const t = Date.now() * 0.0005;
 
-      // Wave the grid lines
       for (let i = 0; i < gridPosAttr.count; i++) {
         const x = gridPosAttr.getX(i);
         const z = gridPosAttr.getZ(i);
@@ -154,7 +116,6 @@ export default function LandscapeVisualization() {
       }
       gridPosAttr.needsUpdate = true;
 
-      // Points — subtle ripple
       for (let i = 0; i < topAttr.count; i++) {
         const x = topAttr.getX(i);
         const z = topAttr.getZ(i);
