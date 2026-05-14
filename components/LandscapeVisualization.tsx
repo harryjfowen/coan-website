@@ -3,64 +3,6 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-function makeRasterTexture() {
-  const cells = 36;
-  const cellPx = 16;
-  const size = cells * cellPx;
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-
-  // Fill background
-  ctx.fillStyle = "#006080";
-  ctx.fillRect(0, 0, size, size);
-
-  for (let row = 0; row < cells; row++) {
-    for (let col = 0; col < cells; col++) {
-      const nx = col / cells;
-      const ny = row / cells;
-
-      // Realistic landscape-like value using layered frequencies
-      const v =
-        0.50 +
-        0.22 * Math.sin(nx * 5.1 + 0.5) * Math.cos(ny * 4.3 + 0.3) +
-        0.14 * Math.sin(nx * 10.3 + ny * 8.7 + 1.1) +
-        0.08 * Math.cos(nx * 2.8 - ny * 3.6 + 2.4) +
-        0.06 * Math.sin(nx * 18 + ny * 14);
-
-      const t = Math.max(0, Math.min(1, v));
-
-      // 5-stop GIS-style colour ramp: deep water → cyan → mid teal → forest teal → dark
-      let r = 0, g = 0, b = 0;
-      if (t < 0.2) {
-        const s = t / 0.2;
-        r = 0;          g = Math.round(60 + s * 60);   b = Math.round(120 + s * 60);
-      } else if (t < 0.4) {
-        const s = (t - 0.2) / 0.2;
-        r = 0;          g = Math.round(120 + s * 60);  b = Math.round(180 - s * 40);
-      } else if (t < 0.6) {
-        const s = (t - 0.4) / 0.2;
-        r = 0;          g = Math.round(180 + s * 30);  b = Math.round(140 - s * 30);
-      } else if (t < 0.8) {
-        const s = (t - 0.6) / 0.2;
-        r = Math.round(s * 20);  g = Math.round(210 - s * 40);  b = Math.round(110 - s * 30);
-      } else {
-        const s = (t - 0.8) / 0.2;
-        r = Math.round(20 + s * 10); g = Math.round(170 - s * 50); b = Math.round(80 - s * 30);
-      }
-
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
-      // Sharp cell with 1px border gap — the GIS raster pixel look
-      ctx.fillRect(col * cellPx + 1, row * cellPx + 1, cellPx - 1, cellPx - 1);
-    }
-  }
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.magFilter = THREE.NearestFilter;  // sharp pixel edges — raster look
-  tex.minFilter = THREE.NearestFilter;
-  return tex;
-}
 
 export default function LandscapeVisualization() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -103,8 +45,9 @@ export default function LandscapeVisualization() {
     // ── Layer 3 (bottom): GIS raster surface ─────────────────────────
     const rasterGeo = new THREE.PlaneGeometry(BOX * 2 - 0.6, BOX * 2 - 0.6);
     rasterGeo.rotateX(-Math.PI / 2);
+    const satTex = new THREE.TextureLoader().load("/images/iom-satellite.jpg");
     const rasterMesh = new THREE.Mesh(rasterGeo, new THREE.MeshBasicMaterial({
-      map: makeRasterTexture(),
+      map: satTex,
       side: THREE.DoubleSide,
     }));
     rasterMesh.position.y = BOT_Y;
