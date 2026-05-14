@@ -13,7 +13,7 @@ export default function LandscapeVisualization() {
     const H = containerRef.current.clientHeight;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0d0d0d);
+    scene.background = new THREE.Color(0xffffff);
 
     // Isometric-ish camera from corner — matches reference
     const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 1000);
@@ -53,7 +53,7 @@ export default function LandscapeVisualization() {
     ]);
     const frameGeo = new THREE.BufferGeometry();
     frameGeo.setAttribute("position", new THREE.BufferAttribute(frameVerts, 3));
-    const frameMat = new THREE.LineBasicMaterial({ color: 0x444444, transparent: true, opacity: 0.5 });
+    const frameMat = new THREE.LineBasicMaterial({ color: 0x999999, transparent: true, opacity: 0.4 });
     scene.add(new THREE.LineSegments(frameGeo, frameMat));
 
     // ── Layer 3 (bottom): Embeddings grid ───────────────────────────
@@ -91,19 +91,19 @@ export default function LandscapeVisualization() {
     const originY = new Float32Array(posAttr.count);
     for (let i = 0; i < posAttr.count; i++) originY[i] = posAttr.getY(i);
 
-    // Solid fill (slightly visible)
+    // Solid fill
     const fillMesh = new THREE.Mesh(meshGeo, new THREE.MeshStandardMaterial({
-      color: 0x1a1a1a,
+      color: 0xf0f0f0,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.6,
       side: THREE.DoubleSide,
     }));
     // Wireframe overlay
     const wireMesh = new THREE.Mesh(meshGeo, new THREE.MeshBasicMaterial({
-      color: 0xcccccc,
+      color: 0x333333,
       wireframe: true,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.35,
     }));
     scene.add(fillMesh);
     scene.add(wireMesh);
@@ -123,7 +123,7 @@ export default function LandscapeVisualization() {
     }
     const ptGeo = new THREE.BufferGeometry();
     ptGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(ptPos), 3));
-    const ptMat = new THREE.PointsMaterial({ size: 0.055, color: 0xdddddd });
+    const ptMat = new THREE.PointsMaterial({ size: 0.055, color: 0x333333 });
     const topPoints = new THREE.Points(ptGeo, ptMat);
     scene.add(topPoints);
     const topPosAttr = ptGeo.getAttribute("position") as THREE.BufferAttribute;
