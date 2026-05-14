@@ -17,8 +17,8 @@ export default function LandscapeVisualization() {
     scene.background = new THREE.Color(0xffffff);
 
     const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 1000);
-    camera.position.set(13, 9, 13);
-    camera.lookAt(0, -0.5, 0);
+    camera.position.set(5, 13, 17);
+    camera.lookAt(0, -1, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(W, H);
@@ -29,12 +29,11 @@ export default function LandscapeVisualization() {
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
-    const BOX   = 4.0;
+    const BOX   = 5.0;
     const TOP_Y =  BOX - 0.3;   // point grid
-    const M1_Y  =  0.8;          // upper mesh
-    const M2_Y  = -0.8;          // lower mesh (or single mesh band)
-    const EMB_Y = -BOX + 1.5;   // embeddings layer
-    const SAT_Y = -BOX + 0.05;  // satellite bottom
+    const M1_Y  =  1.2;         // mesh
+    const EMB_Y = -1.5;         // embeddings layer
+    const SAT_Y = -BOX + 0.1;  // satellite bottom
 
     // ── Full box frame — all 12 edges ─────────────────────────────────
     const frameVerts = new Float32Array([
@@ -125,19 +124,20 @@ export default function LandscapeVisualization() {
       animId = requestAnimationFrame(animate);
       const t = Date.now() * 0.0005;
 
+      // Gentle mesh waves
       for (let i = 0; i < posAttr.count; i++) {
         const x = posAttr.getX(i);
         const z = posAttr.getZ(i);
-        posAttr.setY(i, originY[i] + Math.sin(x * 0.9 + t) * 0.55 + Math.cos(z * 0.8 + t * 0.7) * 0.4);
+        posAttr.setY(i, originY[i] + Math.sin(x * 0.9 + t) * 0.25 + Math.cos(z * 0.8 + t * 0.7) * 0.18);
       }
       posAttr.needsUpdate = true;
       meshGeo.computeVertexNormals();
 
-      // Visible oscillation — each point vibrates up/down independently
+      // Points oscillate visibly — ripple effect across the grid
       for (let i = 0; i < topAttr.count; i++) {
         const x = topAttr.getX(i);
         const z = topAttr.getZ(i);
-        topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.2 + t * 1.8) * 0.35 + Math.cos(z * 1.1 + t * 1.5) * 0.25);
+        topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 2.0) * 0.45 + Math.cos(z * 1.2 + t * 1.7) * 0.3);
       }
       topAttr.needsUpdate = true;
 
