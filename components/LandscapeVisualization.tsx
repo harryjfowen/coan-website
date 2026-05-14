@@ -103,6 +103,38 @@ export default function LandscapeVisualization() {
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
+    // 3 static red signal lines (LineSegments — same class as grid)
+    const dotY  = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
+    const dotOp = [0.4, 0.6, 0.8, 1.0];
+    const dotSz = [0.12, 0.16, 0.20, 0.26];
+
+    const laGeo = new THREE.BufferGeometry();
+    laGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, TOP_Y, 0.6,  0.8, SAT_Y, 0.6]), 3));
+    scene.add(new THREE.LineSegments(laGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
+    for (let li = 0; li < 4; li++) {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, dotY[li], 0.6]), 3));
+      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
+    }
+
+    const lbGeo = new THREE.BufferGeometry();
+    lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.2, TOP_Y, -0.8,  -1.2, SAT_Y, -0.8]), 3));
+    scene.add(new THREE.LineSegments(lbGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
+    for (let li = 0; li < 4; li++) {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.2, dotY[li], -0.8]), 3));
+      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
+    }
+
+    const lcGeo = new THREE.BufferGeometry();
+    lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([1.6, TOP_Y, -1.4,  1.6, SAT_Y, -1.4]), 3));
+    scene.add(new THREE.LineSegments(lcGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
+    for (let li = 0; li < 4; li++) {
+      const g = new THREE.BufferGeometry();
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([1.6, dotY[li], -1.4]), 3));
+      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
+    }
+
     // Animate
     let animId: number;
     const animate = () => {
