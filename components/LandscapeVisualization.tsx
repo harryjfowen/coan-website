@@ -67,12 +67,6 @@ export default function LandscapeVisualization() {
     const half = planeW / 2;
     const gStep = planeW / gridN;
     // Build interior sample points at every grid intersection
-    const gridXZ: [number, number][] = [];
-    for (let ix = 0; ix <= gridN; ix++) {
-      for (let iz = 0; iz <= gridN; iz++) {
-        gridXZ.push([-half + ix * gStep, -half + iz * gStep]);
-      }
-    }
     // Line segments: pairs of adjacent points along X and along Z
     const gridLineCount = gridN * (gridN + 1) * 2;
     const gridPos = new Float32Array(gridLineCount * 2 * 3);
@@ -121,33 +115,37 @@ export default function LandscapeVisualization() {
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // ── Tracked signal — red line + dots through all layers ──────────
-    const TX = 0.8, TZ = 0.6; // fixed X,Z position of the tracked point
+    // ── Tracked signals — 3 red lines with pulsing dots through all layers ──
+    const sigX = [0.8,  -1.2,  1.6];
+    const sigZ = [0.6,  -0.8, -1.4];
+    const layerY = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
+    const dotSize = [0.12, 0.16, 0.20, 0.26];
+    const N_SIG = 3;
+    const N_LAY = 4;
+    const dotMats: THREE.PointsMaterial[] = [];
 
-    // Vertical red line all the way through
-    const trackLineGeo = new THREE.BufferGeometry();
-    trackLineGeo.setAttribute("position", new THREE.BufferAttribute(
-      new Float32Array([TX, TOP_Y, TZ,  TX, SAT_Y, TZ]), 3
-    ));
-    scene.add(new THREE.Line(trackLineGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
-
-    // Red dot at each layer, getting brighter/larger toward the bottom
-    const layers = [
-      { y: TOP_Y,  opacity: 0.4, size: 0.12 },
-      { y: M1_Y,   opacity: 0.6, size: 0.16 },
-      { y: EMB_Y,  opacity: 0.8, size: 0.20 },
-      { y: SAT_Y,  opacity: 1.0, size: 0.26 },
-    ];
-    layers.forEach(({ y, opacity, size }) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([TX, y, TZ]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({
-        color: 0xff1100,
-        size,
-        transparent: true,
-        opacity,
+    for (let si = 0; si < N_SIG; si++) {
+      const sx = sigX[si];
+      const sz = sigZ[si];
+      const lineGeo = new THREE.BufferGeometry();
+      lineGeo.setAttribute("position", new THREE.BufferAttribute(
+        new Float32Array([sx, TOP_Y, sz, sx, SAT_Y, sz]), 3
+      ));
+      scene.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({
+        color: 0xff2200, transparent: true, opacity: 0.5,
       })));
-    });
+      for (let li = 0; li < N_LAY; li++) {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute("position", new THREE.BufferAttribute(
+          new Float32Array([sx, layerY[li], sz]), 3
+        ));
+        const mat = new THREE.PointsMaterial({
+          color: 0xff1100, size: dotSize[li], transparent: true, opacity: 0.4,
+        });
+        scene.add(new THREE.Points(g, mat));
+        dotMats.push(mat);
+      }
+    }
 
     // ── Animate ───────────────────────────────────────────────────────
     let animId: number;
@@ -170,6 +168,15 @@ export default function LandscapeVisualization() {
         topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 1.5) * 0.18 + Math.cos(z * 1.2 + t * 1.2) * 0.12);
       }
       topAttr.needsUpdate = true;
+
+      // Pulse dots — traveling wave top to bottom
+      const pulse = Date.now() * 0.002;
+      for (let si = 0; si < N_SIG; si++) {
+        for (let li = 0; li < N_LAY; li++) {
+          const phase = pulse + si * 1.3 - li * 0.8;
+          dotMats[si * N_LAY + li].opacity = 0.2 + 0.7 * (0.5 + 0.5 * Math.sin(phase));
+        }
+      }
 
       renderer.render(scene, camera);
     };
