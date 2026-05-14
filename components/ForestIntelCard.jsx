@@ -25,10 +25,10 @@ const KEYFRAMES = `
 @keyframes fic-dotPulse   { 0%,100%{opacity:1} 50%{opacity:0.15} }
 @keyframes fic-liveDot    { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.7)} }
 @keyframes fic-shimmer    { 0%,100%{opacity:0} 50%{opacity:1} }
-@keyframes fic-rPulse1    { 0%,100%{r:10;opacity:0.5}  50%{r:15;opacity:0.15} }
-@keyframes fic-rPulse2    { 0%,100%{r:18;opacity:0.3}  50%{r:24;opacity:0.08} }
-@keyframes fic-rPulse3    { 0%,100%{r:26;opacity:0.15} 50%{r:32;opacity:0.04} }
-@keyframes fic-corePulse  { 0%,100%{opacity:0.9} 50%{opacity:0.5} }
+@keyframes fic-rPulse1    { 0%,100%{r:10;opacity:0.9}  50%{r:17;opacity:0.2} }
+@keyframes fic-rPulse2    { 0%,100%{r:19;opacity:0.6}  50%{r:28;opacity:0.1} }
+@keyframes fic-rPulse3    { 0%,100%{r:28;opacity:0.3}  50%{r:38;opacity:0.04} }
+@keyframes fic-corePulse  { 0%,100%{opacity:1;r:5} 50%{opacity:0.6;r:7} }
 @keyframes fic-rotA       { from{transform:rotate(0deg)}   to{transform:rotate(360deg)}  }
 @keyframes fic-rotB       { from{transform:rotate(0deg)}   to{transform:rotate(-360deg)} }
 @keyframes fic-flowIn     { from{stroke-dashoffset:0} to{stroke-dashoffset:-22} }
@@ -301,17 +301,26 @@ export default function ForestIntelCard() {
           ))}
         </div>
 
+        {/* Central pulsing node — boosted visibility */}
         <div style={S.node}>
           <svg viewBox="0 0 72 72" width="72" height="72" overflow="visible">
-            <circle cx="36" cy="36" r="26" fill="none" stroke="#c2d4ca" strokeWidth="0.6" className="fic-rp3"/>
-            <circle cx="36" cy="36" r="18" fill="none" stroke="#98b8a8" strokeWidth="0.8" className="fic-rp2"/>
-            <circle cx="36" cy="36" r="10" fill="none" stroke="#4a7860" strokeWidth="1"   className="fic-rp1"/>
-            <ellipse cx="36" cy="36" rx="30" ry="22" stroke="#d0e4da" strokeWidth="0.6" fill="none" strokeDasharray="2 6" opacity="0.6" className="fic-rotA"/>
-            <ellipse cx="36" cy="36" rx="22" ry="30" stroke="#c0d8cc" strokeWidth="0.6" fill="none" strokeDasharray="2 7" opacity="0.45" className="fic-rotB"/>
-            <circle cx="36" cy="36" r="26" stroke="#e2ede8" strokeWidth="0.5" fill="none" opacity="0.7"/>
-            <circle cx="36" cy="36" r="18" stroke="#c8dcd4" strokeWidth="0.5" fill="none" opacity="0.6"/>
-            <circle cx="36" cy="36" r="4"  fill="#2a4838" className="fic-core"/>
-            <circle cx="36" cy="36" r="2"  fill="#162820"/>
+            {/* outer soft glow fill */}
+            <circle cx="36" cy="36" r="32" fill="#2a4838" opacity="0.04"/>
+            {/* pulsing rings — bolder strokes, higher opacity */}
+            <circle cx="36" cy="36" r="28" fill="none" stroke="#b8d0c4" strokeWidth="1"   className="fic-rp3"/>
+            <circle cx="36" cy="36" r="19" fill="none" stroke="#5a9070" strokeWidth="1.2" className="fic-rp2"/>
+            <circle cx="36" cy="36" r="10" fill="none" stroke="#2a6050" strokeWidth="1.5" className="fic-rp1"/>
+            {/* rotating structural rings */}
+            <ellipse cx="36" cy="36" rx="30" ry="22" stroke="#b0ccbc" strokeWidth="0.8" fill="none" strokeDasharray="2 6" opacity="0.5" className="fic-rotA"/>
+            <ellipse cx="36" cy="36" rx="22" ry="30" stroke="#a8c4b4" strokeWidth="0.8" fill="none" strokeDasharray="2 7" opacity="0.4" className="fic-rotB"/>
+            {/* static reference rings */}
+            <circle cx="36" cy="36" r="26" stroke="#cce0d4" strokeWidth="0.8" fill="none" opacity="0.6"/>
+            <circle cx="36" cy="36" r="18" stroke="#a8c8b8" strokeWidth="0.8" fill="none" opacity="0.5"/>
+            {/* core glow halo */}
+            <circle cx="36" cy="36" r="9" fill="#2a4838" opacity="0.12"/>
+            {/* core dot */}
+            <circle cx="36" cy="36" r="5" fill="#2a4838" className="fic-core"/>
+            <circle cx="36" cy="36" r="2.5" fill="#162820"/>
           </svg>
         </div>
 
