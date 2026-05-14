@@ -19,8 +19,8 @@ const areas = [
     description:
       "MRV-grade measurement from field to satellite. We quantify above-ground biomass and carbon stock using TLS-derived allometrics, LiDAR canopy structure, and satellite embeddings — producing audit-ready outputs aligned to Woodland Carbon Code, BNG statutory metric, CSRD, and TNFD disclosure.",
     image: null,
-    video: "/videos/pointcloud-rotation.mp4",
-    alt: "3D forest structure for carbon measurement",
+    video: null,
+    alt: "Carbon and nature markets",
   },
   {
     number: "03",
