@@ -79,7 +79,7 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels — full viewport height each */}
-        <div className="w-full md:w-3/5 py-16 flex flex-col gap-16">
+        <div className="w-full md:w-3/5 py-16 flex flex-col gap-32">
           {areas.map((area, i) => (
             <div
               key={area.number}
