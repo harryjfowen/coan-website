@@ -56,14 +56,14 @@ export default function ResearchScroll() {
 
   return (
     <section className="border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</p>
           <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Our services →</a>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
         <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-sm">
