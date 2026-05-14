@@ -67,19 +67,19 @@ export default function ResearchScroll() {
         {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
         <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
-            <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-3">{areas[active].number}</span>
-            <h2 className="text-lg font-semibold text-gray-900 mb-3 leading-snug">
+            <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-4">{areas[active].number}</span>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 leading-snug">
               {areas[active].title}
             </h2>
-            <div className="w-5 h-px bg-gray-200 mb-3" />
-            <p className="text-xs text-gray-500 leading-relaxed">
+            <div className="w-6 h-px bg-gray-200 mb-4" />
+            <p className="text-sm text-gray-500 leading-relaxed">
               {areas[active].description}
             </p>
           </div>
         </div>
 
         {/* Scrolling right panels — full viewport height each */}
-        <div className="w-full md:w-3/5 py-6 flex flex-col gap-16">
+        <div className="w-full md:w-3/5 py-8 flex flex-col gap-20">
           {areas.map((area, i) => (
             <div
               key={area.number}
