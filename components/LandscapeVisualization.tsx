@@ -66,13 +66,6 @@ export default function LandscapeVisualization() {
     const gridN = 22;
     const half = planeW / 2;
     const gStep = planeW / gridN;
-    // Build interior sample points at every grid intersection
-    const gridXZ: [number, number][] = [];
-    for (let ix = 0; ix <= gridN; ix++) {
-      for (let iz = 0; iz <= gridN; iz++) {
-        gridXZ.push([-half + ix * gStep, -half + iz * gStep]);
-      }
-    }
     // Line segments: pairs of adjacent points along X and along Z
     const gridLineCount = gridN * (gridN + 1) * 2;
     const gridPos = new Float32Array(gridLineCount * 2 * 3);
