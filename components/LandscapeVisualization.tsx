@@ -27,35 +27,51 @@ export default function LandscapeVisualization() {
 
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
-    const BOX = 4.0;
-    const TOP_Y  =  BOX - 0.3;
-    const BOT_Y  = -BOX + 0.05;
+    const BOX   = 4.0;
+    const TOP_Y =  BOX - 0.3;   // point grid
+    const M1_Y  =  0.8;          // upper mesh
+    const M2_Y  = -0.8;          // lower mesh (or single mesh band)
+    const EMB_Y = -BOX + 1.5;   // embeddings layer
+    const SAT_Y = -BOX + 0.05;  // satellite bottom
 
-    // ── Corner connector lines (4 verticals only) ────────────────────
+    // ── Corner connector lines ────────────────────────────────────────
     const cornerVerts = new Float32Array([
-      -BOX, TOP_Y, -BOX,   -BOX, BOT_Y, -BOX,
-       BOX, TOP_Y, -BOX,    BOX, BOT_Y, -BOX,
-       BOX, TOP_Y,  BOX,    BOX, BOT_Y,  BOX,
-      -BOX, TOP_Y,  BOX,   -BOX, BOT_Y,  BOX,
+      -BOX, TOP_Y, -BOX,   -BOX, SAT_Y, -BOX,
+       BOX, TOP_Y, -BOX,    BOX, SAT_Y, -BOX,
+       BOX, TOP_Y,  BOX,    BOX, SAT_Y,  BOX,
+      -BOX, TOP_Y,  BOX,   -BOX, SAT_Y,  BOX,
     ]);
     const cornerGeo = new THREE.BufferGeometry();
     cornerGeo.setAttribute("position", new THREE.BufferAttribute(cornerVerts, 3));
-    scene.add(new THREE.LineSegments(cornerGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.3 })));
+    scene.add(new THREE.LineSegments(cornerGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 })));
 
-    // ── Layer 3 (bottom): GIS raster surface ─────────────────────────
-    const rasterGeo = new THREE.PlaneGeometry(BOX * 2 - 0.6, BOX * 2 - 0.6);
-    rasterGeo.rotateX(-Math.PI / 2);
-    const satTex = new THREE.TextureLoader().load("/images/iom-satellite.jpg");
-    const rasterMesh = new THREE.Mesh(rasterGeo, new THREE.MeshBasicMaterial({
-      map: satTex,
+    const planeW = BOX * 2 - 0.6;
+
+    // ── Layer 1 (bottom): Satellite imagery ──────────────────────────
+    const satGeo = new THREE.PlaneGeometry(planeW, planeW);
+    satGeo.rotateX(-Math.PI / 2);
+    const satMesh = new THREE.Mesh(satGeo, new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load("/images/iom-satellite.png"),
       side: THREE.DoubleSide,
     }));
-    rasterMesh.position.y = BOT_Y;
-    scene.add(rasterMesh);
+    satMesh.position.y = SAT_Y;
+    scene.add(satMesh);
 
-    // ── Layer 2 (middle): Black wireframe mesh — no fill ─────────────
+    // ── Layer 2: Embeddings overlay ───────────────────────────────────
+    const embGeo = new THREE.PlaneGeometry(planeW, planeW);
+    embGeo.rotateX(-Math.PI / 2);
+    const embMesh = new THREE.Mesh(embGeo, new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load("/images/iom-embeddings.png"),
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.9,
+    }));
+    embMesh.position.y = EMB_Y;
+    scene.add(embMesh);
+
+    // ── Layer 3 (middle): Waving black wireframe mesh ─────────────────
     const meshRes = 40;
-    const meshGeo = new THREE.PlaneGeometry(BOX * 2 - 0.6, BOX * 2 - 0.6, meshRes, meshRes);
+    const meshGeo = new THREE.PlaneGeometry(planeW, planeW, meshRes, meshRes);
     meshGeo.rotateX(-Math.PI / 2);
 
     const posAttr = meshGeo.getAttribute("position") as THREE.BufferAttribute;
@@ -68,12 +84,12 @@ export default function LandscapeVisualization() {
       transparent: true,
       opacity: 0.45,
     }));
-    wireMesh.position.y = 0.2;
+    wireMesh.position.y = M1_Y;
     scene.add(wireMesh);
 
-    // ── Layer 1 (top): Dense black point grid ────────────────────────
-    const ptRes = 34;
-    const ptStep = (BOX * 2 - 0.6) / (ptRes - 1);
+    // ── Layer 4 (top): Dense black point grid ─────────────────────────
+    const ptRes  = 34;
+    const ptStep = planeW / (ptRes - 1);
     const ptPos: number[] = [];
     for (let ix = 0; ix < ptRes; ix++) {
       for (let iz = 0; iz < ptRes; iz++) {
@@ -84,11 +100,11 @@ export default function LandscapeVisualization() {
     ptGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(ptPos), 3));
     scene.add(new THREE.Points(ptGeo, new THREE.PointsMaterial({ size: 0.06, color: 0x111111 })));
 
-    const topAttr = ptGeo.getAttribute("position") as THREE.BufferAttribute;
+    const topAttr   = ptGeo.getAttribute("position") as THREE.BufferAttribute;
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // ── Animate ──────────────────────────────────────────────────────
+    // ── Animate ───────────────────────────────────────────────────────
     let animId: number;
     const animate = () => {
       animId = requestAnimationFrame(animate);
