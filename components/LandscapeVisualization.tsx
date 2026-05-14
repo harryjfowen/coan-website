@@ -115,35 +115,28 @@ export default function LandscapeVisualization() {
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // ── Tracked signals — 3 red lines with pulsing dots through all layers ──
-    const sigX = [0.8,  -1.2,  1.6];
-    const sigZ = [0.6,  -0.8, -1.4];
-    const layerY = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
-    const dotSize = [0.12, 0.16, 0.20, 0.26];
-    const N_SIG = 3;
-    const N_LAY = 4;
-    const dotMats: THREE.PointsMaterial[] = [];
+    // ── Tracked signals — 3 red lines + dots through all layers ─────
+    const sigPositions = [[0.8, 0.6], [-1.2, -0.8], [1.6, -1.4]];
+    const dotLayerY  = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
+    const dotOpacity = [0.4, 0.6, 0.8, 1.0];
+    const dotSizes   = [0.12, 0.16, 0.20, 0.26];
 
-    for (let si = 0; si < N_SIG; si++) {
-      const sx = sigX[si];
-      const sz = sigZ[si];
+    for (let si = 0; si < 3; si++) {
+      const sx = sigPositions[si][0];
+      const sz = sigPositions[si][1];
+
       const lineGeo = new THREE.BufferGeometry();
       lineGeo.setAttribute("position", new THREE.BufferAttribute(
         new Float32Array([sx, TOP_Y, sz, sx, SAT_Y, sz]), 3
       ));
-      scene.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({
-        color: 0xff2200, transparent: true, opacity: 0.5,
-      })));
-      for (let li = 0; li < N_LAY; li++) {
+      scene.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
+
+      for (let li = 0; li < 4; li++) {
         const g = new THREE.BufferGeometry();
-        g.setAttribute("position", new THREE.BufferAttribute(
-          new Float32Array([sx, layerY[li], sz]), 3
-        ));
-        const mat = new THREE.PointsMaterial({
-          color: 0xff1100, size: dotSize[li], transparent: true, opacity: 0.4,
-        });
-        scene.add(new THREE.Points(g, mat));
-        dotMats.push(mat);
+        g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([sx, dotLayerY[li], sz]), 3));
+        scene.add(new THREE.Points(g, new THREE.PointsMaterial({
+          color: 0xff1100, size: dotSizes[li], transparent: true, opacity: dotOpacity[li],
+        })));
       }
     }
 
@@ -168,15 +161,6 @@ export default function LandscapeVisualization() {
         topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 1.5) * 0.18 + Math.cos(z * 1.2 + t * 1.2) * 0.12);
       }
       topAttr.needsUpdate = true;
-
-      // Pulse dots — traveling wave top to bottom
-      const pulse = Date.now() * 0.002;
-      for (let si = 0; si < N_SIG; si++) {
-        for (let li = 0; li < N_LAY; li++) {
-          const phase = pulse + si * 1.3 - li * 0.8;
-          dotMats[si * N_LAY + li].opacity = 0.2 + 0.7 * (0.5 + 0.5 * Math.sin(phase));
-        }
-      }
 
       renderer.render(scene, camera);
     };
