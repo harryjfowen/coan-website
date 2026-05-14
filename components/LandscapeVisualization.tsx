@@ -35,27 +35,20 @@ export default function LandscapeVisualization() {
     const EMB_Y = -1.5;         // embeddings layer
     const SAT_Y = -BOX + 0.1;  // satellite bottom
 
-    // ── Full box frame — all 12 edges ─────────────────────────────────
-    const frameVerts = new Float32Array([
-      // top rectangle
-      -BOX, TOP_Y, -BOX,   BOX, TOP_Y, -BOX,
-       BOX, TOP_Y, -BOX,   BOX, TOP_Y,  BOX,
-       BOX, TOP_Y,  BOX,  -BOX, TOP_Y,  BOX,
-      -BOX, TOP_Y,  BOX,  -BOX, TOP_Y, -BOX,
-      // bottom rectangle
-      -BOX, SAT_Y, -BOX,   BOX, SAT_Y, -BOX,
-       BOX, SAT_Y, -BOX,   BOX, SAT_Y,  BOX,
-       BOX, SAT_Y,  BOX,  -BOX, SAT_Y,  BOX,
-      -BOX, SAT_Y,  BOX,  -BOX, SAT_Y, -BOX,
-      // 4 vertical edges
-      -BOX, TOP_Y, -BOX,  -BOX, SAT_Y, -BOX,
-       BOX, TOP_Y, -BOX,   BOX, SAT_Y, -BOX,
-       BOX, TOP_Y,  BOX,   BOX, SAT_Y,  BOX,
-      -BOX, TOP_Y,  BOX,  -BOX, SAT_Y,  BOX,
-    ]);
-    const frameGeo = new THREE.BufferGeometry();
-    frameGeo.setAttribute("position", new THREE.BufferAttribute(frameVerts, 3));
-    scene.add(new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.55 })));
+    // ── Vertical pierce lines — intelligence per pixel all the way down ─
+    const lineRes = 10; // 10×10 grid of lines
+    const lineStep = (planeW) / (lineRes - 1);
+    const lineVerts: number[] = [];
+    for (let ix = 0; ix < lineRes; ix++) {
+      for (let iz = 0; iz < lineRes; iz++) {
+        const x = -BOX + 0.3 + ix * lineStep;
+        const z = -BOX + 0.3 + iz * lineStep;
+        lineVerts.push(x, TOP_Y, z,  x, SAT_Y, z);
+      }
+    }
+    const lineGeo = new THREE.BufferGeometry();
+    lineGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(lineVerts), 3));
+    scene.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12 })));
 
     const planeW = BOX * 2 - 0.6;
 
