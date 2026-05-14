@@ -15,9 +15,8 @@ export default function LandscapeVisualization() {
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
 
-    // Isometric-ish camera from corner — matches reference
     const camera = new THREE.PerspectiveCamera(42, W / H, 0.1, 1000);
-    camera.position.set(7, 6, 7);
+    camera.position.set(10, 8, 10);
     camera.lookAt(0, 0, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -25,27 +24,23 @@ export default function LandscapeVisualization() {
     renderer.setPixelRatio(window.devicePixelRatio);
     containerRef.current.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-    const dir = new THREE.DirectionalLight(0xffffff, 0.5);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+    const dir = new THREE.DirectionalLight(0xffffff, 0.4);
     dir.position.set(5, 8, 5);
     scene.add(dir);
 
-    const BOX = 4.2; // half-extent of the cube frame
+    const BOX = 4.0;
 
     // ── Box frame ────────────────────────────────────────────────────
-    // Draw 12 edges of a cube using LineSegments
     const frameVerts = new Float32Array([
-      // bottom face
       -BOX,-BOX,-BOX,  BOX,-BOX,-BOX,
        BOX,-BOX,-BOX,  BOX,-BOX, BOX,
        BOX,-BOX, BOX, -BOX,-BOX, BOX,
       -BOX,-BOX, BOX, -BOX,-BOX,-BOX,
-      // top face
       -BOX, BOX,-BOX,  BOX, BOX,-BOX,
        BOX, BOX,-BOX,  BOX, BOX, BOX,
        BOX, BOX, BOX, -BOX, BOX, BOX,
       -BOX, BOX, BOX, -BOX, BOX,-BOX,
-      // verticals
       -BOX,-BOX,-BOX, -BOX, BOX,-BOX,
        BOX,-BOX,-BOX,  BOX, BOX,-BOX,
        BOX,-BOX, BOX,  BOX, BOX, BOX,
@@ -53,82 +48,92 @@ export default function LandscapeVisualization() {
     ]);
     const frameGeo = new THREE.BufferGeometry();
     frameGeo.setAttribute("position", new THREE.BufferAttribute(frameVerts, 3));
-    const frameMat = new THREE.LineBasicMaterial({ color: 0x999999, transparent: true, opacity: 0.4 });
-    scene.add(new THREE.LineSegments(frameGeo, frameMat));
+    scene.add(new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 })));
 
-    // ── Layer 3 (bottom): Embeddings grid ───────────────────────────
-    // Regular cyan/teal grid — represents satellite embeddings
-    const EMB_Y = -BOX + 0.2;
-    const embRes = 28;
-    const embPos: number[] = [];
-    const embCol: number[] = [];
-    const step = (BOX * 2 - 0.4) / (embRes - 1);
+    // ── Layer 3 (bottom): Raster surface ─────────────────────────────
+    // Terrain-like coloured surface using vertex colours — cyan/teal heatmap
+    const rasterRes = 40;
+    const rasterGeo = new THREE.PlaneGeometry(BOX * 2 - 0.4, BOX * 2 - 0.4, rasterRes - 1, rasterRes - 1);
+    rasterGeo.rotateX(-Math.PI / 2);
 
-    for (let ix = 0; ix < embRes; ix++) {
-      for (let iz = 0; iz < embRes; iz++) {
-        const x = -BOX + 0.2 + ix * step;
-        const z = -BOX + 0.2 + iz * step;
-        const h = Math.sin(ix * 0.35) * Math.cos(iz * 0.35) * 0.3;
-        embPos.push(x, EMB_Y + h, z);
-        const t = (Math.sin(ix * 0.4 + iz * 0.25) + 1) / 2;
-        const c = new THREE.Color().setHSL(0.50 + t * 0.07, 0.9, 0.45 + t * 0.2);
-        embCol.push(c.r, c.g, c.b);
-      }
+    const rasterPos = rasterGeo.getAttribute("position") as THREE.BufferAttribute;
+    const rasterColors = new Float32Array(rasterPos.count * 3);
+
+    for (let i = 0; i < rasterPos.count; i++) {
+      const x = rasterPos.getX(i);
+      const z = rasterPos.getZ(i);
+      // Create terrain-like height values
+      const h =
+        Math.sin(x * 0.5) * Math.cos(z * 0.4) * 0.4 +
+        Math.sin(x * 1.1 + 1.2) * Math.sin(z * 0.9) * 0.25 +
+        Math.cos(x * 0.3 + z * 0.3) * 0.2;
+      rasterPos.setY(i, h);
+
+      // Map height to cyan-to-teal colour palette
+      const t = (h + 0.8) / 1.6; // normalise 0..1
+      const col = new THREE.Color().setHSL(0.48 + t * 0.08, 0.85, 0.35 + t * 0.3);
+      rasterColors[i * 3]     = col.r;
+      rasterColors[i * 3 + 1] = col.g;
+      rasterColors[i * 3 + 2] = col.b;
     }
-    const embGeo = new THREE.BufferGeometry();
-    embGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(embPos), 3));
-    embGeo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(embCol), 3));
-    scene.add(new THREE.Points(embGeo, new THREE.PointsMaterial({ size: 0.08, vertexColors: true })));
+    rasterPos.needsUpdate = true;
+    rasterGeo.setAttribute("color", new THREE.BufferAttribute(rasterColors, 3));
+    rasterGeo.computeVertexNormals();
+
+    const rasterMesh = new THREE.Mesh(rasterGeo, new THREE.MeshStandardMaterial({
+      vertexColors: true,
+      side: THREE.DoubleSide,
+    }));
+    rasterMesh.position.y = -BOX + 0.1;
+    scene.add(rasterMesh);
 
     // ── Layer 2 (middle): Waving wireframe mesh ──────────────────────
-    const MESH_Y = 0.2;
-    const meshRes = 48;
+    const meshRes = 44;
     const meshGeo = new THREE.PlaneGeometry(BOX * 2 - 0.4, BOX * 2 - 0.4, meshRes, meshRes);
     meshGeo.rotateX(-Math.PI / 2);
-    meshGeo.translate(0, MESH_Y, 0);
 
     const posAttr = meshGeo.getAttribute("position") as THREE.BufferAttribute;
     const originY = new Float32Array(posAttr.count);
     for (let i = 0; i < posAttr.count; i++) originY[i] = posAttr.getY(i);
 
-    // Solid fill
+    // Solid dark fill so mesh has depth
     const fillMesh = new THREE.Mesh(meshGeo, new THREE.MeshStandardMaterial({
-      color: 0xf0f0f0,
+      color: 0xfafafa,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.55,
       side: THREE.DoubleSide,
     }));
-    // Wireframe overlay
+    fillMesh.position.y = 0.2;
+
+    // Black wireframe lines
     const wireMesh = new THREE.Mesh(meshGeo, new THREE.MeshBasicMaterial({
-      color: 0x333333,
+      color: 0x000000,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.55,
     }));
+    wireMesh.position.y = 0.2;
+
     scene.add(fillMesh);
     scene.add(wireMesh);
 
-    // ── Layer 1 (top): Dense point grid ─────────────────────────────
-    const TOP_Y = BOX - 0.3;
-    const ptRes = 36;
-    const ptPos: number[] = [];
+    // ── Layer 1 (top): Dense black point grid ────────────────────────
+    const ptRes = 34;
     const ptStep = (BOX * 2 - 0.4) / (ptRes - 1);
-
+    const ptPos: number[] = [];
     for (let ix = 0; ix < ptRes; ix++) {
       for (let iz = 0; iz < ptRes; iz++) {
-        const x = -BOX + 0.2 + ix * ptStep;
-        const z = -BOX + 0.2 + iz * ptStep;
-        ptPos.push(x, TOP_Y, z);
+        ptPos.push(-BOX + 0.2 + ix * ptStep, BOX - 0.3, -BOX + 0.2 + iz * ptStep);
       }
     }
     const ptGeo = new THREE.BufferGeometry();
     ptGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(ptPos), 3));
-    const ptMat = new THREE.PointsMaterial({ size: 0.055, color: 0x333333 });
-    const topPoints = new THREE.Points(ptGeo, ptMat);
+    const topPoints = new THREE.Points(ptGeo, new THREE.PointsMaterial({ size: 0.06, color: 0x111111 }));
     scene.add(topPoints);
-    const topPosAttr = ptGeo.getAttribute("position") as THREE.BufferAttribute;
-    const topOriginY = new Float32Array(topPosAttr.count);
-    for (let i = 0; i < topPosAttr.count; i++) topOriginY[i] = topPosAttr.getY(i);
+
+    const topAttr = ptGeo.getAttribute("position") as THREE.BufferAttribute;
+    const topOriginY = new Float32Array(topAttr.count);
+    for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
     // ── Animate ──────────────────────────────────────────────────────
     let animId: number;
@@ -136,7 +141,6 @@ export default function LandscapeVisualization() {
       animId = requestAnimationFrame(animate);
       const t = Date.now() * 0.0005;
 
-      // Wave the mesh
       for (let i = 0; i < posAttr.count; i++) {
         const x = posAttr.getX(i);
         const z = posAttr.getZ(i);
@@ -145,13 +149,12 @@ export default function LandscapeVisualization() {
       posAttr.needsUpdate = true;
       meshGeo.computeVertexNormals();
 
-      // Subtle undulation on top point grid
-      for (let i = 0; i < topPosAttr.count; i++) {
-        const x = topPosAttr.getX(i);
-        const z = topPosAttr.getZ(i);
-        topPosAttr.setY(i, topOriginY[i] + Math.sin(x * 0.6 + t * 0.5) * 0.12 + Math.cos(z * 0.5 + t * 0.4) * 0.1);
+      for (let i = 0; i < topAttr.count; i++) {
+        const x = topAttr.getX(i);
+        const z = topAttr.getZ(i);
+        topAttr.setY(i, topOriginY[i] + Math.sin(x * 0.5 + t * 0.4) * 0.1 + Math.cos(z * 0.45 + t * 0.35) * 0.08);
       }
-      topPosAttr.needsUpdate = true;
+      topAttr.needsUpdate = true;
 
       renderer.render(scene, camera);
     };
