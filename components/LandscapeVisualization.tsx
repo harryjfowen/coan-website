@@ -17,7 +17,7 @@ export default function LandscapeVisualization() {
     scene.background = new THREE.Color(0xffffff);
 
     const camera = new THREE.PerspectiveCamera(38, W / H, 0.1, 1000);
-    camera.position.set(5, 13, 17);
+    camera.position.set(4, 7, 18);
     camera.lookAt(0, -1, 0);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
