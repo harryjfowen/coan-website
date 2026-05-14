@@ -62,23 +62,47 @@ export default function LandscapeVisualization() {
     embMesh.position.y = EMB_Y;
     scene.add(embMesh);
 
-    // ── Layer 3 (middle): Waving black wireframe mesh ─────────────────
-    const meshRes = 40;
-    const meshGeo = new THREE.PlaneGeometry(planeW, planeW, meshRes, meshRes);
-    meshGeo.rotateX(-Math.PI / 2);
-
-    const posAttr = meshGeo.getAttribute("position") as THREE.BufferAttribute;
-    const originY = new Float32Array(posAttr.count);
-    for (let i = 0; i < posAttr.count; i++) originY[i] = posAttr.getY(i);
-
-    const wireMesh = new THREE.Mesh(meshGeo, new THREE.MeshBasicMaterial({
-      color: 0x000000,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.3,
-    }));
-    wireMesh.position.y = M1_Y;
-    scene.add(wireMesh);
+    // ── Layer 3 (middle): Waving grid — interior lines only, no border ─
+    const gridN = 22;
+    const half = planeW / 2;
+    const gStep = planeW / gridN;
+    // Build interior sample points at every grid intersection
+    const gridXZ: [number, number][] = [];
+    for (let ix = 0; ix <= gridN; ix++) {
+      for (let iz = 0; iz <= gridN; iz++) {
+        gridXZ.push([-half + ix * gStep, -half + iz * gStep]);
+      }
+    }
+    // Line segments: pairs of adjacent points along X and along Z
+    const gridLineCount = gridN * (gridN + 1) * 2;
+    const gridPos = new Float32Array(gridLineCount * 2 * 3);
+    let gi = 0;
+    // Lines running along Z (for each X column)
+    for (let ix = 1; ix < gridN; ix++) {
+      for (let iz = 0; iz < gridN; iz++) {
+        const x = -half + ix * gStep;
+        const z0 = -half + iz * gStep;
+        const z1 = -half + (iz + 1) * gStep;
+        gridPos[gi++] = x; gridPos[gi++] = 0; gridPos[gi++] = z0;
+        gridPos[gi++] = x; gridPos[gi++] = 0; gridPos[gi++] = z1;
+      }
+    }
+    // Lines running along X (for each Z row)
+    for (let iz = 1; iz < gridN; iz++) {
+      for (let ix = 0; ix < gridN; ix++) {
+        const z = -half + iz * gStep;
+        const x0 = -half + ix * gStep;
+        const x1 = -half + (ix + 1) * gStep;
+        gridPos[gi++] = x0; gridPos[gi++] = 0; gridPos[gi++] = z;
+        gridPos[gi++] = x1; gridPos[gi++] = 0; gridPos[gi++] = z;
+      }
+    }
+    const gridGeo = new THREE.BufferGeometry();
+    const gridPosAttr = new THREE.BufferAttribute(gridPos, 3);
+    gridGeo.setAttribute("position", gridPosAttr);
+    const gridMesh = new THREE.LineSegments(gridGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 }));
+    gridMesh.position.y = M1_Y;
+    scene.add(gridMesh);
 
     // ── Layer 4 (top): Dense black point grid ─────────────────────────
     const ptRes  = 34;
@@ -131,14 +155,13 @@ export default function LandscapeVisualization() {
       animId = requestAnimationFrame(animate);
       const t = Date.now() * 0.0005;
 
-      // Gentle mesh waves
-      for (let i = 0; i < posAttr.count; i++) {
-        const x = posAttr.getX(i);
-        const z = posAttr.getZ(i);
-        posAttr.setY(i, originY[i] + Math.sin(x * 0.9 + t) * 0.12 + Math.cos(z * 0.8 + t * 0.7) * 0.09);
+      // Wave the grid lines
+      for (let i = 0; i < gridPosAttr.count; i++) {
+        const x = gridPosAttr.getX(i);
+        const z = gridPosAttr.getZ(i);
+        gridPosAttr.setY(i, Math.sin(x * 0.9 + t) * 0.12 + Math.cos(z * 0.8 + t * 0.7) * 0.09);
       }
-      posAttr.needsUpdate = true;
-      meshGeo.computeVertexNormals();
+      gridPosAttr.needsUpdate = true;
 
       // Points — subtle ripple
       for (let i = 0; i < topAttr.count; i++) {
