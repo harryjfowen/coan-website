@@ -74,7 +74,7 @@ export default function Home() {
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col justify-end">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:pb-16 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:pb-16 w-full">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-4 sm:mb-6">
               From field to market. Verifiable by design.
             </h1>
@@ -98,7 +98,7 @@ export default function Home() {
       {/* Affiliations strip */}
       <section className="py-8 sm:py-12 border-b border-gray-100">
         <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Academic background</p>
-        <div className="relative overflow-hidden max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="relative overflow-hidden max-w-7xl mx-auto px-4 sm:px-6">
           {/* Fade edges */}
           <div className="hidden sm:block absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, white, transparent)" }} />
           <div className="hidden sm:block absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, white, transparent)" }} />
@@ -120,7 +120,7 @@ export default function Home() {
 
       {/* Featured projects */}
       <section className="py-12 sm:py-20 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Recent work</h2>
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
@@ -161,7 +161,7 @@ export default function Home() {
 
       {/* Digital Twin / Isle of Man */}
       <section className="py-12 sm:py-20 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8">Live proof of concept</p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 items-start">
@@ -197,7 +197,7 @@ export default function Home() {
 
       {/* Trusted by */}
       <section className="py-8 sm:py-12 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Trusted by</p>
           <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 mb-8">
             <span className="text-sm font-medium text-gray-700">Defra UK</span>
@@ -219,7 +219,7 @@ export default function Home() {
 
       {/* Latest publications */}
       <section className="py-12 sm:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
             <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Latest publications</h2>
             <a href="/research#publications" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All publications →</a>

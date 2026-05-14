@@ -28,7 +28,7 @@ const projects = [
 export default function ProjectGrid() {
   return (
     <section id="research" className="py-16 px-6 border-t border-gray-100">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-12">
           Research
         </h2>

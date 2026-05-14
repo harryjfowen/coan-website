@@ -56,7 +56,7 @@ export default function Consultancy() {
     <main className="min-h-screen bg-white">
       <Nav />
       <div className="pt-28 pb-16">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Consultancy</p>
           <h1 className="text-4xl font-semibold tracking-tight text-gray-900 max-w-2xl mb-8">
             Applied AI for environmental challenges.
@@ -92,7 +92,7 @@ export default function Consultancy() {
 
       {/* Advisory band */}
       <section className="border-t border-gray-100 py-14 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6 md:flex md:items-start md:gap-16">
+        <div className="max-w-7xl mx-auto px-6 md:flex md:items-start md:gap-16">
           <div className="mb-6 md:mb-0 md:w-64 flex-shrink-0">
             <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-2">Need bespoke support?</p>
             <h2 className="text-xl font-semibold text-gray-900">Advisory &amp; Data Services</h2>
@@ -121,7 +121,7 @@ export default function Consultancy() {
 
       {/* CTA */}
       <section className="py-16 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <p className="text-sm text-gray-500 mb-4">Interested in working together?</p>
           <a
             href="/contact"

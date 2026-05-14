@@ -56,23 +56,23 @@ export default function ResearchScroll() {
 
   return (
     <section className="border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</p>
           <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Our services →</a>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
         <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
-          <div className="max-w-sm">
-            <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-8">{areas[active].number}</span>
-            <h2 className="text-4xl font-semibold text-gray-900 mb-6 leading-tight">
+          <div className="max-w-xs">
+            <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-4">{areas[active].number}</span>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-4 leading-snug">
               {areas[active].title}
             </h2>
-            <div className="w-8 h-px bg-gray-200 mb-6" />
-            <p className="text-lg text-gray-500 leading-relaxed">
+            <div className="w-6 h-px bg-gray-200 mb-4" />
+            <p className="text-sm text-gray-500 leading-relaxed">
               {areas[active].description}
             </p>
           </div>
