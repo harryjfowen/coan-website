@@ -130,26 +130,6 @@ export default function LandscapeVisualization() {
     const sC0 = new THREE.Mesh(sGeoTop, sphereMat);   sC0.position.set(2.2, TOP_Y, 3.0);  scene.add(sC0);
     const sC1 = new THREE.Mesh(sGeo, sphereMatLo); sC1.position.set(2.2, SAT_Y, 3.0);  scene.add(sC1);
 
-    // Sparkle clusters at grid pierce points
-    const pierceCentres = [[0.8, 2.5], [-1.5, 1.8], [2.2, 3.0]];
-    const sparkleMats: THREE.PointsMaterial[] = [];
-    for (let s = 0; s < pierceCentres.length; s++) {
-      const cx = pierceCentres[s][0];
-      const cz = pierceCentres[s][1];
-      const count = 14;
-      const sp = new Float32Array(count * 3);
-      for (let j = 0; j < count; j++) {
-        sp[j * 3 + 0] = cx + (Math.random() - 0.5) * 0.6;
-        sp[j * 3 + 1] = M1_Y + (Math.random() - 0.5) * 0.2;
-        sp[j * 3 + 2] = cz + (Math.random() - 0.5) * 0.6;
-      }
-      const spGeo = new THREE.BufferGeometry();
-      spGeo.setAttribute("position", new THREE.BufferAttribute(sp, 3));
-      const spMat = new THREE.PointsMaterial({ color: 0xff3300, size: 0.055, transparent: true, opacity: 0.9 });
-      scene.add(new THREE.Points(spGeo, spMat));
-      sparkleMats.push(spMat);
-    }
-
     // Animate
     let animId: number;
     const animate = () => {
@@ -169,10 +149,6 @@ export default function LandscapeVisualization() {
         topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 1.5) * 0.18 + Math.cos(z * 1.2 + t * 1.2) * 0.12);
       }
       topAttr.needsUpdate = true;
-
-      for (let s = 0; s < sparkleMats.length; s++) {
-        sparkleMats[s].opacity = 0.25 + 0.75 * Math.abs(Math.sin(t * 4.5 + s * 1.7));
-      }
 
       renderer.render(scene, camera);
     };
