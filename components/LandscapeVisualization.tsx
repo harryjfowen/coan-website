@@ -104,38 +104,30 @@ export default function LandscapeVisualization() {
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
     // 3 static red signal lines (LineSegments — same class as grid)
-    const dotY  = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
-    const dotOp = [1.0, 0.65, 0.35, 0.15];
-    const dotSz = [0.55, 0.44, 0.32, 0.20];
+    const sphereMat   = new THREE.MeshBasicMaterial({ color: 0xff1100 });
+    const sphereMatLo = new THREE.MeshBasicMaterial({ color: 0xff1100, transparent: true, opacity: 0.35 });
+    const sGeo = new THREE.SphereGeometry(0.22, 10, 10);
 
+    // Signal A — vertical
     const laGeo = new THREE.BufferGeometry();
     laGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, TOP_Y, 2.5,  0.8, SAT_Y, 2.5]), 3));
     scene.add(new THREE.LineSegments(laGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    for (let li = 0; li < 4; li++) {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, dotY[li], 2.5]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
-    }
+    const sA0 = new THREE.Mesh(sGeo, sphereMat);   sA0.position.set(0.8, TOP_Y, 2.5);  scene.add(sA0);
+    const sA1 = new THREE.Mesh(sGeo, sphereMatLo); sA1.position.set(0.8, SAT_Y, 2.5);  scene.add(sA1);
 
+    // Signal B — angled left
     const lbGeo = new THREE.BufferGeometry();
     lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, TOP_Y, 1.8,  -1.5, SAT_Y, 3.8]), 3));
     scene.add(new THREE.LineSegments(lbGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    const lbZ = [1.8, 2.47, 3.13, 3.8];
-    for (let li = 0; li < 4; li++) {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, dotY[li], lbZ[li]]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
-    }
+    const sB0 = new THREE.Mesh(sGeo, sphereMat);   sB0.position.set(-1.5, TOP_Y, 1.8); scene.add(sB0);
+    const sB1 = new THREE.Mesh(sGeo, sphereMatLo); sB1.position.set(-1.5, SAT_Y, 3.8); scene.add(sB1);
 
+    // Signal C — angled right
     const lcGeo = new THREE.BufferGeometry();
     lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, TOP_Y, 3.0,  2.2, SAT_Y, 4.3]), 3));
     scene.add(new THREE.LineSegments(lcGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    const lcZ = [3.0, 3.43, 3.87, 4.3];
-    for (let li = 0; li < 4; li++) {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, dotY[li], lcZ[li]]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
-    }
+    const sC0 = new THREE.Mesh(sGeo, sphereMat);   sC0.position.set(2.2, TOP_Y, 3.0);  scene.add(sC0);
+    const sC1 = new THREE.Mesh(sGeo, sphereMatLo); sC1.position.set(2.2, SAT_Y, 4.3);  scene.add(sC1);
 
     // Animate
     let animId: number;
