@@ -5,45 +5,29 @@ import { useEffect, useRef, useState } from "react";
 const areas = [
   {
     number: "01",
-    title: "Habitat Classification & Ecosystem Mapping",
+    title: "Restoration & Biodiversity Monitoring",
     description:
-      "Multi-sensor AI systems combining satellite imagery, airborne LiDAR, and drone surveys to classify and map habitats at national scale — producing outputs aligned to UK Biodiversity Net Gain and Natural Capital accounting frameworks.",
+      "From drone transects and acoustic surveys to repeat satellite sampling — we build verifiable recovery trajectories. Habitat baselines, species detection, and long-term change records that meet BNG, TNFD, and nature market audit requirements. Methods: UAV survey, TLS, bioacoustics, satellite time-series.",
     image: null,
     video: "/videos/drone-flyover-slow.mp4",
-    alt: "Drone flyover of habitat",
+    alt: "Drone flyover of habitat restoration",
   },
   {
     number: "02",
-    title: "3D Forest Structure & Point Cloud Analysis",
+    title: "Carbon & Nature Markets",
     description:
-      "Deep learning segmentation of LiDAR point clouds to extract individual tree structure, wood-leaf separation, canopy architecture, and structural parameters at scale.",
+      "MRV-grade measurement from field to satellite. We quantify above-ground biomass and carbon stock using TLS-derived allometrics, LiDAR canopy structure, and satellite embeddings — producing audit-ready outputs aligned to Woodland Carbon Code, BNG statutory metric, CSRD, and TNFD disclosure.",
     image: null,
     video: "/videos/pointcloud-rotation.mp4",
-    alt: "3D forest point cloud",
+    alt: "3D forest structure for carbon measurement",
   },
   {
     number: "03",
-    title: "Carbon & Biomass Estimation",
+    title: "Landscape Intelligence",
     description:
-      "Machine learning methods for above-ground biomass and carbon stock estimation using LiDAR-derived canopy height models, multispectral indices, and allometric relationships.",
+      "Digital twin-scale modelling for risk and resilience. Flood exposure, windthrow probability, storm impact corridors, and infrastructure hazard derived from high-resolution terrain, canopy structure, and hydrological models. Designed for government, infrastructure managers, and institutional clients operating at catchment to national scale.",
     image: null,
-    alt: "Carbon stock estimation",
-  },
-  {
-    number: "04",
-    title: "Landscape-Scale Change Detection",
-    description:
-      "Time-series analysis of multi-temporal satellite and aerial imagery to detect, quantify, and attribute land cover change across large environmental monitoring areas.",
-    image: null,
-    alt: "Change detection",
-  },
-  {
-    number: "05",
-    title: "Multi-sensor Data Fusion",
-    description:
-      "Integrating optical, SAR, LiDAR, acoustic, and hyperspectral data into unified environmental intelligence products robust across sensor combinations and acquisition conditions.",
-    image: null,
-    alt: "Multi-sensor fusion",
+    alt: "Landscape risk modelling",
   },
 ];
 
@@ -71,8 +55,8 @@ export default function ResearchScroll() {
     <section className="border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4">
-          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">Our research</p>
-          <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All research →</a>
+          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</p>
+          <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">Our services →</a>
         </div>
       </div>
 

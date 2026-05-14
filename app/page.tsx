@@ -13,7 +13,7 @@ const affiliations = [
 
 const featuredProjects = [
   {
-    tag: "Mapping · Defra UK",
+    tag: "Restoration · Defra UK",
     title: "Wet Woodland Distribution in England",
     description:
       "Interactive mapping of wet woodland extent, density and restoration potential across England at 10m resolution. Delivered for Defra UK.",
@@ -22,30 +22,25 @@ const featuredProjects = [
     external: false,
   },
   {
-    tag: "LiDAR · Semantic Segmentation",
-    title: "3D Forest Structure from Point Clouds",
+    tag: "Carbon · LiDAR",
+    title: "Forest Carbon Structure from Point Clouds",
     description:
-      "Deep learning segmentation of airborne LiDAR point clouds to extract individual tree structure, wood-leaf separation, and canopy metrics at scale.",
+      "Above-ground biomass and canopy structure quantified using deep learning segmentation of airborne LiDAR — delivering MRV-grade carbon stock estimates at individual-tree scale.",
     href: "/research",
     image: null,
     external: false,
   },
   {
-    tag: "Remote Sensing · Change Detection",
-    title: "Landscape-Scale Change Detection",
+    tag: "Landscape Intelligence · Satellite",
+    title: "Landscape-Scale Change Monitoring",
     description:
-      "Time-series analysis of satellite imagery to detect and quantify land cover change across large environmental monitoring areas.",
+      "Time-series satellite analysis to detect, attribute, and quantify land cover change — providing the persistent monitoring layer for long-term nature market and restoration commitments.",
     href: "/research",
     image: null,
     external: false,
   },
 ];
 
-const sectors = [
-  { title: "Nature",          description: "Habitat classification, biodiversity baselines, and multi-sensor species monitoring aligned to BNG and natural capital frameworks." },
-  { title: "Infrastructure",  description: "Terrain modelling, flood risk mapping, and hazard intelligence for roads, utilities, and coastal assets." },
-  { title: "Carbon",          description: "Forest carbon stock, canopy structure, and afforestation monitoring aligned to Woodland Carbon Code verification." },
-];
 
 const publications = [
   {
@@ -81,22 +76,24 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:pb-16 w-full">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-4 sm:mb-6">
-              Landscape Intelligence at Scale
+              From field to market. Verifiable by design.
             </h1>
             <p className="text-base sm:text-lg text-gray-100 max-w-xl leading-relaxed mb-6 sm:mb-10">
-              Verify carbon, monitor biodiversity, unlock nature-based solutions, and de-risk infrastructure — all grounded in deep ecological expertise and powered by AI and real-time monitoring.
+              We measure, model, and monitor ecosystems — producing audit-ready outputs for nature markets, carbon schemes, and landscape-scale risk decisions. Grounded in field science. Scaled with AI.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors text-center" style={{ backgroundColor: "#000000" }}>
                 View research
               </a>
               <a href="/consultancy" className="text-sm font-medium px-5 py-2.5 rounded-full border transition-colors text-white text-center" style={{ borderColor: "#1B4D3E" }}>
-                Work with us
+                Our services
               </a>
             </div>
           </div>
         </div>
       </section>
+
+      <ResearchScroll />
 
       {/* Affiliations strip */}
       <section className="py-8 sm:py-12 border-b border-gray-100">
@@ -121,13 +118,11 @@ export default function Home() {
         </div>
       </section>
 
-      <ResearchScroll />
-
       {/* Featured projects */}
       <section className="py-12 sm:py-20 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
-            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Featured work</h2>
+            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">Recent work</h2>
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -164,52 +159,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission / Isle of Man */}
-      <section className="py-12 sm:py-20 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 items-center">
-          <div>
-            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Where we work</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-6 leading-snug">
-              Developed on the Isle of Man.<br />Applicable everywhere.
-            </h2>
-            <p className="text-base text-gray-500 leading-relaxed mb-4">
-              Based on the Isle of Man — one of the world's first UNESCO Biosphere Reserves — we use this living laboratory to develop and validate AI systems for environmental monitoring at scale.
-            </p>
-            <p className="text-base text-gray-500 leading-relaxed">
-              From ancient uplands to coastal margins, the island's ecological complexity makes it a rigorous test bed for deep learning applied to real, dynamic ecosystems.
-            </p>
-          </div>
-          
-          <div className="aspect-video bg-gray-100 flex items-center justify-center rounded-xl">
-            <span className="text-xs text-gray-300">Isle of Man imagery</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Sectors */}
+      {/* Digital Twin / Isle of Man */}
       <section className="py-12 sm:py-20 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-4 mb-8 sm:mb-12">
-            <h2 className="text-xs font-medium tracking-widest text-gray-400 uppercase">What we do</h2>
-            <a href="/consultancy" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All services →</a>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-px bg-gray-100">
-            {sectors.map((s) => (
-              <a key={s.title} href="/consultancy" className="group bg-white p-8 hover:bg-gray-50 transition-colors">
-                <h3 className="text-sm font-semibold mb-3 transition-colors" style={{ color: "#1B4D3E" }}>{s.title}</h3>
-                <p className="text-xs text-gray-400 leading-relaxed">{s.description}</p>
+          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-8">Live proof of concept</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16 items-start">
+            <div>
+              <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-6 leading-snug">
+                The Isle of Man as digital twin.
+              </h2>
+              <p className="text-base text-gray-500 leading-relaxed mb-4">
+                The Isle of Man is where all three capabilities operate simultaneously at landscape scale — the world's first UNESCO Biosphere Reserve monitored end-to-end across biodiversity, carbon, and risk intelligence.
+              </p>
+              <p className="text-base text-gray-500 leading-relaxed mb-8">
+                Every habitat type, elevation zone, and coastal margin on the island is captured in a continuous monitoring pipeline: drone surveys feeding acoustic and structural models, satellite embeddings tracking seasonal change, and terrain models informing flood and windthrow exposure. This is what working at digital twin scale looks like.
+              </p>
+
+              <div className="space-y-2 mb-8">
+                <p className="text-sm text-gray-700"><span className="font-medium">Habitat baseline:</span> island-wide classification at 10m</p>
+                <p className="text-sm text-gray-700"><span className="font-medium">Carbon monitoring:</span> TLS-calibrated woodland carbon stocks</p>
+                <p className="text-sm text-gray-700"><span className="font-medium">Risk modelling:</span> flood and windthrow exposure, full road network</p>
+              </div>
+
+              <a href="/consultancy" className="inline-block text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors text-center" style={{ backgroundColor: "#1B4D3E" }}>
+                Work with us →
               </a>
-            ))}
+            </div>
+
+            <div className="aspect-video bg-gray-100 flex items-center justify-center rounded-xl">
+              <span className="text-xs text-gray-300">Isle of Man · Digital twin coverage</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Delivered for */}
+
+      {/* Trusted by */}
       <section className="py-8 sm:py-12 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Delivered for</p>
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10">
-            <span className="text-sm font-medium text-gray-400">Defra UK</span>
+          <p className="text-xs font-medium tracking-widest text-gray-400 uppercase text-center mb-8">Trusted by</p>
+          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-10 mb-8">
+            <span className="text-sm font-medium text-gray-700">Defra UK</span>
+          </div>
+          <div className="text-center">
+            <p className="text-xs text-gray-400 mb-3">Outputs aligned to:</p>
+            <div className="flex flex-wrap justify-center items-center gap-2 text-xs text-gray-500">
+              <span>Biodiversity Net Gain (BNG)</span>
+              <span className="text-gray-300">·</span>
+              <span>Woodland Carbon Code</span>
+              <span className="text-gray-300">·</span>
+              <span>TNFD</span>
+              <span className="text-gray-300">·</span>
+              <span>CSRD</span>
+            </div>
           </div>
         </div>
       </section>
