@@ -68,11 +68,11 @@ export default function ResearchScroll() {
         <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-4">{areas[active].number}</span>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 leading-snug">
+            <h2 className="text-4xl font-semibold text-gray-900 mb-5 leading-tight">
               {areas[active].title}
             </h2>
-            <div className="w-6 h-px bg-gray-200 mb-4" />
-            <p className="text-sm text-gray-500 leading-relaxed">
+            <div className="w-8 h-px bg-gray-200 mb-5" />
+            <p className="text-lg text-gray-500 leading-relaxed">
               {areas[active].description}
             </p>
           </div>
