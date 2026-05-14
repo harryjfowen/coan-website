@@ -63,7 +63,7 @@ export default function ResearchScroll() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel */}
-        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
+        <div className="hidden md:flex sticky top-[10vh] h-[80vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-sm text-gray-300 block mb-5">{areas[active].number}</span>
             <h2 className="text-3xl font-semibold text-gray-900 mb-5 leading-snug">
