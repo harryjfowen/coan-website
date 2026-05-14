@@ -12,139 +12,122 @@ export default function LandscapeVisualization() {
     const width = containerRef.current.clientWidth;
     const height = containerRef.current.clientHeight;
 
-    // Scene setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
 
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    camera.position.set(0, 2, 4);
-    camera.lookAt(0, 0, 0);
+    // Camera angled from above and to the side — like the reference
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(6, 5, 6);
+    camera.lookAt(0, -0.5, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
     containerRef.current.appendChild(renderer.domElement);
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
     scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    dirLight.position.set(5, 10, 5);
+    scene.add(dirLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
+    // ── Layer 1 (bottom): Embeddings grid ─────────────────────────────
+    // Regular grid of cyan/teal points varying in brightness — structured data
+    const embGroup = new THREE.Group();
+    embGroup.position.y = -1.8;
 
-    // Embeddings layer (bottom) - cyan particles and pattern
-    const embeddingsGroup = new THREE.Group();
-    embeddingsGroup.position.y = -0.5;
+    const gridRes = 30;
+    const gridSpacing = 5 / gridRes;
+    const embPositions: number[] = [];
+    const embColors: number[] = [];
 
-    // Particle system for embeddings
-    const particleCount = 1000;
-    const particleGeometry = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
+    for (let ix = 0; ix < gridRes; ix++) {
+      for (let iz = 0; iz < gridRes; iz++) {
+        const x = (ix - gridRes / 2) * gridSpacing;
+        const z = (iz - gridRes / 2) * gridSpacing;
+        // Slight height variation to give embedding "values"
+        const val = Math.sin(ix * 0.4) * Math.cos(iz * 0.4) * 0.15;
+        embPositions.push(x, val, z);
 
-    for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 6;
-      positions[i * 3 + 1] = Math.random() * 0.8;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 6;
-
-      // Cyan to teal color variations
-      const hue = 0.5 + Math.random() * 0.1; // cyan-teal range
-      const color = new THREE.Color().setHSL(hue, 0.8, 0.5);
-      colors[i * 3] = color.r;
-      colors[i * 3 + 1] = color.g;
-      colors[i * 3 + 2] = color.b;
+        // Cyan to teal palette varying by position
+        const t = (Math.sin(ix * 0.3 + iz * 0.2) + 1) / 2;
+        const c = new THREE.Color().setHSL(0.50 + t * 0.08, 0.85, 0.45 + t * 0.2);
+        embColors.push(c.r, c.g, c.b);
+      }
     }
 
-    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+    const embGeo = new THREE.BufferGeometry();
+    embGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(embPositions), 3));
+    embGeo.setAttribute("color", new THREE.BufferAttribute(new Float32Array(embColors), 3));
+    const embMat = new THREE.PointsMaterial({ size: 0.07, sizeAttenuation: true, vertexColors: true });
+    embGroup.add(new THREE.Points(embGeo, embMat));
+    scene.add(embGroup);
 
-    const particleMaterial = new THREE.PointsMaterial({
-      size: 0.04,
-      sizeAttenuation: true,
-      vertexColors: true,
-      opacity: 0.6,
+    // ── Layer 2 (top): Gently waving mesh ─────────────────────────────
+    const meshRes = 60;
+    const meshGeo = new THREE.PlaneGeometry(5, 5, meshRes, meshRes);
+    meshGeo.rotateX(-Math.PI / 2);
+
+    // Two materials: solid fill + wireframe overlay
+    const fillMat = new THREE.MeshStandardMaterial({
+      color: 0xf0f0f0,
       transparent: true,
+      opacity: 0.7,
+      side: THREE.DoubleSide,
+    });
+    const wireMat = new THREE.MeshBasicMaterial({
+      color: 0x888888,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.25,
     });
 
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    embeddingsGroup.add(particles);
+    const fillMesh = new THREE.Mesh(meshGeo, fillMat);
+    const wireMesh = new THREE.Mesh(meshGeo, wireMat);
+    fillMesh.position.y = 0.3;
+    wireMesh.position.y = 0.3;
+    scene.add(fillMesh);
+    scene.add(wireMesh);
 
-    // Embeddings mesh layer - subtle plane with color gradient
-    const embeddingsMeshGeometry = new THREE.PlaneGeometry(6, 6, 32, 32);
-    const embeddingsMeshMaterial = new THREE.MeshStandardMaterial({
-      color: 0x00d9ff,
-      metalness: 0.3,
-      roughness: 0.7,
-      emissive: 0x0088cc,
-      emissiveIntensity: 0.3,
-    });
-    const embeddingsMesh = new THREE.Mesh(embeddingsMeshGeometry, embeddingsMeshMaterial);
-    embeddingsMesh.rotation.x = -Math.PI / 2.5;
-    embeddingsMesh.position.z = -0.2;
-    embeddingsGroup.add(embeddingsMesh);
+    // Store original Y values for wave animation
+    const posAttr = meshGeo.getAttribute("position") as THREE.BufferAttribute;
+    const originY = new Float32Array(posAttr.count);
+    for (let i = 0; i < posAttr.count; i++) {
+      originY[i] = posAttr.getY(i);
+    }
 
-    scene.add(embeddingsGroup);
-
-    // Waving mesh (middle layer) - undulating independently
-    const meshGeometry = new THREE.PlaneGeometry(6, 6, 64, 64);
-    const meshMaterial = new THREE.MeshStandardMaterial({
-      color: 0xf5f5f5,
-      metalness: 0.2,
-      roughness: 0.4,
-      wireframe: false,
-    });
-
-    const waveMesh = new THREE.Mesh(meshGeometry, meshMaterial);
-    scene.add(waveMesh);
-
-    // Store original positions for wave animation
-    const positionAttribute = meshGeometry.getAttribute("position");
-    const originalPositions = new Float32Array(positionAttribute.array as ArrayLike<number>);
-
-    // Animation loop
-    let animationId: number;
+    // Animation
+    let animId: number;
     const animate = () => {
-      animationId = requestAnimationFrame(animate);
+      animId = requestAnimationFrame(animate);
+      const t = Date.now() * 0.0006;
 
-      const time = Date.now() * 0.0005;
-
-      // Update wave mesh with gentle undulation
-      const posArray = positionAttribute.array as Float32Array;
-      for (let i = 0; i < posArray.length; i += 3) {
-        const x = originalPositions[i];
-        const y = originalPositions[i + 1];
-        const z = originalPositions[i + 2];
-
-        // Gentle wave using sine
-        posArray[i] = x;
-        posArray[i + 1] = y + Math.sin(x * 0.5 + time) * 0.3 + Math.cos(z * 0.5 + time) * 0.2;
-        posArray[i + 2] = z;
+      // Gentle ocean-like undulation
+      for (let i = 0; i < posAttr.count; i++) {
+        const x = posAttr.getX(i);
+        const z = posAttr.getZ(i);
+        const wave = Math.sin(x * 1.2 + t) * 0.22 + Math.cos(z * 1.0 + t * 0.8) * 0.18;
+        posAttr.setY(i, originY[i] + wave);
       }
-      positionAttribute.needsUpdate = true;
-      waveMesh.geometry.computeVertexNormals();
-
-      // Subtle rotation of embeddings
-      embeddingsGroup.rotation.z += 0.0002;
+      posAttr.needsUpdate = true;
+      meshGeo.computeVertexNormals();
 
       renderer.render(scene, camera);
     };
     animate();
 
-    // Handle resize
     const handleResize = () => {
-      const newWidth = containerRef.current?.clientWidth || width;
-      const newHeight = containerRef.current?.clientHeight || height;
-      camera.aspect = newWidth / newHeight;
+      const w = containerRef.current?.clientWidth || width;
+      const h = containerRef.current?.clientHeight || height;
+      camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
+      renderer.setSize(w, h);
     };
-
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationId);
+      cancelAnimationFrame(animId);
       renderer.dispose();
       containerRef.current?.removeChild(renderer.domElement);
     };
