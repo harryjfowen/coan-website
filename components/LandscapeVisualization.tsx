@@ -31,24 +31,10 @@ export default function LandscapeVisualization() {
 
     const BOX   = 5.0;
     const TOP_Y =  BOX - 0.3;   // point grid
-    const M1_Y  =  1.2;         // mesh
-    const EMB_Y = -1.5;         // embeddings layer
+    const M1_Y  =  1.5;         // mesh
+    const EMB_Y = -0.5;         // embeddings layer
     const SAT_Y = -BOX + 0.1;  // satellite bottom
 
-    // ── Vertical pierce lines — intelligence per pixel all the way down ─
-    const lineRes = 10; // 10×10 grid of lines
-    const lineStep = (planeW) / (lineRes - 1);
-    const lineVerts: number[] = [];
-    for (let ix = 0; ix < lineRes; ix++) {
-      for (let iz = 0; iz < lineRes; iz++) {
-        const x = -BOX + 0.3 + ix * lineStep;
-        const z = -BOX + 0.3 + iz * lineStep;
-        lineVerts.push(x, TOP_Y, z,  x, SAT_Y, z);
-      }
-    }
-    const lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(lineVerts), 3));
-    scene.add(new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.12 })));
 
     const planeW = BOX * 2 - 0.6;
 
@@ -121,16 +107,16 @@ export default function LandscapeVisualization() {
       for (let i = 0; i < posAttr.count; i++) {
         const x = posAttr.getX(i);
         const z = posAttr.getZ(i);
-        posAttr.setY(i, originY[i] + Math.sin(x * 0.9 + t) * 0.25 + Math.cos(z * 0.8 + t * 0.7) * 0.18);
+        posAttr.setY(i, originY[i] + Math.sin(x * 0.9 + t) * 0.12 + Math.cos(z * 0.8 + t * 0.7) * 0.09);
       }
       posAttr.needsUpdate = true;
       meshGeo.computeVertexNormals();
 
-      // Points oscillate visibly — ripple effect across the grid
+      // Points — subtle ripple
       for (let i = 0; i < topAttr.count; i++) {
         const x = topAttr.getX(i);
         const z = topAttr.getZ(i);
-        topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 2.0) * 0.45 + Math.cos(z * 1.2 + t * 1.7) * 0.3);
+        topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 1.5) * 0.18 + Math.cos(z * 1.2 + t * 1.2) * 0.12);
       }
       topAttr.needsUpdate = true;
 
