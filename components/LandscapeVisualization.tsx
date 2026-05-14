@@ -106,27 +106,28 @@ export default function LandscapeVisualization() {
     // 3 static red signal lines (LineSegments — same class as grid)
     const sphereMat   = new THREE.MeshBasicMaterial({ color: 0xff1100 });
     const sphereMatLo = new THREE.MeshBasicMaterial({ color: 0xff1100, transparent: true, opacity: 0.35 });
-    const sGeo = new THREE.SphereGeometry(0.22, 10, 10);
+    const sGeo    = new THREE.SphereGeometry(0.22, 10, 10);
+    const sGeoTop = new THREE.SphereGeometry(0.09, 8, 8);
 
     // Signal A — vertical
     const laGeo = new THREE.BufferGeometry();
     laGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, TOP_Y, 2.5,  0.8, SAT_Y, 2.5]), 3));
     scene.add(new THREE.LineSegments(laGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    const sA0 = new THREE.Mesh(sGeo, sphereMat);   sA0.position.set(0.8, TOP_Y, 2.5);  scene.add(sA0);
+    const sA0 = new THREE.Mesh(sGeoTop, sphereMat);   sA0.position.set(0.8, TOP_Y, 2.5);  scene.add(sA0);
     const sA1 = new THREE.Mesh(sGeo, sphereMatLo); sA1.position.set(0.8, SAT_Y, 2.5);  scene.add(sA1);
 
     // Signal B — angled left
     const lbGeo = new THREE.BufferGeometry();
     lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, TOP_Y, 1.8,  -1.5, SAT_Y, 1.8]), 3));
     scene.add(new THREE.LineSegments(lbGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    const sB0 = new THREE.Mesh(sGeo, sphereMat);   sB0.position.set(-1.5, TOP_Y, 1.8); scene.add(sB0);
+    const sB0 = new THREE.Mesh(sGeoTop, sphereMat);   sB0.position.set(-1.5, TOP_Y, 1.8); scene.add(sB0);
     const sB1 = new THREE.Mesh(sGeo, sphereMatLo); sB1.position.set(-1.5, SAT_Y, 1.8); scene.add(sB1);
 
     // Signal C — vertical
     const lcGeo = new THREE.BufferGeometry();
     lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, TOP_Y, 3.0,  2.2, SAT_Y, 3.0]), 3));
     scene.add(new THREE.LineSegments(lcGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
-    const sC0 = new THREE.Mesh(sGeo, sphereMat);   sC0.position.set(2.2, TOP_Y, 3.0);  scene.add(sC0);
+    const sC0 = new THREE.Mesh(sGeoTop, sphereMat);   sC0.position.set(2.2, TOP_Y, 3.0);  scene.add(sC0);
     const sC1 = new THREE.Mesh(sGeo, sphereMatLo); sC1.position.set(2.2, SAT_Y, 3.0);  scene.add(sC1);
 
     // Animate
