@@ -105,11 +105,11 @@ export default function ResearchScroll() {
                 </div>
               ) : (
                 <div
-                  className="absolute inset-0 rounded-xl"
-                  style={{
-                    background: `linear-gradient(135deg, #1B4D3E ${i * 8}%, #2d4a63 100%)`,
-                  }}
-                />
+                  className="absolute inset-0 rounded-xl flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, #1B4D3E 0%, #2d4a63 100%)" }}
+                >
+                  <span className="text-white/20 text-xs tracking-widest uppercase">Visual coming soon</span>
+                </div>
               )}
               {/* Mobile-only text overlay */}
               <div className="relative z-10 p-4 sm:p-8 md:hidden">
