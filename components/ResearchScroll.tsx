@@ -46,7 +46,7 @@ export default function ResearchScroll() {
           }
         });
       },
-      { threshold: 0.5 }
+      { rootMargin: "-35% 0px -35% 0px", threshold: 0 }
     );
     panelRefs.current.forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();
@@ -63,10 +63,10 @@ export default function ResearchScroll() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel */}
-        <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-12 flex-shrink-0">
+        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
-            <span className="text-sm text-gray-300 block mb-4">{areas[active].number}</span>
-            <h2 className="text-3xl font-semibold text-gray-900 mb-4 leading-snug">
+            <span className="text-sm text-gray-300 block mb-5">{areas[active].number}</span>
+            <h2 className="text-3xl font-semibold text-gray-900 mb-5 leading-snug">
               {areas[active].title}
             </h2>
             <p className="text-base text-gray-500 leading-relaxed">
@@ -76,12 +76,12 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels */}
-        <div className="w-full md:w-3/5 py-4 sm:py-6 flex flex-col gap-4">
+        <div className="w-full md:w-3/5 py-8 flex flex-col gap-6">
           {areas.map((area, i) => (
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-[50vh] sm:h-[60vh] rounded-lg sm:rounded-xl flex flex-col justify-center relative overflow-hidden"
+              className="h-[80vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {area.video ? (
                 <video
