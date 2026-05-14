@@ -117,17 +117,17 @@ export default function LandscapeVisualization() {
 
     // Signal B — angled left
     const lbGeo = new THREE.BufferGeometry();
-    lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, TOP_Y, 1.8,  -1.5, SAT_Y, 3.8]), 3));
+    lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, TOP_Y, 1.8,  -1.5, SAT_Y, 1.8]), 3));
     scene.add(new THREE.LineSegments(lbGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
     const sB0 = new THREE.Mesh(sGeo, sphereMat);   sB0.position.set(-1.5, TOP_Y, 1.8); scene.add(sB0);
-    const sB1 = new THREE.Mesh(sGeo, sphereMatLo); sB1.position.set(-1.5, SAT_Y, 3.8); scene.add(sB1);
+    const sB1 = new THREE.Mesh(sGeo, sphereMatLo); sB1.position.set(-1.5, SAT_Y, 1.8); scene.add(sB1);
 
-    // Signal C — angled right
+    // Signal C — vertical
     const lcGeo = new THREE.BufferGeometry();
-    lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, TOP_Y, 3.0,  2.2, SAT_Y, 4.3]), 3));
+    lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, TOP_Y, 3.0,  2.2, SAT_Y, 3.0]), 3));
     scene.add(new THREE.LineSegments(lcGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
     const sC0 = new THREE.Mesh(sGeo, sphereMat);   sC0.position.set(2.2, TOP_Y, 3.0);  scene.add(sC0);
-    const sC1 = new THREE.Mesh(sGeo, sphereMatLo); sC1.position.set(2.2, SAT_Y, 4.3);  scene.add(sC1);
+    const sC1 = new THREE.Mesh(sGeo, sphereMatLo); sC1.position.set(2.2, SAT_Y, 3.0);  scene.add(sC1);
 
     // Animate
     let animId: number;
