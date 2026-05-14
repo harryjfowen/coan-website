@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import LandscapeVisualization from "./LandscapeVisualization";
+import ForestIntelCard from "./ForestIntelCard";
 
 const areas = [
   {
@@ -10,8 +11,8 @@ const areas = [
     description:
       "From drone transects and acoustic surveys to repeat satellite sampling — we build verifiable recovery trajectories. Habitat baselines, species detection, and long-term change records that meet BNG, TNFD, and nature market audit requirements. Methods: UAV survey, TLS, bioacoustics, satellite time-series.",
     image: null,
-    video: "/videos/drone-flyover-slow.mp4",
-    alt: "Drone flyover of habitat restoration",
+    video: null,
+    alt: "Forest intelligence monitoring card",
   },
   {
     number: "02",
@@ -28,6 +29,7 @@ const areas = [
     description:
       "Digital twin-scale modelling for risk and resilience. Flood exposure, windthrow probability, storm impact corridors, and infrastructure hazard derived from high-resolution terrain, canopy structure, and hydrological models. Designed for government, infrastructure managers, and institutional clients operating at catchment to national scale.",
     image: null,
+    video: null,
     alt: "Landscape risk modelling",
   },
 ];
@@ -83,7 +85,13 @@ export default function ResearchScroll() {
               ref={(el) => { panelRefs.current[i] = el; }}
               className="h-[80vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
-              {area.video ? (
+              {i === 0 ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+                  <div className="scale-[0.72] sm:scale-[0.85] md:scale-[0.78] lg:scale-90 xl:scale-100 origin-center">
+                    <ForestIntelCard />
+                  </div>
+                </div>
+              ) : area.video ? (
                 <video
                   autoPlay
                   muted
