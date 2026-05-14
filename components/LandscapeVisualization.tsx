@@ -56,7 +56,7 @@ export default function LandscapeVisualization() {
     ]);
     const frameGeo = new THREE.BufferGeometry();
     frameGeo.setAttribute("position", new THREE.BufferAttribute(frameVerts, 3));
-    scene.add(new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.2 })));
+    scene.add(new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.55 })));
 
     const planeW = BOX * 2 - 0.6;
 
@@ -133,10 +133,11 @@ export default function LandscapeVisualization() {
       posAttr.needsUpdate = true;
       meshGeo.computeVertexNormals();
 
+      // Visible oscillation — each point vibrates up/down independently
       for (let i = 0; i < topAttr.count; i++) {
         const x = topAttr.getX(i);
         const z = topAttr.getZ(i);
-        topAttr.setY(i, topOriginY[i] + Math.sin(x * 0.5 + t * 0.4) * 0.1 + Math.cos(z * 0.45 + t * 0.35) * 0.08);
+        topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.2 + t * 1.8) * 0.35 + Math.cos(z * 1.1 + t * 1.5) * 0.25);
       }
       topAttr.needsUpdate = true;
 
