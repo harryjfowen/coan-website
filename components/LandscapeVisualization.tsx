@@ -35,16 +35,27 @@ export default function LandscapeVisualization() {
     const EMB_Y = -BOX + 1.5;   // embeddings layer
     const SAT_Y = -BOX + 0.05;  // satellite bottom
 
-    // ── Corner connector lines ────────────────────────────────────────
-    const cornerVerts = new Float32Array([
-      -BOX, TOP_Y, -BOX,   -BOX, SAT_Y, -BOX,
-       BOX, TOP_Y, -BOX,    BOX, SAT_Y, -BOX,
-       BOX, TOP_Y,  BOX,    BOX, SAT_Y,  BOX,
-      -BOX, TOP_Y,  BOX,   -BOX, SAT_Y,  BOX,
+    // ── Full box frame — all 12 edges ─────────────────────────────────
+    const frameVerts = new Float32Array([
+      // top rectangle
+      -BOX, TOP_Y, -BOX,   BOX, TOP_Y, -BOX,
+       BOX, TOP_Y, -BOX,   BOX, TOP_Y,  BOX,
+       BOX, TOP_Y,  BOX,  -BOX, TOP_Y,  BOX,
+      -BOX, TOP_Y,  BOX,  -BOX, TOP_Y, -BOX,
+      // bottom rectangle
+      -BOX, SAT_Y, -BOX,   BOX, SAT_Y, -BOX,
+       BOX, SAT_Y, -BOX,   BOX, SAT_Y,  BOX,
+       BOX, SAT_Y,  BOX,  -BOX, SAT_Y,  BOX,
+      -BOX, SAT_Y,  BOX,  -BOX, SAT_Y, -BOX,
+      // 4 vertical edges
+      -BOX, TOP_Y, -BOX,  -BOX, SAT_Y, -BOX,
+       BOX, TOP_Y, -BOX,   BOX, SAT_Y, -BOX,
+       BOX, TOP_Y,  BOX,   BOX, SAT_Y,  BOX,
+      -BOX, TOP_Y,  BOX,  -BOX, SAT_Y,  BOX,
     ]);
-    const cornerGeo = new THREE.BufferGeometry();
-    cornerGeo.setAttribute("position", new THREE.BufferAttribute(cornerVerts, 3));
-    scene.add(new THREE.LineSegments(cornerGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 })));
+    const frameGeo = new THREE.BufferGeometry();
+    frameGeo.setAttribute("position", new THREE.BufferAttribute(frameVerts, 3));
+    scene.add(new THREE.LineSegments(frameGeo, new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.2 })));
 
     const planeW = BOX * 2 - 0.6;
 
