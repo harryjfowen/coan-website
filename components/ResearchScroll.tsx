@@ -64,8 +64,8 @@ export default function ResearchScroll() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
-        {/* Sticky left panel */}
-        <div className="hidden md:flex sticky top-[5vh] h-[90vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
+        {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
+        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-sm text-gray-300 block mb-5">{areas[active].number}</span>
             <h2 className="text-3xl font-semibold text-gray-900 mb-5 leading-snug">
@@ -77,17 +77,17 @@ export default function ResearchScroll() {
           </div>
         </div>
 
-        {/* Scrolling right panels */}
-        <div className="w-full md:w-3/5 py-12 flex flex-col gap-10">
+        {/* Scrolling right panels — full viewport height each */}
+        <div className="w-full md:w-3/5 py-8 flex flex-col gap-8">
           {areas.map((area, i) => (
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-[90vh] rounded-xl flex flex-col justify-center relative overflow-hidden"
+              className="h-screen rounded-xl flex flex-col justify-center relative overflow-hidden"
             >
               {i === 0 ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
-                  <div className="scale-[0.65] sm:scale-[0.75] md:scale-[0.72] lg:scale-[0.82] xl:scale-90 origin-center">
+                  <div style={{ transform: "scale(0.68)", transformOrigin: "center center" }}>
                     <ForestIntelCard />
                   </div>
                 </div>
