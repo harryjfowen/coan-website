@@ -79,7 +79,7 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels — full viewport height each */}
-        <div className="w-full md:w-3/5 py-16 flex flex-col gap-32">
+        <div className="w-full md:w-3/5 py-24 flex flex-col gap-40">
           {areas.map((area, i) => (
             <div
               key={area.number}
@@ -88,9 +88,7 @@ export default function ResearchScroll() {
             >
               {i === 0 ? (
                 <div className="absolute inset-0 flex items-center justify-center bg-white">
-                  <div style={{ transform: "scale(0.68)", transformOrigin: "center center" }}>
-                    <ForestIntelCard />
-                  </div>
+                  <ForestIntelCard />
                 </div>
               ) : area.video ? (
                 <video
