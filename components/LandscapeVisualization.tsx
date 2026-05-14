@@ -106,32 +106,32 @@ export default function LandscapeVisualization() {
     // 3 static red signal lines (LineSegments — same class as grid)
     const dotY  = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
     const dotOp = [1.0, 0.65, 0.35, 0.15];
-    const dotSz = [0.26, 0.20, 0.16, 0.10];
+    const dotSz = [0.55, 0.44, 0.32, 0.20];
 
     const laGeo = new THREE.BufferGeometry();
-    laGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, TOP_Y, 0.6,  0.8, SAT_Y, 0.6]), 3));
+    laGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, TOP_Y, 2.5,  0.8, SAT_Y, 2.5]), 3));
     scene.add(new THREE.LineSegments(laGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
     for (let li = 0; li < 4; li++) {
       const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, dotY[li], 0.6]), 3));
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0.8, dotY[li], 2.5]), 3));
       scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
     }
 
     const lbGeo = new THREE.BufferGeometry();
-    lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.2, TOP_Y, -0.8,  -1.2, SAT_Y, -0.8]), 3));
+    lbGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, TOP_Y, 1.8,  -1.5, SAT_Y, 1.8]), 3));
     scene.add(new THREE.LineSegments(lbGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
     for (let li = 0; li < 4; li++) {
       const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.2, dotY[li], -0.8]), 3));
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([-1.5, dotY[li], 1.8]), 3));
       scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
     }
 
     const lcGeo = new THREE.BufferGeometry();
-    lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([1.6, TOP_Y, -1.4,  1.6, SAT_Y, -1.4]), 3));
+    lcGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, TOP_Y, 3.0,  2.2, SAT_Y, 3.0]), 3));
     scene.add(new THREE.LineSegments(lcGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.9 })));
     for (let li = 0; li < 4; li++) {
       const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([1.6, dotY[li], -1.4]), 3));
+      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([2.2, dotY[li], 3.0]), 3));
       scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xff1100, size: dotSz[li], transparent: true, opacity: dotOp[li] })));
     }
 
