@@ -121,32 +121,36 @@ export default function LandscapeVisualization() {
     const topOriginY = new Float32Array(topAttr.count);
     for (let i = 0; i < topAttr.count; i++) topOriginY[i] = topAttr.getY(i);
 
-    // ── Tracked signal — red line + dots through all layers ──────────
-    const TX = 0.8, TZ = 0.6; // fixed X,Z position of the tracked point
-
-    // Vertical red line all the way through
-    const trackLineGeo = new THREE.BufferGeometry();
-    trackLineGeo.setAttribute("position", new THREE.BufferAttribute(
-      new Float32Array([TX, TOP_Y, TZ,  TX, SAT_Y, TZ]), 3
-    ));
-    scene.add(new THREE.Line(trackLineGeo, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.7 })));
-
-    // Red dot at each layer, getting brighter/larger toward the bottom
-    const layers = [
-      { y: TOP_Y,  opacity: 0.4, size: 0.12 },
-      { y: M1_Y,   opacity: 0.6, size: 0.16 },
-      { y: EMB_Y,  opacity: 0.8, size: 0.20 },
-      { y: SAT_Y,  opacity: 1.0, size: 0.26 },
+    // ── Tracked signal lines — 3 lines pulsing top → bottom ──────────
+    const tracks = [
+      { x:  0.8, z:  0.6 },
+      { x: -1.2, z: -0.8 },
+      { x:  1.5, z: -1.4 },
     ];
-    layers.forEach(({ y, opacity, size }) => {
-      const g = new THREE.BufferGeometry();
-      g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([TX, y, TZ]), 3));
-      scene.add(new THREE.Points(g, new THREE.PointsMaterial({
-        color: 0xff1100,
-        size,
-        transparent: true,
-        opacity,
-      })));
+
+    const layerYs = [TOP_Y, M1_Y, EMB_Y, SAT_Y];
+    const dotMaterials: THREE.PointsMaterial[][] = [];
+
+    tracks.forEach(({ x, z }) => {
+      // Thick line = 3 overlapping slightly-offset lines for glow
+      [0, 0.03, -0.03].forEach(offset => {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute("position", new THREE.BufferAttribute(
+          new Float32Array([x + offset, TOP_Y, z,  x + offset, SAT_Y, z]), 3
+        ));
+        scene.add(new THREE.Line(g, new THREE.LineBasicMaterial({ color: 0xff2200, transparent: true, opacity: 0.4 })));
+      });
+
+      // Dots at each layer — materials stored for pulse animation
+      const mats: THREE.PointsMaterial[] = [];
+      layerYs.forEach(y => {
+        const g = new THREE.BufferGeometry();
+        g.setAttribute("position", new THREE.BufferAttribute(new Float32Array([x, y, z]), 3));
+        const mat = new THREE.PointsMaterial({ color: 0xff1100, size: 0.28, transparent: true, opacity: 0.5 });
+        scene.add(new THREE.Points(g, mat));
+        mats.push(mat);
+      });
+      dotMaterials.push(mats);
     });
 
     // ── Animate ───────────────────────────────────────────────────────
@@ -170,6 +174,19 @@ export default function LandscapeVisualization() {
         topAttr.setY(i, topOriginY[i] + Math.sin(x * 1.4 + t * 1.5) * 0.18 + Math.cos(z * 1.2 + t * 1.2) * 0.12);
       }
       topAttr.needsUpdate = true;
+
+      // Pulse: signal travels top → bottom, cycling every ~2.5s
+      // Each track offset slightly so they don't all pulse in sync
+      dotMaterials.forEach((mats, ti) => {
+        const phase = (Date.now() * 0.0006 + ti * 0.4) % 1; // 0..1 cycling
+        mats.forEach((mat, li) => {
+          const layerPos = li / (layerYs.length - 1); // 0=top, 1=bottom
+          const dist = Math.abs(phase - layerPos);
+          const pulse = Math.max(0, 1 - dist * 5); // sharp pulse peak
+          mat.opacity = 0.2 + pulse * 0.9;
+          mat.color.setHex(pulse > 0.5 ? 0xff4400 : 0xcc1100);
+        });
+      });
 
       renderer.render(scene, camera);
     };
