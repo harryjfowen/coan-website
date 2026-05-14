@@ -30,10 +30,10 @@ export default function LandscapeVisualization() {
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
 
     const BOX   = 5.0;
-    const TOP_Y =  BOX - 0.3;   // point grid
-    const M1_Y  =  1.5;         // mesh
-    const EMB_Y = -0.5;         // embeddings layer
-    const SAT_Y = -BOX + 0.1;  // satellite bottom
+    const TOP_Y =  4.5;   // point grid
+    const M1_Y  =  1.5;   // mesh       — 3.0 gap
+    const EMB_Y = -1.5;   // embeddings — 3.0 gap
+    const SAT_Y = -4.5;   // satellite  — 3.0 gap
 
 
     const planeW = BOX * 2 - 0.6;
