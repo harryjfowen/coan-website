@@ -49,7 +49,7 @@ export default function ResearchScroll() {
           }
         });
       },
-      { rootMargin: "-35% 0px -35% 0px", threshold: 0 }
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
     );
     panelRefs.current.forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();
@@ -66,7 +66,7 @@ export default function ResearchScroll() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
-        <div className="hidden md:flex sticky top-0 h-[60vh] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
+        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-4">{areas[active].number}</span>
             <h2 className="text-4xl font-semibold text-gray-900 mb-5 leading-tight">
@@ -80,12 +80,12 @@ export default function ResearchScroll() {
         </div>
 
         {/* Scrolling right panels — full viewport height each */}
-        <div className="w-full md:w-3/5 py-8 flex flex-col gap-20">
+        <div className="w-full md:w-3/5 flex flex-col gap-6 py-6">
           {areas.map((area, i) => (
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className={`${i === 0 ? "min-h-[60vh] bg-white" : "h-[60vh]"} rounded-xl flex items-center justify-center relative overflow-hidden`}
+              className="h-screen rounded-xl flex items-center justify-center relative overflow-hidden"
             >
               {i === 0 ? (
                 <div style={{ zoom: 0.9 }} className="py-4">
