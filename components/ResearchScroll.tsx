@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import LandscapeVisualization from "./LandscapeVisualization";
 import ForestIntelCard from "./ForestIntelCard";
+import ImageCompareSlider from "./ImageCompareSlider";
 
 const areas = [
   {
@@ -89,6 +90,15 @@ export default function ResearchScroll() {
               {i === 0 ? (
                 <div style={{ zoom: 0.9 }} className="py-4">
                   <ForestIntelCard />
+                </div>
+              ) : i === 1 ? (
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <ImageCompareSlider
+                    before="/images/epic-tls-scene.png"
+                    after="/images/epic-tls-scene_instance.png"
+                    beforeAlt="TLS point cloud"
+                    afterAlt="Instance segmented point cloud"
+                  />
                 </div>
               ) : area.video ? (
                 <video
