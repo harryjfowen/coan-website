@@ -85,7 +85,7 @@ export default function ResearchScroll() {
             <div
               key={area.number}
               ref={(el) => { panelRefs.current[i] = el; }}
-              className="h-screen rounded-xl flex items-center justify-center relative overflow-hidden"
+              className="h-[80vh] rounded-xl flex items-center justify-center relative overflow-hidden"
             >
               {i === 0 ? (
                 <div style={{ zoom: 0.9 }} className="py-4">
