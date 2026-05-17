@@ -66,7 +66,7 @@ export default function ResearchScroll() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row relative">
         {/* Sticky left panel — full viewport height so text always centres alongside each panel */}
-        <div className="hidden md:flex sticky top-0 h-screen w-2/5 flex-col justify-center pr-16 flex-shrink-0">
+        <div className="hidden md:flex sticky top-24 h-[calc(100vh-6rem)] w-2/5 flex-col justify-center pr-16 flex-shrink-0">
           <div className="max-w-xs">
             <span className="text-xs font-medium tracking-widest text-gray-300 uppercase block mb-4">{areas[active].number}</span>
             <h2 className="text-4xl font-semibold text-gray-900 mb-5 leading-tight">
