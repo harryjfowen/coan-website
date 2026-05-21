@@ -133,12 +133,12 @@ export default function WetWoodlandPreview() {
         return c;
       }
 
-      // Flyover waypoints - pause 3s at start, then very slow pan
+      // Flyover waypoints - pause 3s at start, then very slow pan (inverted: longer duration = slower)
       const flyoverPoints: FlyOverPoint[] = [
         { longitude: -3.8, latitude: 50.7, zoom: 13.5, duration: 3000 },
-        { longitude: -3.2, latitude: 51.3, zoom: 13.5, duration: 5000 },
-        { longitude: -2.4, latitude: 51.8, zoom: 13.5, duration: 5000 },
-        { longitude: -3.8, latitude: 50.7, zoom: 13.5, duration: 5000 },
+        { longitude: -3.2, latitude: 51.3, zoom: 13.5, duration: 600000 },
+        { longitude: -2.4, latitude: 51.8, zoom: 13.5, duration: 600000 },
+        { longitude: -3.8, latitude: 50.7, zoom: 13.5, duration: 600000 },
       ];
 
       let currentPointIndex = 0;
