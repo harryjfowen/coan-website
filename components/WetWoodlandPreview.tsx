@@ -133,12 +133,12 @@ export default function WetWoodlandPreview() {
         return c;
       }
 
-      // Flyover waypoints - very slow pan across wet woodland at high zoom
+      // Flyover waypoints - pause 3s at start, then extremely slow pan
       const flyoverPoints: FlyOverPoint[] = [
-        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 18000 },
-        { longitude: -3.2, latitude: 51.3, zoom: 12.5, duration: 18000 },
-        { longitude: -2.4, latitude: 51.8, zoom: 12.5, duration: 18000 },
-        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 18000 },
+        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 3000 },
+        { longitude: -3.2, latitude: 51.3, zoom: 12.5, duration: 35000 },
+        { longitude: -2.4, latitude: 51.8, zoom: 12.5, duration: 35000 },
+        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 35000 },
       ];
 
       let currentPointIndex = 0;
@@ -182,7 +182,7 @@ export default function WetWoodlandPreview() {
             id: "wetwood-cog",
             getTileData,
             tileSize: TILE_SIZE,
-            maxRequests: 10,
+            maxRequests: 20,
             minZoom: 4,
             maxZoom: 16,
             renderSubLayers(props: any) {
