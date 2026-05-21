@@ -133,12 +133,12 @@ export default function WetWoodlandPreview() {
         return c;
       }
 
-      // Flyover waypoints spanning England's wet woodland (zoomed in to specific regions)
+      // Flyover waypoints - very slow pan across wet woodland at high zoom
       const flyoverPoints: FlyOverPoint[] = [
-        { longitude: -4.2, latitude: 51.8, zoom: 11, duration: 12000 },
-        { longitude: -3.4, latitude: 52.3, zoom: 11, duration: 12000 },
-        { longitude: -2.1, latitude: 51.2, zoom: 11, duration: 12000 },
-        { longitude: -4.0, latitude: 50.9, zoom: 11, duration: 12000 },
+        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 18000 },
+        { longitude: -3.2, latitude: 51.3, zoom: 12.5, duration: 18000 },
+        { longitude: -2.4, latitude: 51.8, zoom: 12.5, duration: 18000 },
+        { longitude: -3.8, latitude: 50.7, zoom: 12.5, duration: 18000 },
       ];
 
       let currentPointIndex = 0;
