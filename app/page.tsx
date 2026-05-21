@@ -1,6 +1,18 @@
+"use client";
+
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ResearchScroll from "@/components/ResearchScroll";
+import dynamic from "next/dynamic";
+
+const WetWoodlandPreview = dynamic(() => import("@/components/WetWoodlandPreview"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full bg-gray-100 flex items-center justify-center rounded-xl" style={{ aspectRatio: "16/10" }}>
+      <span className="text-xs text-gray-400">Loading map…</span>
+    </div>
+  ),
+});
 
 const affiliations = [
   { name: "University College London",            logo: "/images/logos/University_College_London_logo.svg.png" },
@@ -126,7 +138,7 @@ export default function Home() {
             <a href="/research" className="text-xs text-gray-400 hover:text-gray-900 transition-colors">All projects →</a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredProjects.map((project) => (
+            {featuredProjects.map((project, idx) => (
               <a
                 key={project.title}
                 href={project.href}
@@ -135,7 +147,9 @@ export default function Home() {
                 className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors flex flex-col"
               >
                 <div className="overflow-hidden rounded-xl m-3" style={{ aspectRatio: "16/10" }}>
-                  {project.image ? (
+                  {idx === 0 ? (
+                    <WetWoodlandPreview />
+                  ) : project.image ? (
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
