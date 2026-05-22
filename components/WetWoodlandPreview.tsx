@@ -133,11 +133,10 @@ export default function WetWoodlandPreview() {
         return c;
       }
 
-      // Flyover waypoints - Southampton north to Barnard Castle and back
+      // Flyover waypoints - Southampton drifting very slowly north
       const flyoverPoints: FlyOverPoint[] = [
-        { longitude: -1.4, latitude: 50.9, zoom: 13.5, duration: 3000 },
-        { longitude: -2.0, latitude: 54.5, zoom: 13.5, duration: 5000 },
-        { longitude: -1.4, latitude: 50.9, zoom: 13.5, duration: 5000 },
+        { longitude: -1.4, latitude: 50.9, zoom: 13.5, duration: 30000 },
+        { longitude: -2.0, latitude: 54.5, zoom: 13.5, duration: 30000 },
       ];
 
       let currentPointIndex = 0;
