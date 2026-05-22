@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const COG_URL = "https://pub-da22fbab193f4ccd85607bc265f1a5fa.r2.dev/wetwoodland_extent_b2.cog.bin";
-const CENTER = { longitude: -3.9995, latitude: 50.7357, zoom: 9 };
+const CENTER = { longitude: -1.4, latitude: 50.9, zoom: 13.5 };
 
 const PLASMA_LUT = (() => {
   const S: [number, number[]][] = [
