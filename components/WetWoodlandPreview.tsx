@@ -133,10 +133,10 @@ export default function WetWoodlandPreview() {
         return c;
       }
 
-      // Flyover waypoints - Southampton drifting very slowly north
+      // Flyover waypoints - Southampton drifting over 1 hour each direction
       const flyoverPoints: FlyOverPoint[] = [
-        { longitude: -1.4, latitude: 50.9, zoom: 13.5, duration: 30000 },
-        { longitude: -2.0, latitude: 54.5, zoom: 13.5, duration: 30000 },
+        { longitude: -1.4, latitude: 50.9, zoom: 13.5, duration: 3600000 },
+        { longitude: -2.0, latitude: 54.5, zoom: 13.5, duration: 3600000 },
       ];
 
       let currentPointIndex = 0;
