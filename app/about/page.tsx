@@ -12,7 +12,7 @@ export default function About() {
             Environmental intelligence, grounded in science.
           </h1>
           <p className="text-lg text-gray-500 max-w-xl leading-relaxed mb-12">
-            Coan is an environmental AI research and consultancy founded by Harry Owen. We build machine learning systems for mapping, monitoring, and understanding the natural world at scale.
+            Coan is an environmental AI research and consultancy founded by Harry Owen. We build the data infrastructure for ecological intelligence — using deep learning, remote sensing, and field science to create live, multimodal models of ecosystem condition. Our work helps organisations quantify resilience, forecast ecological change, and make better decisions about the living systems that sustain us.
           </p>
 
           {/* Location / UNESCO */}

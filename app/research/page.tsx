@@ -8,9 +8,12 @@ export default function Research() {
       <div className="pt-28 pb-16">
         <div className="max-w-7xl mx-auto px-6">
           <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">Research</p>
-          <h1 className="text-4xl font-semibold tracking-tight text-gray-900 max-w-2xl mb-16">
-            Projects, papers & datasets
+          <h1 className="text-4xl font-semibold tracking-tight text-gray-900 max-w-2xl mb-8">
+            Building the data infrastructure for ecological intelligence
           </h1>
+          <p className="text-lg text-gray-500 max-w-2xl leading-relaxed mb-16">
+            Our research develops and validates the AI systems, remote sensing methods, and field science protocols needed to create live, multimodal models of ecosystem condition at landscape scale. This is the foundation for quantifying resilience, forecasting ecological change, and understanding the living systems that sustain us.
+          </p>
 
           {/* Projects */}
           <section className="mb-20">

@@ -92,7 +92,7 @@ export default function Home() {
               From field to market. Verifiable by design.
             </h1>
             <p className="text-base sm:text-lg text-gray-100 max-w-xl leading-relaxed mb-6 sm:mb-10">
-              We measure, model, and monitor ecosystems — producing audit-ready outputs for nature markets, carbon schemes, and landscape-scale risk decisions. Grounded in field science. Scaled with AI.
+              We build data infrastructure for ecological intelligence — combining AI, remote sensing, and field science to create live models of ecosystem condition. Our work quantifies resilience, forecasts ecological change, and helps organisations understand the living systems the economy depends on.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <a href="/research" className="text-sm font-medium text-white px-5 py-2.5 rounded-full transition-colors text-center" style={{ backgroundColor: "#000000" }}>
