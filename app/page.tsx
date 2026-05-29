@@ -201,6 +201,10 @@ export default function Home() {
                 Every habitat type, elevation zone, and coastal margin on the island is captured in a continuous monitoring pipeline: drone surveys feeding acoustic and structural models, satellite embeddings tracking seasonal change, and terrain models informing flood and windthrow exposure. This is what working at digital twin scale looks like.
               </p>
 
+              <p className="text-base text-gray-500 leading-relaxed mb-8">
+                What makes this complete is the convergence of three intelligence layers: biodiversity condition across habitat types, landscape structure and canopy architecture derived from 3D data, and topographic influence on exposure and resilience. Where these three meet, we see the full ecosystem picture — which habitats are thriving, where structural changes are occurring, how terrain shapes vulnerability, and how these dimensions inform each other across seasons and years.
+              </p>
+
               <div className="space-y-2 mb-8">
                 <p className="text-sm text-gray-700"><span className="font-medium">Habitat baseline:</span> island-wide classification at 10m</p>
                 <p className="text-sm text-gray-700"><span className="font-medium">Carbon monitoring:</span> TLS-calibrated woodland carbon stocks</p>
