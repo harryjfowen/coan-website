@@ -89,7 +89,7 @@ export default function Home() {
         <div className="absolute inset-0 flex flex-col justify-end">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:pb-16 w-full">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-white max-w-3xl leading-tight mb-4 sm:mb-6">
-              From field to market. Verifiable by design.
+              Building the data foundation for ecosystem intelligence.
             </h1>
             <p className="text-base sm:text-lg text-gray-100 max-w-xl leading-relaxed mb-6 sm:mb-10">
               We build data infrastructure for ecological intelligence — combining AI, remote sensing, and field science to create live models of ecosystem condition. We deliver the intelligence organisations need to understand ecosystem condition, forecast ecological change, and restore ecosystems.
