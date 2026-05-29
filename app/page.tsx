@@ -195,14 +195,14 @@ export default function Home() {
                 The Isle of Man as digital twin.
               </h2>
               <p className="text-base text-gray-500 leading-relaxed mb-4">
-                The Isle of Man is where all three capabilities operate simultaneously at landscape scale — the world's first UNESCO Biosphere Reserve monitored end-to-end across biodiversity, carbon, and risk intelligence.
+                An integrated ecosystem measurement system where continuous multimodal data — eco-acoustics, spectral biodiversity, 3D forest structure, terrain, and real-time satellite embeddings — feed learning systems that map complex ecosystems at landscape scale.
               </p>
               <p className="text-base text-gray-500 leading-relaxed mb-8">
-                Every habitat type, elevation zone, and coastal margin on the island is captured in a continuous monitoring pipeline: drone surveys feeding acoustic and structural models, satellite embeddings tracking seasonal change, and terrain models informing flood and windthrow exposure. This is what working at digital twin scale looks like.
+                The model captures ecosystem condition, biodiversity patterns, structural dynamics, and how these evolve across the island. You can interrogate it to understand which habitats are thriving, where critical shifts are occurring, how resilient different areas are to change, and how upstream ecosystems cascade to downstream condition.
               </p>
 
               <p className="text-base text-gray-500 leading-relaxed mb-8">
-                What makes this complete is the convergence of three intelligence layers: biodiversity condition across habitat types, landscape structure and canopy architecture derived from 3D data, and topographic influence on exposure and resilience. Where these three meet, we see the full ecosystem picture — which habitats are thriving, where structural changes are occurring, how terrain shapes vulnerability, and how these dimensions inform each other across seasons and years.
+                As a secondary capability: these same ecosystem insights reveal how natural systems inform infrastructure vulnerability and exposure. This is what integrated ecosystem measurement looks like — not monitoring three separate metrics, but building a learning system that understands how complex natural systems work, change, and interconnect.
               </p>
 
               <div className="space-y-2 mb-8">
