@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 const sectors = [
   {
     title: "Nature",
-    description: "Habitat classification, biodiversity baselines, and multi-sensor species monitoring aligned to BNG and natural capital frameworks.",
+    description: "Live monitoring of ecosystem condition through habitat classification, biodiversity baselines, and multi-sensor species surveillance. Quantify resilience, detect change, and support evidence-based conservation and restoration — aligned to BNG and natural capital frameworks.",
   },
   {
     title: "Infrastructure",
@@ -37,10 +37,10 @@ const products = [
   },
   {
     name: "NatureMapper",
-    tagline: "Habitat & Nature Intelligence",
+    tagline: "Ecosystem Condition Intelligence",
     description:
-      "Multi-sensor biodiversity monitoring combining satellite imagery, drone surveys, acoustic recording, and 3D point clouds. We deliver habitat classification, species detection, BNG baseline assessments, and long-term change monitoring. Outputs are audit-ready and aligned to UK Biodiversity Net Gain requirements and Natural Capital reporting frameworks.",
-    for: "Climate change departments, land developers, conservation bodies, private estates",
+      "A live, multimodal monitoring platform combining satellite imagery, drone surveys, acoustic ecosystems analysis, and 3D point clouds to model ecosystem condition at landscape scale. We deliver habitat classification, species detection, resilience indicators, change forecasting, and long-term biodiversity trend analysis. Outputs are audit-ready and aligned to UK Biodiversity Net Gain requirements and Natural Capital reporting frameworks — providing the persistent intelligence layer for nature recovery programmes.",
+    for: "Climate change departments, land developers, conservation bodies, private estates, restoration programmes",
   },
   {
     name: "FieldPulse",
@@ -62,7 +62,7 @@ export default function Consultancy() {
             Applied AI for environmental challenges.
           </h1>
           <p className="text-lg text-gray-500 max-w-xl leading-relaxed mb-16">
-            We work with conservation organisations, government agencies, and research institutions to apply AI to real environmental problems.
+            We build the data infrastructure for ecological intelligence — combining AI, remote sensing, and field science to create live, multimodal models of ecosystem condition. Our work helps organisations quantify resilience, forecast ecological change, and understand the living systems the economy depends on.
           </p>
 
           {/* Sectors */}
