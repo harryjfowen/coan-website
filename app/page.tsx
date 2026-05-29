@@ -3,6 +3,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import ResearchScroll from "@/components/ResearchScroll";
+import ImageCompareSlider from "@/components/ImageCompareSlider";
 import dynamic from "next/dynamic";
 
 const WetWoodlandPreview = dynamic(() => import("@/components/WetWoodlandPreview"), {
@@ -38,7 +39,7 @@ const featuredProjects = [
     title: "Forest Carbon Structure from Point Clouds",
     description:
       "Above-ground biomass and canopy structure quantified using deep learning segmentation of airborne LiDAR — delivering MRV-grade carbon stock estimates at individual-tree scale.",
-    href: "/research",
+    href: "/research/forest-carbon",
     image: null,
     external: false,
   },
@@ -146,9 +147,19 @@ export default function Home() {
                 rel={project.external ? "noopener noreferrer" : undefined}
                 className="group bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors flex flex-col"
               >
-                <div className="overflow-hidden rounded-xl m-3" style={{ aspectRatio: "16/10" }}>
+                <div className="overflow-hidden rounded-xl m-3 w-full h-full" style={{ aspectRatio: "16/10" }}>
                   {idx === 0 ? (
                     <WetWoodlandPreview />
+                  ) : idx === 1 ? (
+                    <div className="w-full h-full">
+                      <ImageCompareSlider
+                        before="/images/webpage-ptw.png"
+                        after="/images/webpage-ptw-wood.png"
+                        beforeAlt="Leaf + Wood Classification"
+                        afterAlt="Wood Classification"
+                        minimal={true}
+                      />
+                    </div>
                   ) : project.image ? (
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                   ) : (

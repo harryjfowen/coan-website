@@ -1,18 +1,38 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 interface Props {
   before: string;
   after: string;
   beforeAlt?: string;
   afterAlt?: string;
+  minimal?: boolean;
 }
 
-export default function ImageCompareSlider({ before, after, beforeAlt = "Before", afterAlt = "After" }: Props) {
+export default function ImageCompareSlider({
+  before,
+  after,
+  beforeAlt = "Before",
+  afterAlt = "After",
+  minimal = true
+}: Props) {
   const [position, setPosition] = useState(50);
+  const [isHovering, setIsHovering] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const update = useCallback((clientX: number) => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -38,6 +58,41 @@ export default function ImageCompareSlider({ before, after, beforeAlt = "Before"
     update(e.touches[0].clientX);
   };
 
+  if (minimal) {
+    return (
+      <div
+        ref={containerRef}
+        className="relative w-full h-full overflow-hidden select-none rounded-xl bg-gray-100"
+        style={{ cursor: isHovering ? "col-resize" : "default", minHeight: "200px" }}
+        onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        {/* Base image (wood/after) */}
+        <img src={after} alt={afterAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+
+        {/* Overlay image (leaf/before) — clipped to left */}
+        <div className="absolute inset-0 overflow-hidden" style={{ width: `${position}%` }}>
+          <img src={before} alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" style={{ minWidth: containerWidth || "100%" }} draggable={false} />
+        </div>
+
+        {/* Subtle divider — only visible on hover */}
+        {isHovering && (
+          <div
+            className="absolute top-0 bottom-0 w-px pointer-events-none transition-opacity duration-200"
+            style={{
+              left: `${position}%`,
+              background: "linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.1), rgba(255,255,255,0.3))",
+              boxShadow: "0 0 8px rgba(255,255,255,0.2)"
+            }}
+          />
+        )}
+      </div>
+    );
+  }
+
+  // Legacy version with handle and labels for fallback
   return (
     <div
       ref={containerRef}
@@ -45,21 +100,17 @@ export default function ImageCompareSlider({ before, after, beforeAlt = "Before"
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
     >
-      {/* After (instance) — full width base */}
       <img src={after} alt={afterAlt} className="absolute inset-0 w-full h-full object-cover" draggable={false} />
 
-      {/* Before — clipped to left of slider */}
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${position}%` }}>
-        <img src={before} alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" style={{ minWidth: containerRef.current?.offsetWidth ?? "100%" }} draggable={false} />
+        <img src={before} alt={beforeAlt} className="absolute inset-0 w-full h-full object-cover" style={{ minWidth: containerWidth || "100%" }} draggable={false} />
       </div>
 
-      {/* Divider line */}
       <div
         className="absolute top-0 bottom-0 w-px bg-white/80"
         style={{ left: `${position}%` }}
       />
 
-      {/* Handle */}
       <div
         className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-white shadow-lg flex items-center justify-center"
         style={{ left: `${position}%` }}
@@ -69,7 +120,6 @@ export default function ImageCompareSlider({ before, after, beforeAlt = "Before"
         </svg>
       </div>
 
-      {/* Labels */}
       <span className="absolute bottom-3 left-3 text-[10px] font-medium text-white/70 tracking-widest uppercase pointer-events-none">Raw</span>
       <span className="absolute bottom-3 right-3 text-[10px] font-medium text-white/70 tracking-widest uppercase pointer-events-none">Segmented</span>
     </div>
